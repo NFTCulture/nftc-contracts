@@ -1,0 +1,13 @@
+# directories
+artifacts/
+build/
+cache/
+lib/
+node_modules/
+bin/
+
+# files
+*.env
+*.log
+*.diff
+
