@@ -1,10 +1,14 @@
 {
-  "name": "nftc-open-contracts",
-  "version": "1.0.0",
+  "name": "@NFTCulture/nftc-open-contracts",
+  "version": "1.0.1",
   "description": "NFTCulture Open Source Contracts Project",
+  "files": [
+    "/contracts/**/*.sol"
+  ],
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx hardhat compile",
+    "test": "npx hardhat test"
   },
   "author": "@NiftyMike",
   "license": "MIT",
@@ -22,5 +26,9 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.4.2",
     "dotenv": "^14.2.0"
-  }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": "git://github.com/NFTCulture/nftc-contract-library.git"
 }
