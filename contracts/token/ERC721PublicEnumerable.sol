@@ -15,7 +15,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
  * enumerability of all the token ids in the contract as well as all token ids owned by each
  * account.
  *
- * @author @NiftyMike NFT Culture
+ * @author @NiftyMike, NFT Culture
  *
  * Note: does not implement Pagzi's tokenOfOwner() method.
  */

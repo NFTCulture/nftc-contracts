@@ -5,7 +5,7 @@ pragma solidity ^0.8.11;
 
 /**
  * @title MultiCounter
- * @author @NiftyMike NFT Culture
+ * @author @NiftyMike, NFT Culture
  * @dev Based on "Counters" by Matt Condon (@shrugs)
  *
  * Provides a counter that can only be incremented or reset.

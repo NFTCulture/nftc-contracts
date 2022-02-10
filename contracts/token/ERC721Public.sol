@@ -20,7 +20,7 @@ import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {ERC721Enumerable}.
  *
- * @author @NiftyMike NFT Culture
+ * @author @NiftyMike, NFT Culture
  */
 contract ERC721Public is Context, ERC165, IERC721, IERC721Metadata {
     using Address for address;

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.11;
 
 /**
- * @author @NiftyMike NFT Culture
+ * @author @NiftyMike, NFT Culture
  * @dev Credit to Zimri Leijen
  * See https://ethereum.stackexchange.com/a/92235
  */

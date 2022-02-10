@@ -7,8 +7,8 @@ import "@openzeppelin/contracts/utils/Context.sol";
 
 /**
  * @title SlimPaymentSplitter
- * @author @NiftyMike NFT Culture
- * @dev A slim version of OZ's Payment Splitter, that only handles ETH.
+ * @author @NiftyMike, NFT Culture
+ * @dev A drop-in slim replacement version of OZ's Payment Splitter. All ERC-20 token functionality removed.
  *
  * Based on OpenZeppelin Contracts v4.4.1 (finance/PaymentSplitter.sol)
  */
