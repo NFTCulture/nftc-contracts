@@ -4,7 +4,7 @@
 pragma solidity ^0.8.11;
 
 /**
- * @title MultiCounter
+ * @title MultiIncrementer
  * @author @NiftyMike, NFT Culture
  * @dev Based on "Counters" by Matt Condon (@shrugs)
  *
