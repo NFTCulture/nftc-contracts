@@ -16,6 +16,7 @@ contract SlimPaymentSplitter is Context {
     event PayeeAdded(address account, uint256 shares);
     event PaymentReleased(address to, uint256 amount);
     event PaymentReceived(address from, uint256 amount);
+    event PayeeTransferred(address oldOwner, address newOwner);
 
     uint256 private _totalShares;
     uint256 private _totalReleased;
@@ -148,5 +149,36 @@ contract SlimPaymentSplitter is Context {
         _shares[account] = shares_;
         _totalShares = _totalShares + shares_;
         emit PayeeAdded(account, shares_);
+    }
+
+
+    /**
+     * @dev Allows owner to transfer their shares to somebody else; it can only be called by of a share.
+     * @notice Owner: Release funds to a specific address.
+     *
+     * @param newOwner Payable address which has no shares and will receive the shares of the current owner.
+     */
+    function transferPayee(address payable newOwner) public {
+        require(newOwner != address(0), "PaymentSplitter: New payee is the zero address.");
+        require(_shares[msg.sender] > 0, "PaymentSplitter: You have no shares.");
+        require(
+            _shares[newOwner] == 0, // why not _shares[newOwner] ??
+            "PaymentSplitter: New payee already has shares."
+        );
+
+        _transferPayee(newOwner);
+        emit PayeeTransferred(msg.sender, newOwner);
+    }
+
+    function _transferPayee(address newOwner) private {
+        if (_payees.length == 0) return;
+
+        for (uint i = 0; i < _payees.length - 1; i++) {
+            if (_payees[i] == msg.sender) {
+                _payees[i] = newOwner;
+                _shares[newOwner] = _shares[msg.sender];
+                _shares[msg.sender] = 0;
+            }
+        }
     }
 }
