@@ -1,6 +1,6 @@
 {
   "name": "@NFTCulture/nftc-open-contracts",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "NFTCulture Open Source Contracts Project",
   "files": [
     "/contracts/**/*.sol"
@@ -30,5 +30,5 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "repository": "git://github.com/NFTCulture/nftc-contract-library.git"
+  "repository": "git://github.com/NFTCulture/nftc-open-contracts.git"
 }
