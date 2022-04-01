@@ -1,6 +1,6 @@
 {
-  "name": "@NFTCulture/nftc-open-contracts",
-  "version": "1.0.9",
+  "name": "@nftculture/nftc-open-contracts",
+  "version": "1.1.0",
   "description": "NFTCulture Open Source Contracts Project",
   "files": [
     "/contracts/**/*.sol"
@@ -21,6 +21,7 @@
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.3",
     "hardhat": "^2.8.2",
+    "keccak256": "^1.0.6",
     "web3": "^1.7.0"
   },
   "dependencies": {
