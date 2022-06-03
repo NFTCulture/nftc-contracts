@@ -227,3 +227,4 @@ nfts
 
 # MV: Dont track this one causes it pisses off vscode.
 nft_metadata.json
+generated_projects
