@@ -47,6 +47,7 @@ venv.bak/
 # Distribution / packaging
 .Python
 artifacts/
+typechain-types/
 bin/
 /build
 build/
