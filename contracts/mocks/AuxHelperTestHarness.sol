@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.11;
+pragma solidity 0.8.17;
 
 import '../utility/AuxHelper16.sol';
 import '../utility/AuxHelper32.sol';

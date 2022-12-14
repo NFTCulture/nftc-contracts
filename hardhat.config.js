@@ -2,9 +2,9 @@
  * @type import('hardhat/config').HardhatUserConfig
  */
 
- require('@nomiclabs/hardhat-ethers');
- require('@nomiclabs/hardhat-waffle');
+require('@nomicfoundation/hardhat-toolbox');
+require('@nomiclabs/hardhat-ethers');
 
 module.exports = {
-  solidity: "0.8.11",
+  solidity: "0.8.17",
 };

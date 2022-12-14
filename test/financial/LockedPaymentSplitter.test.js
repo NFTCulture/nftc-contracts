@@ -62,7 +62,7 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
             let provider = hre.ethers.provider;
             let currentBalance = await provider.getBalance(addr1.address);
 
-            await expect(this.testInstance.connect(addr3).release(addr1)).to.be.reverted;
+            await expect(this.testInstance.connect(addr3).release(addr1.address)).to.be.reverted;
 
             expect(await provider.getBalance(addr1.address)).to.equal(currentBalance);
         });
