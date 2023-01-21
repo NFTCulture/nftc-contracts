@@ -8,7 +8,9 @@
     "main": "index.js",
     "scripts": {
         "build": "npx hardhat compile",
-        "test": "npx hardhat test"
+        "test": "npx hardhat test",
+        "pub": "npm publish",
+        "pub:dry": "npm publish --dry-run"
     },
     "author": "@NFTCulture",
     "license": "MIT",
