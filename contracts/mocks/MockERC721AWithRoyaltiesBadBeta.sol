@@ -5,10 +5,10 @@ import 'erc721a/contracts/ERC721A.sol';
 import '@openzeppelin/contracts/token/common/ERC2981.sol';
 
 /**
- * @title MockERC721ABurnable
+ * @title MockERC721AWithRoyaltiesBadBeta
  */
 contract MockERC721AWithRoyaltiesBadBeta is ERC721A, ERC2981 {
-    constructor() ERC721A('MockERC721ABurnable', 'M721AB') {}
+    constructor() ERC721A('MockERC721AWithRoyaltiesBadBeta', 'M721AWRBB') {}
 
     function mint(uint256 quantity) external payable {
         _mint(msg.sender, quantity);

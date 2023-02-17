@@ -2,13 +2,18 @@
 pragma solidity 0.8.17;
 
 import 'erc721a/contracts/ERC721A.sol';
-import '@openzeppelin/contracts/token/common/ERC2981.sol';
+import 'contracts/financial/ERC2981_NFTCExtended.sol';
 
 /**
- * @title MockERC721AWithRoyaltiesGood
+ * @title MockERC721AWithRoyaltiesExtended
  */
-contract MockERC721AWithRoyaltiesGood is ERC721A, ERC2981 {
-    constructor() ERC721A('MockERC721AWithRoyaltiesGood', 'M721AWRG') {}
+contract MockERC721AWithRoyaltiesExtended is ERC721A, ERC2981_NFTCExtended {
+    uint96 private constant DEFAULT_ROYALTY_BASIS_POINTS = 999;
+
+    constructor()
+        ERC721A('MockERC721AWithRoyaltiesExtended', 'M721AWRE')
+        ERC2981_NFTCExtended(address(this), DEFAULT_ROYALTY_BASIS_POINTS)
+    {}
 
     function mint(uint256 quantity) external payable {
         _mint(msg.sender, quantity);
