@@ -37,7 +37,7 @@ abstract contract NFTCPaymentSplitter is NFTCPaymentSplitterBase {
      * @notice Sender: request payment.
      */
     function releaseToSelf() public {
-        _release(payable(msg.sender));
+        _release(payable(_msgSender()));
     }
 
     function _isOwner() internal view virtual;

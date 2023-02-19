@@ -31,6 +31,6 @@ abstract contract LockedPaymentSplitter is SlimPaymentSplitter, Ownable {
      * @notice Sender: request payment.
      */
     function releaseToSelf() public {
-        super.release(payable(msg.sender));
+        super.release(payable(_msgSender()));
     }
 }

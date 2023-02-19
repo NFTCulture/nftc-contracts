@@ -166,21 +166,21 @@ abstract contract NFTCPaymentSplitterBase is Context {
      */
     function transferPayee(address payable newOwner) public {
         require(newOwner != address(0), 'PaymentSplitter: zero address');
-        require(_shares[msg.sender] > 0, 'PaymentSplitter: no owned shares');
+        require(_shares[_msgSender()] > 0, 'PaymentSplitter: no owned shares');
         require(_shares[newOwner] == 0, 'PaymentSplitter: payee has shares');
 
         _transferPayee(newOwner);
-        emit PayeeTransferred(msg.sender, newOwner);
+        emit PayeeTransferred(_msgSender(), newOwner);
     }
 
     function _transferPayee(address newOwner) private {
         if (_payees.length == 0) return;
 
         for (uint i = 0; i < _payees.length - 1; i++) {
-            if (_payees[i] == msg.sender) {
+            if (_payees[i] == _msgSender()) {
                 _payees[i] = newOwner;
-                _shares[newOwner] = _shares[msg.sender];
-                _shares[msg.sender] = 0;
+                _shares[newOwner] = _shares[_msgSender()];
+                _shares[_msgSender()] = 0;
             }
         }
     }
