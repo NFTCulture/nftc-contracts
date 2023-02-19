@@ -3,7 +3,7 @@ const hre = require('hardhat');
 
 require('dotenv').config();
 
-const CONTRACT_NAME = 'LockedPaymentSplitterTestHarness';
+const CONTRACT_NAME = 'NFTCSplitsAndRoyaltiesTestHarness';
 
 // Start test block
 describe(`${CONTRACT_NAME} Unit Tests`, function () {
@@ -33,7 +33,7 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         await this.testInstance.deployed();
     });
 
-    context('Locked Payment Splitter', function () {
+    context('Payment Splitter Tests', function () {
         it('Owner can send transfers.', async function () {
             let provider = hre.ethers.provider;
             let currentBalance = await provider.getBalance(addr1.address);
@@ -109,6 +109,36 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
             expect(await this.testInstance.connect(addr3).shares(addr3.address)).to.equal(5);
             // shares of original payee should be 0
             expect(await this.testInstance.connect(addr1).shares(addr1.address)).to.equal(0);
+        });
+    });
+
+    context('ERC2981 royalties tests', function () {
+        it('Default royalties set properly.', async function () {
+            let royaltyInfo = await this.testInstance.connect(owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
+
+            let expectedReceiver = this.testInstance.address;
+            let expectedRoyalty = hre.ethers.utils.parseEther('.0999');
+
+            expect(royaltyInfo[0]).to.equal(expectedReceiver);
+            expect(royaltyInfo[1]).to.equal(expectedRoyalty);
+        });
+
+        it('Royalties can be updated.', async function () {
+            await this.testInstance.connect(owner).setDefaultRoyalty(addr1.address, 500);
+
+            let royaltyInfo = await this.testInstance.connect(owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
+
+            let expectedReceiver = addr1.address;
+            let expectedRoyalty = hre.ethers.utils.parseEther('.0500');
+
+            expect(royaltyInfo[0]).to.equal(expectedReceiver);
+            expect(royaltyInfo[1]).to.equal(expectedRoyalty);
+        });
+
+        it('Unknown person cant change royalties.', async function () {
+            await expect(this.testInstance.connect(addr1).setDefaultRoyalty(addr1.address, 500)).to.be.revertedWith(
+                'Ownable: caller is not the owner'
+            );
         });
     });
 });

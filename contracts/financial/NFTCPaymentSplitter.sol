@@ -2,27 +2,33 @@
 pragma solidity ^0.8.11;
 
 // NFTC Open Source Contracts See: https://github.com/NFTCulture/nftc-contracts
-import './SlimPaymentSplitter.sol';
-
-// OZ Libraries
-import '@openzeppelin/contracts/access/Ownable.sol';
+import './NFTCPaymentSplitterBase.sol';
 
 /**
- * @title LockedPaymentSplitter
+ * @title NFTCPaymentSplitter
  * @author @NiftyMike, NFT Culture
- * @dev A wrapper around SlimPaymentSplitter which adds on security elements.
+ * @dev NFTC's Implementation of a Payment Splitter
  *
- * Based on OpenZeppelin Contracts v4.8.0 (finance/PaymentSplitter.sol)
+ * Underlying is based on OpenZeppelin Contracts v4.8.0 (finance/PaymentSplitter.sol)
  */
-abstract contract LockedPaymentSplitter is SlimPaymentSplitter, Ownable {
+abstract contract NFTCPaymentSplitter is NFTCPaymentSplitterBase {
+    constructor(
+        address[] memory __addresses,
+        uint256[] memory __splits
+    ) NFTCPaymentSplitterBase(__addresses, __splits) {
+        //Nothing to do
+    }
+
     /**
      * @dev Overrides release() method, so that it can only be called by owner.
      * @notice Owner: Release funds to a specific address.
      *
      * @param account Payable address that will receive funds.
      */
-    function release(address payable account) public override (SlimPaymentSplitter) onlyOwner {
-        super.release(account);
+    function release(address payable account) public override {
+        _isOwner();
+
+        _release(account);
     }
 
     /**
@@ -31,6 +37,8 @@ abstract contract LockedPaymentSplitter is SlimPaymentSplitter, Ownable {
      * @notice Sender: request payment.
      */
     function releaseToSelf() public {
-        super.release(payable(msg.sender));
+        _release(payable(msg.sender));
     }
+
+    function _isOwner() internal view virtual;
 }

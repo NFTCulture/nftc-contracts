@@ -9,14 +9,18 @@ import '@openzeppelin/contracts/token/common/ERC2981.sol';
  * @author @NiftyMike, NFT Culture
  * @dev A wrapper around ERC2981 which adds some common functionality.
  */
-abstract contract ERC2981_NFTCExtended is ERC2981, Ownable {
+abstract contract ERC2981_NFTCExtended is ERC2981 {
     constructor(address defaultReceiver, uint96 defaultRoyalty) {
         // Default royalty information to be this contract, so that no potential
         // royalty payments are missed by marketplaces that support ERC2981.
         _setDefaultRoyalty(defaultReceiver, defaultRoyalty);
     }
 
-    function setDefaultRoyalty(address newReceiver, uint96 newRoyalty) external onlyOwner {
+    function setDefaultRoyalty(address newReceiver, uint96 newRoyalty) external {
+        _isOwner();
+
         _setDefaultRoyalty(newReceiver, newRoyalty);
     }
+
+    function _isOwner() internal view virtual;
 }

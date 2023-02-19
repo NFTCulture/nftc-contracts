@@ -7,7 +7,7 @@ import 'contracts/financial/ERC2981_NFTCExtended.sol';
 /**
  * @title MockERC721AWithRoyaltiesExtended
  */
-contract MockERC721AWithRoyaltiesExtended is ERC721A, ERC2981_NFTCExtended {
+contract MockERC721AWithRoyaltiesExtended is ERC721A, ERC2981_NFTCExtended, Ownable {
     uint96 private constant DEFAULT_ROYALTY_BASIS_POINTS = 999;
 
     constructor()
@@ -22,5 +22,9 @@ contract MockERC721AWithRoyaltiesExtended is ERC721A, ERC2981_NFTCExtended {
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721A, ERC2981) returns (bool) {
         // Supports both interfaces properly.
         return ERC721A.supportsInterface(interfaceId) || ERC2981.supportsInterface(interfaceId);
+    }
+
+    function _isOwner() internal view override {
+        _checkOwner();
     }
 }
