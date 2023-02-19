@@ -10,18 +10,18 @@ import './NFTCPaymentSplitter.sol';
  * @author @NiftyMike, NFT Culture
  * @dev One stop shop for Payment Splits and ERC2981 Royalty Definition.
  */
-abstract contract NFTCSplitsAndRoyalties is ERC2981_NFTCExtended, NFTCPaymentSplitter {
+abstract contract NFTCSplitsAndRoyalties is NFTCPaymentSplitter, ERC2981_NFTCExtended {
     constructor(
         address[] memory __addresses,
         uint256[] memory __splits,
         address defaultRoyaltyReceiver,
         uint96 defaultRoyaltyBasisPoints
     )
-        ERC2981_NFTCExtended(defaultRoyaltyReceiver, defaultRoyaltyBasisPoints)
         NFTCPaymentSplitter(__addresses, __splits)
+        ERC2981_NFTCExtended(defaultRoyaltyReceiver, defaultRoyaltyBasisPoints)
     {
         // Nothing to do.
     }
- 
-    function _isOwner() internal view virtual override(ERC2981_NFTCExtended, NFTCPaymentSplitter);
+
+    function _isOwner() internal view virtual override(NFTCPaymentSplitter, ERC2981_NFTCExtended);
 }
