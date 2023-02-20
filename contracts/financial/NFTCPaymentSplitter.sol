@@ -12,13 +12,6 @@ import './NFTCPaymentSplitterBase.sol';
  * Underlying is based on OpenZeppelin Contracts v4.8.0 (finance/PaymentSplitter.sol)
  */
 abstract contract NFTCPaymentSplitter is NFTCPaymentSplitterBase {
-    constructor(
-        address[] memory __addresses,
-        uint256[] memory __splits
-    ) NFTCPaymentSplitterBase(__addresses, __splits) {
-        //Nothing to do
-    }
-
     /**
      * @dev Overrides release() method, so that it can only be called by owner.
      * @notice Owner: Release funds to a specific address.

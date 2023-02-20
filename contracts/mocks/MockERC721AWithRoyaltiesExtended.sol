@@ -10,10 +10,9 @@ import 'contracts/financial/ERC2981_NFTCExtended.sol';
 contract MockERC721AWithRoyaltiesExtended is ERC721A, ERC2981_NFTCExtended, Ownable {
     uint96 private constant DEFAULT_ROYALTY_BASIS_POINTS = 999;
 
-    constructor()
-        ERC721A('MockERC721AWithRoyaltiesExtended', 'M721AWRE')
-        ERC2981_NFTCExtended(address(this), DEFAULT_ROYALTY_BASIS_POINTS)
-    {}
+    constructor() ERC721A('MockERC721AWithRoyaltiesExtended', 'M721AWRE') {
+        _setDefaultRoyalty(address(this), DEFAULT_ROYALTY_BASIS_POINTS);
+    }
 
     function mint(uint256 quantity) external payable {
         _mint(msg.sender, quantity);

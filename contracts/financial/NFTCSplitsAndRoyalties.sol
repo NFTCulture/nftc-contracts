@@ -16,11 +16,10 @@ abstract contract NFTCSplitsAndRoyalties is NFTCPaymentSplitter, ERC2981_NFTCExt
         uint256[] memory __splits,
         address defaultRoyaltyReceiver,
         uint96 defaultRoyaltyBasisPoints
-    )
-        NFTCPaymentSplitter(__addresses, __splits)
-        ERC2981_NFTCExtended(defaultRoyaltyReceiver, defaultRoyaltyBasisPoints)
-    {
-        // Nothing to do.
+    ) NFTCPaymentSplitterBase(__addresses, __splits) {
+        // Default royalty information to be this contract, so that no potential
+        // royalty payments are missed by marketplaces that support ERC2981.
+        _setDefaultRoyalty(defaultRoyaltyReceiver, defaultRoyaltyBasisPoints);
     }
 
     function _isOwner() internal view virtual override(NFTCPaymentSplitter, ERC2981_NFTCExtended);
