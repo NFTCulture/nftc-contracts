@@ -1,12 +1,13 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-
+import { HardhatUserConfig } from 'hardhat/types';
 import '@nomicfoundation/hardhat-toolbox';
 import '@nomiclabs/hardhat-ethers';
-import 'hardhat-gas-reporter'
-
-import { HardhatUserConfig } from 'hardhat/types';
+import 'hardhat-gas-reporter';
 
 const REPORT_GAS: string = process.env.REPORT_GAS || '';
 if (REPORT_GAS === 'true') {
