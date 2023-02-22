@@ -9,10 +9,9 @@ import '@nomicfoundation/hardhat-toolbox';
 import '@nomiclabs/hardhat-ethers';
 import 'hardhat-gas-reporter';
 
-const REPORT_GAS: string = process.env.REPORT_GAS || '';
-if (REPORT_GAS === 'true') {
-    console.log('Enabling gas summary');
-}
+const REPORT_GAS: boolean = (process.env.REPORT_GAS || '').trim() === 'true';
+//To enable, run 'npm run test'. Not enabled by default using 'npx hardhat test'.
+console.warn(`Include gas summary: ${REPORT_GAS}.`);
 
 const config: HardhatUserConfig = {
     solidity: {
@@ -25,9 +24,10 @@ const config: HardhatUserConfig = {
         }
     },
     gasReporter: {
+        enabled: REPORT_GAS,
+        showTimeSpent: true,
         currency: 'USD',
-        gasPrice: 100,
-        showTimeSpent: true
+        gasPrice: 100
     }
 };
 

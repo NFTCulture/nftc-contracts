@@ -8,7 +8,9 @@
     "main": "index.js",
     "scripts": {
         "build": "npx hardhat compile",
-        "test": "set REPORT_GAS=true && npx hardhat test",
+        "test": "npx hardhat test --parallel",
+        "test:gas": "set REPORT_GAS=true && npx hardhat test",
+        "test:coverate": "npx hardhat coverage",
         "pub": "npm publish",
         "pub:dry": "npm publish --dry-run"
     },
