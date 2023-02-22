@@ -12,7 +12,6 @@ import 'hardhat-gas-reporter';
 const REPORT_GAS: string = process.env.REPORT_GAS || '';
 if (REPORT_GAS === 'true') {
     console.log('Enabling gas summary');
-    // TODO
 }
 
 const config: HardhatUserConfig = {
