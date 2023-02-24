@@ -1,6 +1,6 @@
 {
     "name": "@nftculture/nftc-contracts",
-    "version": "1.3.6",
+    "version": "1.3.7",
     "description": "NFTCulture Open Source Contracts Project",
     "files": [
         "/contracts/**/*.sol"
@@ -8,9 +8,9 @@
     "main": "index.js",
     "scripts": {
         "build": "npx hardhat compile",
-        "test": "npx hardhat test --parallel",
+        "test": "npx hardhat test --typecheck --parallel",
         "test:gas": "set REPORT_GAS=true && npx hardhat test",
-        "test:coverate": "npx hardhat coverage",
+        "test:coverage": "npx hardhat coverage",
         "pub": "npm publish",
         "pub:dry": "npm publish --dry-run"
     },

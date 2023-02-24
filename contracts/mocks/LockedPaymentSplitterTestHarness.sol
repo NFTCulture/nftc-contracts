@@ -3,6 +3,10 @@ pragma solidity 0.8.17;
 
 import '../financial/LockedPaymentSplitter.sol';
 
+/**
+ * @title LockedPaymentSplitterTestHarness
+ * @author NFT Culture
+ */
 contract LockedPaymentSplitterTestHarness is LockedPaymentSplitter {
     constructor(address[] memory __payees, uint256[] memory __shares)
         payable

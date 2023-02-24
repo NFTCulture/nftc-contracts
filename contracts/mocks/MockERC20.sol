@@ -5,6 +5,7 @@ import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 /**
  * @title MockERC20
+ * @author NFT Culture
  */
 contract MockERC20 is ERC20 {
     uint256 private immutable TOTAL_SUPPLY;
