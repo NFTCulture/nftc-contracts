@@ -12,6 +12,7 @@ import {
 
 dotenv.config();
 
+// Needed to make sure that called() and calledOnce assertions work.
 chai.should();
 chai.use(smock.matchers);
 
