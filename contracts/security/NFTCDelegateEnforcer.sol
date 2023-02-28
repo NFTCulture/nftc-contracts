@@ -26,8 +26,10 @@ abstract contract NFTCDelegateEnforcer {
         address targetContract,
         uint256 theToken
     ) internal view returns (address) {
-        if (coldWallet == address(0)) {
-            // Cold wallet was not provided, so caller is only authorized to act as its own operator.
+        // Short circuits ...
+        if (coldWallet == address(0) || coldWallet == caller) {
+            // Cold wallet was not provided, or is same as caller.
+            // So only caller is only authorized to act as the operator.
             return caller;
         }
 

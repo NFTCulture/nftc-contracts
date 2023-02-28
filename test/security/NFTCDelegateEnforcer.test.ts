@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
 import * as dotenv from 'dotenv';
 import hre from 'hardhat';
 import { FakeContract, smock } from '@defi-wonderland/smock';
@@ -11,6 +11,9 @@ import {
 } from '../../typechain-types';
 
 dotenv.config();
+
+chai.should();
+chai.use(smock.matchers);
 
 const CONTRACT_NAME = 'MockNFTCDelegateEnforcer';
 type testHarnessFactoryType = MockNFTCDelegateEnforcer__factory;
@@ -43,10 +46,6 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         _delegationRegistryFactory = (await hre.ethers.getContractFactory(
             DELEGATION_REGISTRY
         )) as delegationRegistryFactoryType;
-
-        _fakeDelegationRegistryInstance = await smock.fake<delegationRegistryInstanceType>(_delegationRegistryFactory, {
-            address: DELEGATION_REGISTRY_ADDRESS
-        });
     });
 
     beforeEach(async function () {
@@ -55,6 +54,11 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         _owner = owner;
         _addr1 = addr1;
         _addr2 = addr2;
+
+        // Put this in the before each, so the fake call counter resets.
+        _fakeDelegationRegistryInstance = await smock.fake<delegationRegistryInstanceType>(_delegationRegistryFactory, {
+            address: DELEGATION_REGISTRY_ADDRESS
+        });
     });
 
     context('Get Operator From Delegation tests', function () {
@@ -68,12 +72,14 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
                     .connect(_addr1)
                     .checkDelegateForToken(_addr1.address, _owner.address, _testInstance.address, 1)
             ).to.equal(true);
+
+            expect(_fakeDelegationRegistryInstance.checkDelegateForToken).to.have.been.calledOnce;
         });
 
         it('Get operator returns caller when cold wallet is zero.', async function () {
             _fakeDelegationRegistryInstance.checkDelegateForToken
-                .whenCalledWith(_addr1.address, _owner.address, _testInstance.address, 1)
-                .returns(true);
+                .whenCalledWith(_addr1.address, hre.ethers.constants.AddressZero, _testInstance.address, 0)
+                .returns(false); // Return false so that if it does get called, the test fails.
 
             let result = await _testInstance.getOperatorFromDelegation(
                 _addr1.address,
@@ -83,6 +89,27 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
             );
 
             expect(result).to.equal(_addr1.address);
+
+            // Call to getOperatorFromDelegation should short-circuit before call to Delegation Registry.
+            expect(_fakeDelegationRegistryInstance.checkDelegateForToken).to.have.callCount(0);
+        });
+
+        it('Get operator returns caller when cold wallet is same as caller.', async function () {
+            _fakeDelegationRegistryInstance.checkDelegateForToken
+                .whenCalledWith(_addr1.address, _addr1.address, _testInstance.address, 0)
+                .returns(false); // Return false so that if it does get called, the test fails.
+
+            let result = await _testInstance.getOperatorFromDelegation(
+                _addr1.address,
+                _addr1.address,
+                _testInstance.address,
+                1
+            );
+
+            expect(result).to.equal(_addr1.address);
+
+            // Call to getOperatorFromDelegation should short-circuit before call to Delegation Registry.
+            expect(_fakeDelegationRegistryInstance.checkDelegateForToken).to.have.callCount(0);
         });
 
         it('Get operator returns cold wallet when delegated to addr1.', async function () {

@@ -1,6 +1,6 @@
 {
     "name": "@nftculture/nftc-contracts",
-    "version": "1.3.8",
+    "version": "1.3.9",
     "description": "NFTCulture Open Source Contracts Project",
     "files": [
         "/contracts/**/*.sol"
