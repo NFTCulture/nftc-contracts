@@ -11,6 +11,7 @@
         "test": "npx hardhat test --typecheck --parallel",
         "test:gas": "set REPORT_GAS=true && npx hardhat test",
         "test:coverage": "npx hardhat coverage",
+        "test:coverage:view": "open-cli coverage/index.html",
         "pub": "npm publish",
         "pub:dry": "npm publish --dry-run"
     },
@@ -25,6 +26,7 @@
         "ethers": "^5.7.2",
         "hardhat": "^2.12.4",
         "keccak256": "^1.0.6",
+        "open-cli": "^7.1.0",
         "prettier": "^2.8.4",
         "prettier-plugin-solidity": "^1.1.2",
         "web3": "^1.8.1"
