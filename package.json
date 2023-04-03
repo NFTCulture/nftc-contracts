@@ -2,6 +2,8 @@
     "name": "@nftculture/nftc-contracts",
     "version": "1.4.0",
     "description": "NFTCulture Open Source Contracts Project",
+    "author": "@NFTCulture",
+    "license": "MIT",    
     "files": [
         "/contracts/**/*.sol"
     ],
@@ -15,8 +17,6 @@
         "pub": "npm publish",
         "pub:dry": "npm publish --dry-run"
     },
-    "author": "@NFTCulture",
-    "license": "MIT",
     "devDependencies": {
         "@defi-wonderland/smock": "^2.3.4",
         "@nomicfoundation/hardhat-toolbox": "^2.0.0",
