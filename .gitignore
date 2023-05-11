@@ -20,6 +20,7 @@ Thumbs.db
 
 # Config files
 *.env
+coinbase.env.json
 *.npmrc
 
 # Environments
