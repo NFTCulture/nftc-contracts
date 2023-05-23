@@ -1,8 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 # NFTC DEVS --- If you modify this file, please change the version down at the bottom.
 
-# Node
+# Node And Stuff
 /node_modules
+**/.nyc_output
 npm-debug.log
 yarn-error.log
 
