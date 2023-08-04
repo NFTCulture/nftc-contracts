@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import { ISeaDrop } from "./interfaces/ISeaDrop.sol";
 
@@ -14,7 +14,7 @@ import {
     TokenGatedDropStage,
     TokenGatedMintParams,
     SignedMintValidationParams
-} from "./lib/SeaDropStructs.sol";
+} from "./libs/SeaDropStructs.sol";
 
 import { SafeTransferLib } from "solmate/src/utils/SafeTransferLib.sol";
 

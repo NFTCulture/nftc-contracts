@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import {
     ISeaDropTokenContractMetadata
@@ -10,7 +10,7 @@ import {
     PublicDrop,
     TokenGatedDropStage,
     SignedMintValidationParams
-} from "../lib/SeaDropStructs.sol";
+} from "../libs/SeaDropStructs.sol";
 
 interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
     /**

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import {
     AllowListData,
@@ -8,9 +8,9 @@ import {
     TokenGatedDropStage,
     TokenGatedMintParams,
     SignedMintValidationParams
-} from "../lib/SeaDropStructs.sol";
+} from "../libs/SeaDropStructs.sol";
 
-import { SeaDropErrorsAndEvents } from "../lib/SeaDropErrorsAndEvents.sol";
+import { SeaDropErrorsAndEvents } from "../libs/SeaDropErrorsAndEvents.sol";
 
 interface ISeaDrop is SeaDropErrorsAndEvents {
     /**

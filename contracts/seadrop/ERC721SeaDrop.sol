@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import {
     ERC721ContractMetadata,
@@ -17,11 +17,11 @@ import {
     PublicDrop,
     TokenGatedDropStage,
     SignedMintValidationParams
-} from "./lib/SeaDropStructs.sol";
+} from "./libs/SeaDropStructs.sol";
 
 import {
     ERC721SeaDropStructsErrorsAndEvents
-} from "./lib/ERC721SeaDropStructsErrorsAndEvents.sol";
+} from "./libs/ERC721SeaDropStructsErrorsAndEvents.sol";
 
 import { ERC721A } from "erc721a/contracts/ERC721A.sol";
 
