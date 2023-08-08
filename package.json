@@ -4,9 +4,6 @@
     "description": "NFTCulture Open Source Contracts Project",
     "author": "@NFTCulture",
     "license": "MIT",    
-    "files": [
-        "/contracts/**/*.sol"
-    ],
     "main": "index.js",
     "scripts": {
         "build": "npx hardhat compile",
@@ -14,8 +11,8 @@
         "test:gas": "set REPORT_GAS=true && npx hardhat test",
         "test:coverage": "npx hardhat coverage",
         "test:coverage:view": "open-cli coverage/index.html",
-        "pub": "npm publish",
-        "pub:dry": "npm publish --dry-run"
+        "pub": "npm run build && npm publish",
+        "pub:dry": "npm run build && npm publish --dry-run"
     },
     "devDependencies": {
         "@defi-wonderland/smock": "^2.3.5",
@@ -37,6 +34,12 @@
         "operator-filter-registry": "^1.4.2",
         "solmate": "^6.7.0"
     },
+    "files": [
+        "/contracts/**/*.sol",
+        "CHANGELOG.md",
+        "LICENSE",
+        "README.md"
+    ],
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/"
     },
