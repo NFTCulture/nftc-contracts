@@ -3,7 +3,7 @@ pragma solidity ^0.8.11;
 
 /**
  * @title AuxHelperFourInto256
- * @author @KC, NFT Culture
+ * @author @KC | @NFTCulture
  * @dev Helper class for ERC721a Aux-style storage. This flavor packs 4 64bit fields into a 256 bit int.
  */
 abstract contract AuxHelperFourInto256 {

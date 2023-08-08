@@ -5,7 +5,7 @@ import '../security/NFTCDelegateEnforcer.sol';
 
 /**
  * @title MockNFTCDelegateEnforcer
- * @author NFT Culture
+ * @author @NFTCulture
  */
 contract MockNFTCDelegateEnforcer is NFTCDelegateEnforcer {
     function getOperatorFromDelegation(

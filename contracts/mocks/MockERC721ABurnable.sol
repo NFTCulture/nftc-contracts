@@ -5,7 +5,7 @@ import 'erc721a/contracts/extensions/ERC721ABurnable.sol';
 
 /**
  * @title MockERC721ABurnable
- * @author NFT Culture
+ * @author @NFTCulture
  */
 contract MockERC721ABurnable is ERC721ABurnable {
     constructor() ERC721A('MockERC721ABurnable', 'M721AB') {}

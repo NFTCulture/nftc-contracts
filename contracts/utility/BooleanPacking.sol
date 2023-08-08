@@ -3,7 +3,7 @@ pragma solidity ^0.8.11;
 
 /**
  * @title BooleanPacking
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev Credit to Zimri Leijen
  * See https://ethereum.stackexchange.com/a/92235
  */

@@ -3,7 +3,7 @@ pragma solidity ^0.8.11;
 
 /**
  * @title OnChainEncoding
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev Credit to the Anonymice Library.
  * See https://etherscan.io/address/0xbad6186e92002e312078b5a1dafd5ddf63d3f731#code
  *

@@ -9,7 +9,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 
 /**
  * @title LockedPaymentSplitter
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev A wrapper around SlimPaymentSplitter which adds on security elements.
  *
  * Based on OpenZeppelin Contracts v4.8.0 (finance/PaymentSplitter.sol)

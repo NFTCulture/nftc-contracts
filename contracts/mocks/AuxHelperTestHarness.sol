@@ -6,7 +6,7 @@ import '../utility/AuxHelper32.sol';
 
 /**
  * @title AuxHelperTestHarness
- * @author @NiftyMike | NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev Mock for AuxHelper classes.
  */
 contract AuxHelperTestHarness is AuxHelper32, AuxHelper16 {

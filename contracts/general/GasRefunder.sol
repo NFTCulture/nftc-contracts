@@ -3,7 +3,7 @@ pragma solidity ^0.8.11;
 
 /**
  * @title NFTC Gas Refunder
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @notice Some code cribbed from Open Zeppelin Ownable.sol.
  * @dev Community available Bulk Gas Refunder.
  * Purpose of this contract is to just make it easier and cheaper to send

@@ -3,7 +3,7 @@ pragma solidity ^0.8.11;
 
 /**
  * @title AuxHelper16
- * @author @KC, NFT Culture
+ * @author @KC | @NFTCulture
  * @dev Helper class for ERC721a Aux storage, using 16 bit ints.
  */
 abstract contract AuxHelper16 {

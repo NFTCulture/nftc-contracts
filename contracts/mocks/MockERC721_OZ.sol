@@ -8,7 +8,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 
 /**
  * @title MockERC721_OZ
- * @author NFT Culture
+ * @author @NFTCulture
  */
 contract MockERC721_OZ is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
     constructor() ERC721('MockERC721', 'MTK') {}

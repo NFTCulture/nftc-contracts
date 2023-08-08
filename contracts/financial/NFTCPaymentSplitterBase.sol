@@ -6,7 +6,7 @@ import '@openzeppelin/contracts/utils/Context.sol';
 
 /**
  * @title NFTCPaymentSplitterBase
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev An opinionated replacement of OZ's Payment Splitter.
  *
  * Notes:

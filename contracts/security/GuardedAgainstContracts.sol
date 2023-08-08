@@ -4,7 +4,7 @@ pragma solidity ^0.8.11;
 
 /**
  * @title GuardedAgainstContracts
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev Helper contract to help protect against contract based mint spamming attacks.
  */
 abstract contract GuardedAgainstContracts {

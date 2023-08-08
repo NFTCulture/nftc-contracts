@@ -5,7 +5,7 @@ import '../interfaces/IDelegationRegistry.sol';
 
 /**
  * @title MockDelegationRegistry
- * @author NFT Culture
+ * @author @NFTCulture
  */
 contract MockDelegationRegistry is IDelegationRegistry {
     function delegateForAll(address delegate, bool value) external override {}

@@ -6,7 +6,7 @@ import '@openzeppelin/contracts/token/common/ERC2981.sol';
 
 /**
  * @title ERC2981_NFTCExtended
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev A wrapper around ERC2981 which adds some common functionality.
  */
 abstract contract ERC2981_NFTCExtended is ERC2981 {

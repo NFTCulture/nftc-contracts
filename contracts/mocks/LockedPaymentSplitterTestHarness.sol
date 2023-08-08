@@ -5,7 +5,7 @@ import '../financial/LockedPaymentSplitter.sol';
 
 /**
  * @title LockedPaymentSplitterTestHarness
- * @author NFT Culture
+ * @author @NFTCulture
  */
 contract LockedPaymentSplitterTestHarness is LockedPaymentSplitter {
     constructor(address[] memory __payees, uint256[] memory __shares)

@@ -6,7 +6,7 @@ import './NFTCPaymentSplitterBase.sol';
 
 /**
  * @title SlimPaymentSplitter
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev Legacy implementation of SlimPaymentSplitter.
  *
  * Note: This class exists purely for backward compatibility in case anyone was using it.

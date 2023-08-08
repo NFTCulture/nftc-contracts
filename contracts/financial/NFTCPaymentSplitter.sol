@@ -6,7 +6,7 @@ import './NFTCPaymentSplitterBase.sol';
 
 /**
  * @title NFTCPaymentSplitter
- * @author @NiftyMike, NFT Culture
+ * @author @NiftyMike | @NFTCulture
  * @dev NFTC's Implementation of a Payment Splitter
  *
  * Underlying is based on OpenZeppelin Contracts v4.8.0 (finance/PaymentSplitter.sol)
