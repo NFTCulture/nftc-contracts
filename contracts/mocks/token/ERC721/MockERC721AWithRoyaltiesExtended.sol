@@ -2,7 +2,7 @@
 pragma solidity 0.8.19;
 
 import 'erc721a/contracts/ERC721A.sol';
-import 'contracts/financial/ERC2981_NFTCExtended.sol';
+import '../../../financial/ERC2981_NFTCExtended.sol';
 
 /**
  * @title MockERC721AWithRoyaltiesExtended

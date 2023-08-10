@@ -1,0 +1,14 @@
+{
+    "extends": "./tsconfig",
+    "compilerOptions": {
+        "outDir": "dist/nftc",
+        "rootDir": "src",
+        "moduleResolution": "node",
+        "types": ["@nomicfoundation/hardhat-toolbox", "@nomiclabs/hardhat-ethers"],
+        "declaration": true,
+        "inlineSourceMap": true,
+        "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules/**"]
+}

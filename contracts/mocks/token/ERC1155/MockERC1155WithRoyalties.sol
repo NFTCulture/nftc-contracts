@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import '../financial/NFTCSplitsAndRoyalties.sol';
+import '../../../financial/NFTCSplitsAndRoyalties.sol';
 
 import '@openzeppelin/contracts/token/ERC1155/ERC1155.sol';
 

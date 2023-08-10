@@ -7,6 +7,17 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 
 
+## Version -- 1.4.4
+- Move dependencies to dev-dependencies.
+- clean up some comments.
+- ERC721SolBaseBurnable: make sure to enforce caller approval checks
+- Add ERC721SolBaseSupply - ERC721SolBase extension that tracks totalSupply.
+- Package typescript code into library.
+- refactor NFTSpecChecker folder structure
+- refactor token folder structures
+- Add introspection util typescript code
+
+
 ## Version -- 1.4.3
 - Implement ERC721SolBaseBurnable extension contract.
 - Refactor of external ERC721 contracts into their own dedicated folders under the /token top level folder.
