@@ -5,11 +5,12 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 
 
+## Version -- 1.4.6 (Not published)
+- Finish first pass at getting library hooks to work.
+
 
 ## Version -- 1.4.5 (Not published)
 - A minor conversion to typechain typings in test template and others.
-
-
 
 
 ## Version -- 1.4.4

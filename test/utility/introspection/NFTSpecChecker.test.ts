@@ -42,6 +42,8 @@ let _owner: SignerWithAddress;
 // Start test block
 describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
     before(async function () {
+        console.log('Initialize contract factories...');
+
         _testHarnessContractFactory = await hre.ethers.getContractFactory(TESTHARNESS_CONTRACT_NAME);
         _specCheckerContractFactory = await hre.ethers.getContractFactory(SPEC_CHECKER_CONTRACT_NAME);
         _mockERC20ContractFactory = await hre.ethers.getContractFactory(MOCK_E20_CONTRACT_NAME);

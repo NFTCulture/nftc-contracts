@@ -11,6 +11,7 @@
         "build:typescript": "tsc -p tsconfig.module.json",
         "build:hardhat": "npx hardhat compile",
         "test": "npx hardhat test --typecheck --parallel",
+        "test:np": "npx hardhat test --typecheck",
         "test:gas": "set REPORT_GAS=true && npx hardhat test",
         "test:coverage": "npx hardhat coverage",
         "test:coverage:view": "open-cli coverage/index.html",

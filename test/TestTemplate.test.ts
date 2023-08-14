@@ -1,43 +1,34 @@
 import * as dotenv from 'dotenv';
 import hre from 'hardhat';
-
-import { Contract } from '@ethersproject/contracts';
-
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-import type * as ethers from 'ethers';
+import { TemplateTestHarness__factory, TemplateTestHarness } from '../typechain-types';
+import { shouldCopyHardhatWalletsToContext } from '../src/utils/introspection/test/HardhatWalletsToContext.behavior';
 
 dotenv.config();
 
 const TESTHARNESS_CONTRACT_NAME = 'TemplateTestHarness';
 
-let _testHarnessContractFactory: ethers.ContractFactory;
-let _testHarnessInstance: Contract;
+let _testHarnessContractFactory: TemplateTestHarness__factory;
+let _testHarnessInstance: TemplateTestHarness;
 
-let _owner: SignerWithAddress;
-
-// Start test block
 describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
     before(async function () {
         const contractName = TESTHARNESS_CONTRACT_NAME;
 
-        _testHarnessContractFactory = await hre.ethers.getContractFactory(contractName);
+        _testHarnessContractFactory = (await hre.ethers.getContractFactory(
+            contractName
+        )) as TemplateTestHarness__factory;
     });
 
     beforeEach(async function () {
-        const [owner, addr1, addr2, addr3, ...addrs] = await hre.ethers.getSigners();
-
-        _owner = owner;
-
-        _testHarnessInstance = await _testHarnessContractFactory.deploy(
-            // No Args
-        );
-
+        _testHarnessInstance = await _testHarnessContractFactory.deploy();
         await _testHarnessInstance.deployed();
     });
 
+    shouldCopyHardhatWalletsToContext();
+
     context('Test Group 1', function () {
         it('Test Case 1', async function () {
-            console.log("Init Tests");
+            console.log('Init Tests');
         });
     });
 });
