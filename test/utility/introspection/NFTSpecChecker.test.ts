@@ -85,12 +85,6 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
         await _mockERC721BadBRoyaltiesInstance.deployed();
     });
 
-    context('Test Group 1', function () {
-        it('Test Case 1', async function () {
-            console.log('Init Tests');
-        });
-    });
-
     context('Standard ERC20 and NFT Token Interface Checks', function () {
         it('Can validate ERC20s.', async function () {
             this.skip();

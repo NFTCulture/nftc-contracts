@@ -1,27 +1,27 @@
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
 import hre from 'hardhat';
-
-import { Contract } from '@ethersproject/contracts';
+import { AuxHelperTestHarness, AuxHelperTestHarness__factory } from '../../typechain-types';
 
 import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-import type * as ethers from 'ethers';
 
 dotenv.config();
 
 const TESTHARNESS_CONTRACT_NAME = 'AuxHelperTestHarness';
 
-let _testHarnessContractFactory: ethers.ContractFactory;
-let _testHarnessInstance: Contract;
+let _testHarnessContractFactory: AuxHelperTestHarness__factory;
+let _testHarnessInstance: AuxHelperTestHarness;
 
 let _owner: SignerWithAddress;
 
 // Start test block
 describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
     before(async function () {
-        const contractName = TESTHARNESS_CONTRACT_NAME;
+        const contractUnderTest = TESTHARNESS_CONTRACT_NAME;
 
-        _testHarnessContractFactory = await hre.ethers.getContractFactory(contractName);
+        _testHarnessContractFactory = (await hre.ethers.getContractFactory(
+            contractUnderTest
+        )) as AuxHelperTestHarness__factory;
     });
 
     beforeEach(async function () {
@@ -32,12 +32,6 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
         _testHarnessInstance = await _testHarnessContractFactory.deploy();
 
         await _testHarnessInstance.deployed();
-    });
-
-    context('Test Group 1', function () {
-        it('Test Case 1', async function () {
-            console.log('Init Tests');
-        });
     });
 
     context('Pack and Unpack 32 Tests', function () {
