@@ -1,6 +1,6 @@
 {
     "name": "@nftculture/nftc-contracts",
-    "version": "1.4.9",
+    "version": "1.5.0",
     "description": "NFTCulture Open Source Contracts Project",
     "author": "@NFTCulture",
     "license": "MIT",
@@ -24,8 +24,8 @@
         "test:coverage:view": "open-cli coverage/index.html",
         "publish:commit": "npm publish",
         "publish:dry": "npm publish --dry-run",
-        "pub": "run-s build fix publish:commit",
-        "pub:dry": "run-s build fix publish:dry"
+        "pub": "run-s fix build test publish:commit",
+        "pub:dry": "run-s fix build test publish:dry"
     },
     "devDependencies": {
         "@defi-wonderland/smock": "^2.3.5",

@@ -4,6 +4,9 @@
 As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc-contracts". Please start using package version 1.3.0 or later.
 
 
+## Version -- 1.5.0
+- Bump version to pick up tiny HardhatHelpers fix, and linted code.
+
 
 ## Version -- 1.4.9 (Not published)
 - Apply linting and formatting changes.
