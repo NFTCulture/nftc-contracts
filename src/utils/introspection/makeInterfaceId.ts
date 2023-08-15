@@ -1,10 +1,9 @@
 // Lifted 8/10/2023
 // Lifted from https://github.com/OpenZeppelin/openzeppelin-test-helpers/blob/master/src/makeInterfaceId.js
 // Slight modifications for better compatibility with Typescript.
-
 const { soliditySha3 } = require('web3-utils');
 
-function ERC165(functionSignatures: string[] = []) {
+export function ERC165(functionSignatures: string[] = []) {
     const INTERFACE_ID_LENGTH = 4;
 
     const interfaceIdBuffer = functionSignatures
@@ -22,11 +21,6 @@ function ERC165(functionSignatures: string[] = []) {
     return `0x${interfaceIdBuffer.toString('hex')}`;
 }
 
-function ERC1820(interfaceName: string) {
+export function ERC1820(interfaceName: string) {
     return soliditySha3(interfaceName); // keccak256
 }
-
-module.exports = {
-    ERC165,
-    ERC1820
-};

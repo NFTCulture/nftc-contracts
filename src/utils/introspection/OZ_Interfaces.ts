@@ -2,7 +2,11 @@
 // Lifted from https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/test/utils/introspection/SupportsInterface.behavior.js
 // NOTE: Some slight modifications to make it work better with Typescript.
 
-export const OZ_INTERFACES = {
+import { ERC165 } from './makeInterfaceId';
+
+export const OZ_FN_SIGNATURES: { [k: string]: any } = {};
+export const OZ_INTERFACE_IDS: { [k: string]: any } = {};
+export const OZ_INTERFACES: { [k: string]: any } = {
     ERC165: ['supportsInterface(bytes4)'],
     ERC721: [
         'balanceOf(address)',
@@ -79,11 +83,14 @@ export const OZ_INTERFACES = {
     ERC2981: ['royaltyInfo(uint256,uint256)']
 };
 
-const FN_SIGNATURES = {};
 for (const k of Object.getOwnPropertyNames(OZ_INTERFACES)) {
+    OZ_INTERFACE_IDS[k] = ERC165((OZ_INTERFACES as any)[k]);
     let fnName: string = '';
     for (fnName of (OZ_INTERFACES as any)[k]) {
         // the interface id of a single function is equivalent to its function signature
-        (FN_SIGNATURES as any)[fnName] = ERC165([fnName]);
+        const interfaceId = ERC165([fnName]);
+        //console.log(`Signature: [${fnName}] && InterfaceId: [${interfaceId}]`);
+
+        OZ_FN_SIGNATURES[fnName] = interfaceId;
     }
 }

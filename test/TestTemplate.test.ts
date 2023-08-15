@@ -1,7 +1,8 @@
 import * as dotenv from 'dotenv';
 import hre from 'hardhat';
 import { TemplateTestHarness__factory, TemplateTestHarness } from '../typechain-types';
-import { shouldCopyHardhatWalletsToContext } from '../src/utils/introspection/test/HardhatWalletsToContext.behavior';
+import { addHardhatSignersToContext } from '../src/utils/introspection/test/contexts/HardhatHelpers';
+import { expect } from 'chai';
 
 dotenv.config();
 
@@ -24,11 +25,11 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
         await _testHarnessInstance.deployed();
     });
 
-    shouldCopyHardhatWalletsToContext();
+    addHardhatSignersToContext();
 
     context('Test Group 1', function () {
         it('Test Case 1', async function () {
-            console.log('Init Tests');
+            expect(true).to.be.equal(true);
         });
     });
 });

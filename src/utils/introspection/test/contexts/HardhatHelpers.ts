@@ -1,6 +1,7 @@
+import { Contract } from 'ethers';
 import hre from 'hardhat';
 
-export function shouldCopyHardhatWalletsToContext() {
+export function addHardhatSignersToContext() {
     beforeEach('Copy Hardhat Wallets To Context...', async function () {
         try {
             const [owner, addr1, addr2, addr3, ...addrs] = await hre.ethers.getSigners();

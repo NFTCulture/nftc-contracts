@@ -7,10 +7,13 @@ import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
 /**
- * @title MockERC721_OZ
+ * @title MockERC721OZ
  * @author @NFTCulture
+ * @dev This is just a super straightforward implementation of OZ's ERC721, with some
+ * common extensions added in. Much like what you would get from the OZ
+ * code gen site: https://www.openzeppelin.com/contracts
  */
-contract MockERC721_OZ is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
+contract MockERC721OZ is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
     constructor() ERC721('MockERC721', 'MTK') {}
 
     function safeMint(address to, uint256 tokenId) public onlyOwner {

@@ -3,7 +3,7 @@ import hre from 'hardhat';
 
 import { TemplateTestHarness, TemplateTestHarness__factory } from '../../../typechain-types';
 import { expect } from 'chai';
-import { shouldCopyHardhatWalletsToContext } from '../../../src/utils/introspection/test/HardhatWalletsToContext.behavior';
+import { addHardhatSignersToContext } from '../../../src/utils/introspection/test/contexts/HardhatHelpers';
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ describe(`Mocha Context Tests`, function () {
         this.mockInstance = _testHarnessInstance;
     });
 
-    shouldCopyHardhatWalletsToContext();
+    addHardhatSignersToContext();
 
     context('Context modified by hook...', function () {
         it('Local context is set properly', async function () {
