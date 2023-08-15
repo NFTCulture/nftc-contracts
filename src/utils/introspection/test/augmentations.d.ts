@@ -1,5 +1,5 @@
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { Contract } from '@ethersproject/contracts';
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 // augmentations.d.ts
 declare module 'mocha' {

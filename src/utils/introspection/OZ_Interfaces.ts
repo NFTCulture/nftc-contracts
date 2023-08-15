@@ -85,7 +85,7 @@ export const OZ_INTERFACES: { [k: string]: any } = {
 
 for (const k of Object.getOwnPropertyNames(OZ_INTERFACES)) {
     OZ_INTERFACE_IDS[k] = ERC165((OZ_INTERFACES as any)[k]);
-    let fnName: string = '';
+    let fnName = '';
     for (fnName of (OZ_INTERFACES as any)[k]) {
         // the interface id of a single function is equivalent to its function signature
         const interfaceId = ERC165([fnName]);

@@ -36,16 +36,9 @@ contract AuxHelperTestHarness is AuxHelper32, AuxHelper16 {
     /**
      * External wrapper for use in unit tests, or for whatever.
      */
-    function unpack16(uint64 aux)
-        external
-        pure
-        returns (
-            uint16 left16,
-            uint16 leftCenter16,
-            uint16 rightCenter16,
-            uint16 right16
-        )
-    {
+    function unpack16(
+        uint64 aux
+    ) external pure returns (uint16 left16, uint16 leftCenter16, uint16 rightCenter16, uint16 right16) {
         return _unpack16(aux);
     }
 }

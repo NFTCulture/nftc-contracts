@@ -1,19 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import {
-    ISeaDropTokenContractMetadata
-} from "./interfaces/ISeaDropTokenContractMetadata.sol";
+import {ISeaDropTokenContractMetadata} from './interfaces/ISeaDropTokenContractMetadata.sol';
 
-import { ERC721A } from "erc721a/contracts/ERC721A.sol";
+import {ERC721A} from 'erc721a/contracts/ERC721A.sol';
 
-import { TwoStepOwnable } from "./utility-contracts/TwoStepOwnable.sol";
+import {TwoStepOwnable} from './utility-contracts/TwoStepOwnable.sol';
 
-import { IERC2981 } from "@openzeppelin/contracts/interfaces/IERC2981.sol";
+import {IERC2981} from '@openzeppelin/contracts/interfaces/IERC2981.sol';
 
-import {
-    IERC165
-} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {IERC165} from '@openzeppelin/contracts/utils/introspection/IERC165.sol';
 
 /**
  * @title  ERC721ContractMetadata
@@ -23,11 +19,7 @@ import {
  * @notice ERC721ContractMetadata is a token contract that extends ERC721A
  *         with additional metadata and ownership capabilities.
  */
-contract ERC721ContractMetadata is
-    ERC721A,
-    TwoStepOwnable,
-    ISeaDropTokenContractMetadata
-{
+contract ERC721ContractMetadata is ERC721A, TwoStepOwnable, ISeaDropTokenContractMetadata {
     /// @notice Track the max supply.
     uint256 _maxSupply;
 
@@ -51,10 +43,7 @@ contract ERC721ContractMetadata is
      *      to save contract space from being inlined N times.
      */
     function _onlyOwnerOrSelf() internal view {
-        if (
-            _cast(msg.sender == owner()) | _cast(msg.sender == address(this)) ==
-            0
-        ) {
+        if (_cast(msg.sender == owner()) | _cast(msg.sender == address(this)) == 0) {
             revert OnlyOwner();
         }
     }
@@ -62,9 +51,7 @@ contract ERC721ContractMetadata is
     /**
      * @notice Deploy the token contract with its name and symbol.
      */
-    constructor(string memory name, string memory symbol)
-        ERC721A(name, symbol)
-    {}
+    constructor(string memory name, string memory symbol) ERC721A(name, symbol) {}
 
     /**
      * @notice Sets the base URI for the token metadata and emits an event.
@@ -107,9 +94,7 @@ contract ERC721ContractMetadata is
      * @param fromTokenId The start token id.
      * @param toTokenId   The end token id.
      */
-    function emitBatchMetadataUpdate(uint256 fromTokenId, uint256 toTokenId)
-        external
-    {
+    function emitBatchMetadataUpdate(uint256 fromTokenId, uint256 toTokenId) external {
         // Ensure the sender is only the owner or contract itself.
         _onlyOwnerOrSelf();
 
@@ -127,7 +112,7 @@ contract ERC721ContractMetadata is
         _onlyOwnerOrSelf();
 
         // Ensure the max supply does not exceed the maximum value of uint64.
-        if (newMaxSupply > 2**64 - 1) {
+        if (newMaxSupply > 2 ** 64 - 1) {
             revert CannotExceedMaxSupplyOfUint64(newMaxSupply);
         }
 
@@ -259,7 +244,7 @@ contract ERC721ContractMetadata is
      * @return royaltyAmount The royalty payment amount for _salePrice.
      */
     function royaltyInfo(
-        uint256, /* _tokenId */
+        uint256 /* _tokenId */,
         uint256 _salePrice
     ) external view returns (address receiver, uint256 royaltyAmount) {
         // Put the royalty info on the stack for more efficient access.
@@ -278,13 +263,7 @@ contract ERC721ContractMetadata is
      *
      * @param interfaceId The interface id to check against.
      */
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(IERC165, ERC721A)
-        returns (bool)
-    {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC721A) returns (bool) {
         return
             interfaceId == type(IERC2981).interfaceId ||
             interfaceId == 0x49064906 || // ERC-4906

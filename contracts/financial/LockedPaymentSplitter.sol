@@ -21,7 +21,7 @@ abstract contract LockedPaymentSplitter is SlimPaymentSplitter, Ownable {
      *
      * @param account Payable address that will receive funds.
      */
-    function release(address payable account) public override (SlimPaymentSplitter) onlyOwner {
+    function release(address payable account) public override(SlimPaymentSplitter) onlyOwner {
         super.release(account);
     }
 

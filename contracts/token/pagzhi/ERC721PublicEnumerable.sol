@@ -7,8 +7,8 @@
 
 pragma solidity ^0.8.0;
 
-import "./ERC721Public.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
+import './ERC721Public.sol';
+import '@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol';
 
 /**
  * @title ERC721PublicEnumerable
@@ -26,16 +26,8 @@ abstract contract ERC721PublicEnumerable is ERC721Public, IERC721Enumerable {
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(IERC165, ERC721Public)
-        returns (bool)
-    {
-        return
-            interfaceId == type(IERC721Enumerable).interfaceId ||
-            super.supportsInterface(interfaceId);
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC721Public) returns (bool) {
+        return interfaceId == type(IERC721Enumerable).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**
@@ -43,17 +35,8 @@ abstract contract ERC721PublicEnumerable is ERC721Public, IERC721Enumerable {
      *
      * Note: this will be costly if run on-chain.
      */
-    function tokenOfOwnerByIndex(address owner, uint256 index)
-        public
-        view
-        virtual
-        override
-        returns (uint256)
-    {
-        require(
-            index < ERC721Public.balanceOf(owner),
-            "ERC721PE: owner index out of bounds"
-        );
+    function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
+        require(index < ERC721Public.balanceOf(owner), 'ERC721PE: owner index out of bounds');
         uint256 ownerTokenIdx;
         for (uint256 tokenId; tokenId < _owners.length; tokenId++) {
             if (_owners[tokenId] == owner) {
@@ -62,7 +45,7 @@ abstract contract ERC721PublicEnumerable is ERC721Public, IERC721Enumerable {
             }
         }
 
-        revert("ERC721PE: unable to find token");
+        revert('ERC721PE: unable to find token');
     }
 
     /**
@@ -83,17 +66,8 @@ abstract contract ERC721PublicEnumerable is ERC721Public, IERC721Enumerable {
      * Note: this function had to be improved from Pagzi implementation to account for burning.
      * Also, it will be very costly to run on chain.
      */
-    function tokenByIndex(uint256 index)
-        public
-        view
-        virtual
-        override
-        returns (uint256)
-    {
-        require(
-            index < existingTokenCount,
-            "ERC721PE: global index out of bounds"
-        );
+    function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
+        require(index < existingTokenCount, 'ERC721PE: global index out of bounds');
 
         // Build on the fly array, equivalent to allTokens.
         uint256[] memory existingTokens = new uint256[](existingTokenCount);
@@ -101,9 +75,9 @@ abstract contract ERC721PublicEnumerable is ERC721Public, IERC721Enumerable {
         // Loop through all the minted token ids, and log all the ones that are still existing.
         uint256 tokenCounter;
         for (uint256 tokenId; tokenId < _owners.length; tokenId++) {
-            if(_owners[tokenId] != address(0)){
+            if (_owners[tokenId] != address(0)) {
                 existingTokens[tokenCounter] = tokenId;
-                tokenCounter ++;
+                tokenCounter++;
             }
         }
 
@@ -125,11 +99,7 @@ abstract contract ERC721PublicEnumerable is ERC721Public, IERC721Enumerable {
      *
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal virtual override {
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal virtual override {
         super._beforeTokenTransfer(from, to, tokenId);
 
         if (from == address(0)) {

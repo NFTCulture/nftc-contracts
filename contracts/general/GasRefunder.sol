@@ -17,15 +17,12 @@ contract GasRefunder {
     }
 
     modifier onlyOwner() {
-        require(_owner == msg.sender, "Ownable: caller is not the owner");
+        require(_owner == msg.sender, 'Ownable: caller is not the owner');
         _;
     }
 
-    function executeRefunds(
-        address[] memory addresses,
-        uint256[] memory amounts
-    ) external payable {
-        require(addresses.length == amounts.length, "Unmatched arrays");
+    function executeRefunds(address[] memory addresses, uint256[] memory amounts) external payable {
+        require(addresses.length == amounts.length, 'Unmatched arrays');
 
         uint256 idx;
         uint256 sendAmount;
@@ -33,7 +30,7 @@ contract GasRefunder {
             sendAmount += amounts[idx];
         }
 
-        require(sendAmount == msg.value, "Not right amount to send");
+        require(sendAmount == msg.value, 'Not right amount to send');
 
         for (idx = 0; idx < amounts.length; idx++) {
             // send the money.

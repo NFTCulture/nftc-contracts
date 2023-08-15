@@ -1,6 +1,6 @@
 {
     "name": "@nftculture/nftc-contracts",
-    "version": "1.4.8",
+    "version": "1.4.9",
     "description": "NFTCulture Open Source Contracts Project",
     "author": "@NFTCulture",
     "license": "MIT",
@@ -22,13 +22,17 @@
         "test:gas": "set REPORT_GAS=true && npx hardhat test",
         "test:coverage": "npx hardhat coverage",
         "test:coverage:view": "open-cli coverage/index.html",
-        "pub": "npm run build && npm publish",
-        "pub:dry": "npm run build && npm publish --dry-run"
+        "publish:commit": "npm publish",
+        "publish:dry": "npm publish --dry-run",
+        "pub": "run-s build fix publish:commit",
+        "pub:dry": "run-s build fix publish:dry"
     },
     "devDependencies": {
         "@defi-wonderland/smock": "^2.3.5",
         "@nomicfoundation/hardhat-toolbox": "^2.0.2",
         "@openzeppelin/contracts": "^4.9.3",
+        "@typescript-eslint/eslint-plugin": "^5.51.0",
+        "@typescript-eslint/parser": "^5.51.0",
         "chai": "^4.3.7",
         "create-ts-index": "^1.14.0",
         "dotenv": "^16.3.1",

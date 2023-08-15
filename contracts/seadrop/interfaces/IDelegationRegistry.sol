@@ -131,20 +131,18 @@ interface IDelegationRegistry {
      * @param tokenId The token id for the token you're delegating
      * @return addresses Array of contract-level delegates for a given vault's token
      */
-    function getDelegatesForToken(address vault, address contract_, uint256 tokenId)
-        external
-        view
-        returns (address[] memory);
+    function getDelegatesForToken(
+        address vault,
+        address contract_,
+        uint256 tokenId
+    ) external view returns (address[] memory);
 
     /**
      * @notice Returns all contract-level delegations for a given vault
      * @param vault The cold wallet who issued the delegations
      * @return delegations Array of ContractDelegation structs
      */
-    function getContractLevelDelegations(address vault)
-        external
-        view
-        returns (ContractDelegation[] memory delegations);
+    function getContractLevelDelegations(address vault) external view returns (ContractDelegation[] memory delegations);
 
     /**
      * @notice Returns all token-level delegations for a given vault
@@ -166,10 +164,7 @@ interface IDelegationRegistry {
      * @param contract_ The address for the contract you're delegating
      * @param vault The cold wallet who issued the delegation
      */
-    function checkDelegateForContract(address delegate, address vault, address contract_)
-        external
-        view
-        returns (bool);
+    function checkDelegateForContract(address delegate, address vault, address contract_) external view returns (bool);
 
     /**
      * @notice Returns true if the address is delegated to act on your behalf for a specific token, the token's contract or an entire vault
@@ -178,8 +173,10 @@ interface IDelegationRegistry {
      * @param tokenId The token id for the token you're delegating
      * @param vault The cold wallet who issued the delegation
      */
-    function checkDelegateForToken(address delegate, address vault, address contract_, uint256 tokenId)
-        external
-        view
-        returns (bool);
+    function checkDelegateForToken(
+        address delegate,
+        address vault,
+        address contract_,
+        uint256 tokenId
+    ) external view returns (bool);
 }

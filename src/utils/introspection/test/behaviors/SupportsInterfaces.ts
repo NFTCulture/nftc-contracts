@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { OZ_FN_SIGNATURES, OZ_INTERFACES, OZ_INTERFACE_IDS } from '../../OZ_Interfaces';
+
+import { OZ_FN_SIGNATURES, OZ_INTERFACE_IDS, OZ_INTERFACES } from '../../OZ_Interfaces';
 import { ERC165 } from '../../makeInterfaceId';
 
 const INVALID_ID = '0xffffffff';

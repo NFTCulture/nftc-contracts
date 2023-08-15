@@ -7,20 +7,19 @@ pragma solidity ^0.8.11;
  * @dev Credit to the Anonymice Library.
  * See https://etherscan.io/address/0xbad6186e92002e312078b5a1dafd5ddf63d3f731#code
  *
- * Not sure who originated this code, but I am re-using many parts of the Anonymice work, appreciate them 
+ * Not sure who originated this code, but I am re-using many parts of the Anonymice work, appreciate them
  * releasing it under the MIT license.
  *
  * If you know the original source of this code, please visit us on discord, and I will add a credit here.
  */
 library OnChainEncoding {
-    string internal constant TABLE =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    string internal constant TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
     /**
      * @dev Encode data into a string.
      */
     function encode(bytes memory data) internal pure returns (string memory) {
-        if (data.length == 0) return "";
+        if (data.length == 0) return '';
 
         // load the table into memory
         string memory table = TABLE;
@@ -57,25 +56,13 @@ library OnChainEncoding {
                 let input := mload(dataPtr)
 
                 // write 4 characters
-                mstore(
-                    resultPtr,
-                    shl(248, mload(add(tablePtr, and(shr(18, input), 0x3F))))
-                )
+                mstore(resultPtr, shl(248, mload(add(tablePtr, and(shr(18, input), 0x3F)))))
                 resultPtr := add(resultPtr, 1)
-                mstore(
-                    resultPtr,
-                    shl(248, mload(add(tablePtr, and(shr(12, input), 0x3F))))
-                )
+                mstore(resultPtr, shl(248, mload(add(tablePtr, and(shr(12, input), 0x3F)))))
                 resultPtr := add(resultPtr, 1)
-                mstore(
-                    resultPtr,
-                    shl(248, mload(add(tablePtr, and(shr(6, input), 0x3F))))
-                )
+                mstore(resultPtr, shl(248, mload(add(tablePtr, and(shr(6, input), 0x3F)))))
                 resultPtr := add(resultPtr, 1)
-                mstore(
-                    resultPtr,
-                    shl(248, mload(add(tablePtr, and(input, 0x3F))))
-                )
+                mstore(resultPtr, shl(248, mload(add(tablePtr, and(input, 0x3F)))))
                 resultPtr := add(resultPtr, 1)
             }
 
@@ -97,7 +84,7 @@ library OnChainEncoding {
      */
     function toString(uint256 value) internal pure returns (string memory) {
         if (value == 0) {
-            return "0";
+            return '0';
         }
         uint256 temp = value;
         uint256 digits;

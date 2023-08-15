@@ -14,11 +14,7 @@ error InvalidSignature();
 abstract contract DigiSigHelper {
     using ECDSA for bytes32;
 
-    function _verify(
-        bytes32 dataHash,
-        bytes memory signature,
-        address expectedSigner
-    ) internal pure returns (bool) {
+    function _verify(bytes32 dataHash, bytes memory signature, address expectedSigner) internal pure returns (bool) {
         address signatureSigner = dataHash.toEthSignedMessageHash().recover(signature);
         if (signatureSigner != expectedSigner) revert InvalidSignature();
 
