@@ -1,13 +1,14 @@
+import { FakeContract, smock } from '@defi-wonderland/smock';
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import chai, { expect } from 'chai';
 import * as dotenv from 'dotenv';
 import hre from 'hardhat';
-import { FakeContract, smock } from '@defi-wonderland/smock';
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
+
 import {
-    MockNFTCDelegateEnforcer__factory,
-    MockNFTCDelegateEnforcer,
-    MockDelegationRegistry__factory,
     MockDelegationRegistry,
+    MockDelegationRegistry__factory,
+    MockNFTCDelegateEnforcer,
+    MockNFTCDelegateEnforcer__factory,
 } from '../../typechain-types';
 
 dotenv.config();
@@ -82,7 +83,7 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
                 .whenCalledWith(_addr1.address, hre.ethers.constants.AddressZero, _testInstance.address, 0)
                 .returns(false); // Return false so that if it does get called, the test fails.
 
-            let result = await _testInstance.getOperatorFromDelegation(
+            const result = await _testInstance.getOperatorFromDelegation(
                 _addr1.address,
                 hre.ethers.constants.AddressZero,
                 _testInstance.address,
@@ -100,7 +101,7 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
                 .whenCalledWith(_addr1.address, _addr1.address, _testInstance.address, 0)
                 .returns(false); // Return false so that if it does get called, the test fails.
 
-            let result = await _testInstance.getOperatorFromDelegation(
+            const result = await _testInstance.getOperatorFromDelegation(
                 _addr1.address,
                 _addr1.address,
                 _testInstance.address,
@@ -118,7 +119,7 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
                 .whenCalledWith(_addr1.address, _owner.address, _testInstance.address, 1)
                 .returns(true);
 
-            let result = await _testInstance.getOperatorFromDelegation(
+            const result = await _testInstance.getOperatorFromDelegation(
                 _addr1.address,
                 _owner.address,
                 _testInstance.address,

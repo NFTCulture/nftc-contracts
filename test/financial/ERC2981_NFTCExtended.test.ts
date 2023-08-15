@@ -1,11 +1,9 @@
+import { Contract } from '@ethersproject/contracts';
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
-import hre from 'hardhat';
-
-import { Contract } from '@ethersproject/contracts';
-
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import type * as ethers from 'ethers';
+import hre from 'hardhat';
 
 dotenv.config();
 
@@ -31,11 +29,11 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         _owner = owner;
         _addr1 = addr1;
 
-        let addresses = [owner.address, addr1.address, addr2.address];
+        const addresses = [owner.address, addr1.address, addr2.address];
 
-        let splits = [90, 5, 5];
+        const splits = [90, 5, 5];
 
-        let aLargePayment = {
+        const aLargePayment = {
             value: hre.ethers.utils.parseEther('100')
         };
 
@@ -46,10 +44,10 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
 
     context('ERC2981_NFTCExtended works as expected', function () {
         it('Default royalties set properly.', async function () {
-            let royaltyInfo = await _testInstance.connect(_owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
+            const royaltyInfo = await _testInstance.connect(_owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
 
-            let expectedReceiver = _testInstance.address;
-            let expectedRoyalty = hre.ethers.utils.parseEther('.0999');
+            const expectedReceiver = _testInstance.address;
+            const expectedRoyalty = hre.ethers.utils.parseEther('.0999');
 
             expect(royaltyInfo[0]).to.equal(expectedReceiver);
             expect(royaltyInfo[1]).to.equal(expectedRoyalty);
@@ -58,10 +56,10 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         it('Royalties can be updated.', async function () {
             await _testInstance.connect(_owner).setDefaultRoyalty(_addr1.address, 500);
 
-            let royaltyInfo = await _testInstance.connect(_owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
+            const royaltyInfo = await _testInstance.connect(_owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
 
-            let expectedReceiver = _addr1.address;
-            let expectedRoyalty = hre.ethers.utils.parseEther('.0500');
+            const expectedReceiver = _addr1.address;
+            const expectedRoyalty = hre.ethers.utils.parseEther('.0500');
 
             expect(royaltyInfo[0]).to.equal(expectedReceiver);
             expect(royaltyInfo[1]).to.equal(expectedRoyalty);

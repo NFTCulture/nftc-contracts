@@ -1,11 +1,9 @@
+import { Contract } from '@ethersproject/contracts';
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
-import hre from 'hardhat';
-
-import { Contract } from '@ethersproject/contracts';
-
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import type * as ethers from 'ethers';
+import hre from 'hardhat';
 
 dotenv.config();
 
@@ -18,7 +16,7 @@ let _owner: SignerWithAddress;
 let _addr1: SignerWithAddress;
 let _addr3: SignerWithAddress;
 
-let _provider = hre.ethers.provider;
+const _provider = hre.ethers.provider;
 
 // Start test block
 describe(`${CONTRACT_NAME} Unit Tests`, function () {

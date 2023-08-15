@@ -1,9 +1,10 @@
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
 import hre from 'hardhat';
+
 import { AuxHelperTestHarness, AuxHelperTestHarness__factory } from '../../typechain-types';
 
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 dotenv.config();
 

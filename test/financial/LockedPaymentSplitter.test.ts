@@ -1,11 +1,10 @@
+import { Contract } from '@ethersproject/contracts';
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
+import type * as ethers from 'ethers';
 import hre from 'hardhat';
 
-import { Contract } from '@ethersproject/contracts';
-
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-import type * as ethers from 'ethers';
 
 dotenv.config();
 
@@ -18,7 +17,7 @@ let _owner: SignerWithAddress;
 let _addr1: SignerWithAddress;
 let _addr3: SignerWithAddress;
 
-let _provider = hre.ethers.provider;
+const _provider = hre.ethers.provider;
 
 // Start test block
 describe(`${CONTRACT_NAME} Unit Tests`, function () {
@@ -35,11 +34,11 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         _addr1 = addr1;
         _addr3 = addr3;
 
-        let addresses = [owner.address, addr1.address, addr2.address];
+        const addresses = [owner.address, addr1.address, addr2.address];
 
-        let splits = [90, 5, 5];
+        const splits = [90, 5, 5];
 
-        let aLargePayment = {
+        const aLargePayment = {
             value: hre.ethers.utils.parseEther('100'),
         };
 
@@ -54,29 +53,29 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
 
     context('Locked Payment Splitter', function () {
         it('Owner can send transfers.', async function () {
-            let currentBalance = await _provider.getBalance(_addr1.address);
+            const currentBalance = await _provider.getBalance(_addr1.address);
 
             await _testInstance.connect(_owner).release(_addr1.address);
 
-            let addedBalance = hre.ethers.utils.parseEther('5');
-            let expectedBalance = currentBalance.add(addedBalance);
+            const addedBalance = hre.ethers.utils.parseEther('5');
+            const expectedBalance = currentBalance.add(addedBalance);
 
             expect(await _provider.getBalance(_addr1.address)).to.equal(expectedBalance);
         });
 
         it('Self can get transfer.', async function () {
-            let currentBalance = await _provider.getBalance(_addr1.address);
+            const currentBalance = await _provider.getBalance(_addr1.address);
 
             await _testInstance.connect(_addr1).releaseToSelf();
 
-            let addedBalance = hre.ethers.utils.parseEther('4'); // have to account for gas.
-            let expectedBalance = currentBalance.add(addedBalance);
+            const addedBalance = hre.ethers.utils.parseEther('4'); // have to account for gas.
+            const expectedBalance = currentBalance.add(addedBalance);
 
             expect(await _provider.getBalance(_addr1.address)).to.be.above(expectedBalance);
         });
 
         it('Unknown person cant trigger transfers.', async function () {
-            let currentBalance = await _provider.getBalance(_addr1.address);
+            const currentBalance = await _provider.getBalance(_addr1.address);
 
             await expect(_testInstance.connect(_addr3).release(_addr1.address)).to.be.reverted;
 
@@ -84,7 +83,7 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         });
 
         it('Unknown person does not receive money.', async function () {
-            let currentBalance = await _provider.getBalance(_addr3.address);
+            const currentBalance = await _provider.getBalance(_addr3.address);
 
             await expect(
                 _testInstance.connect(_addr3).releaseToSelf()

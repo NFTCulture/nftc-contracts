@@ -1,9 +1,9 @@
+import { expect } from 'chai';
 import * as dotenv from 'dotenv';
 import hre from 'hardhat';
 
-import { TemplateTestHarness, TemplateTestHarness__factory } from '../../../typechain-types';
-import { expect } from 'chai';
 import { addHardhatSignersToContext } from '../../../src/utils/introspection/test/contexts/HardhatHelpers';
+import { TemplateTestHarness, TemplateTestHarness__factory } from '../../../typechain-types';
 
 dotenv.config();
 
