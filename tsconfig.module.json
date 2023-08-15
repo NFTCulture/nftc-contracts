@@ -4,10 +4,10 @@
         "outDir": "dist/nftc",
         "rootDir": "src",
         "moduleResolution": "node",
-        "types": ["@nomicfoundation/hardhat-toolbox", "@nomiclabs/hardhat-ethers"],
+        "esModuleInterop": true,
         "declaration": true,
         "inlineSourceMap": true,
-        "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+        "types": ["@nomicfoundation/hardhat-toolbox", "@nomiclabs/hardhat-ethers"]
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules/**"]

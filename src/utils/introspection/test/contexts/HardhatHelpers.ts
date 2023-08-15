@@ -1,4 +1,3 @@
-import { Contract } from 'ethers';
 import hre from 'hardhat';
 
 export function addHardhatSignersToContext() {
@@ -10,6 +9,7 @@ export function addHardhatSignersToContext() {
             this.addr1 = addr1;
             this.addr2 = addr2;
             this.addr3 = addr3;
+            this.addrs = addrs;
         } catch (ex) {
             console.log('An Error occurred...');
             console.log(ex);

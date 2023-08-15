@@ -5,6 +5,7 @@
 # Node && Git
 **/node_modules
 **/.git
+**/.nyc_output
 
 # Visual Studio Code
 .vscode/*

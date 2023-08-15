@@ -8,6 +8,7 @@ declare module 'mocha' {
         addr1: SignerWithAddress;
         addr2: SignerWithAddress;
         addr3: SignerWithAddress;
+        addrs: SignerWithAddress[];
 
         contractUnderTest: Contract;
     }

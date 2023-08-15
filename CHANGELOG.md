@@ -3,6 +3,14 @@
 ## IMPORTANT NOTE
 As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc-contracts". Please start using package version 1.3.0 or later.
 
+## Version -- 1.4.8
+- Clean before build with shx, to prevent stale files showing up in package.
+- Use create-ts-index util to generate index files so typescript module works properly.
+- Rework/cleanup of build steps.
+- small bug fix to HardhatHelpers
+- Plug in ESLint checks and Prettier formatting as a build step (but don't run yet)
+- Tighten up tsconfig strict settings.
+
 
 ## Version -- 1.4.7
 - SupportsInterface introspection tests now validate that appropriate functions exist to match ERC721 spec.
