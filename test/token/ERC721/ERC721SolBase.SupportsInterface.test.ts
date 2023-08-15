@@ -1,9 +1,9 @@
 import * as dotenv from 'dotenv';
 import hre from 'hardhat';
 
-import { MockERC721SolBase__factory, MockERC721SolBase } from '../../../typechain-types';
-import { addHardhatSignersToContext } from '../../../src/utils/introspection/test/contexts/HardhatHelpers';
 import { shouldSupportInterfaces } from '../../../src/utils/introspection/test/behaviors/SupportsInterfaces';
+import { addHardhatSignersToContext } from '../../../src/utils/introspection/test/contexts/HardhatHelpers';
+import { MockERC721SolBase, MockERC721SolBase__factory } from '../../../typechain-types';
 
 dotenv.config();
 
@@ -29,5 +29,5 @@ describe(`Basic ERC721SolBase Contract Validation Tests`, function () {
 
     addHardhatSignersToContext();
 
-    shouldSupportInterfaces(['ERC165', 'ERC721']);
+    shouldSupportInterfaces(TESTHARNESS_CONTRACT_NAME, ['ERC165', 'ERC721', 'ERC721Metadata']);
 });

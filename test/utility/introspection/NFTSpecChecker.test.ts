@@ -1,11 +1,9 @@
+import { Contract } from '@ethersproject/contracts';
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
-import hre from 'hardhat';
-
-import { Contract } from '@ethersproject/contracts';
-
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import type * as ethers from 'ethers';
+import hre from 'hardhat';
 
 dotenv.config();
 

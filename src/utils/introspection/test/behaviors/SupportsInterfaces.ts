@@ -5,8 +5,8 @@ import { ERC165 } from '../../makeInterfaceId';
 
 const INVALID_ID = '0xffffffff';
 
-export function shouldSupportInterfaces(interfaces: string[] = []) {
-    describe('Supports Interfaces...', function () {
+export function shouldSupportInterfaces(contractName: string, interfaces: string[] = []) {
+    describe(`${contractName} supports interfaces ${interfaces.join(', ')}...`, function () {
         before(async function () {
             // TODO?
         });
@@ -19,7 +19,7 @@ export function shouldSupportInterfaces(interfaces: string[] = []) {
         describe('when the interfaceId is supported', function () {
             it('uses less than 30k gas', async function () {
                 for (const k of interfaces) {
-                    const interfaceId = (OZ_INTERFACE_IDS as any)[k] ?? k;
+                    const interfaceId = OZ_INTERFACE_IDS[k] ?? k;
 
                     expect(await this.contractUnderTest.estimateGas.supportsInterface(interfaceId)).to.be.lte(30000);
                 }
@@ -27,7 +27,7 @@ export function shouldSupportInterfaces(interfaces: string[] = []) {
 
             it('returns true', async function () {
                 for (const k of interfaces) {
-                    const interfaceId = (OZ_INTERFACE_IDS as any)[k] ?? k;
+                    const interfaceId = OZ_INTERFACE_IDS[k] ?? k;
                     expect(await this.contractUnderTest.supportsInterface(interfaceId)).to.equal(
                         true,
                         `does not support ${k}`
