@@ -25,7 +25,11 @@ contract MockERC721SolBase is ERC721SolBaseBurnable, Ownable {
         baseURI = __baseURI;
     }
 
-    function mint(address to, uint256 tokenId) public onlyOwner {
+    function safeMint(address to, uint256 tokenId) public onlyOwner {
+        _safeMint(to, tokenId);
+    }
+
+    function regularMint(address to, uint256 tokenId) public onlyOwner {
         _mint(to, tokenId);
     }
 
