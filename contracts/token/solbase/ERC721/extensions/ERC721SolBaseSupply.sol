@@ -16,8 +16,8 @@ import '../ERC721.sol';
  * NOTE: Not a full ERC721Enumerable implementation.
  */
 abstract contract ERC721SolBaseSupply is ERC721 {
-    uint128 private mintedTokenCount;
-    uint128 private existingTokenCount;
+    uint64 private mintedTokenCount;
+    uint64 private existingTokenCount;
 
     function totalSupply() public view virtual returns (uint256) {
         return _totalSupply();
