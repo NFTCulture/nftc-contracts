@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 
 // NFTC Open Source Contracts (https://github.com/NFTCulture/nftc-contracts/tree/main)
-import '../ERC721.sol';
+import './ERC721SolBaseSupply.sol';
 
 /**
  * @title ERC721SolBaseBurnable
@@ -10,7 +10,7 @@ import '../ERC721.sol';
  *
  * @dev ERC721 SolBase extension to enable tokens that can be irreversibly burned (destroyed).
  */
-abstract contract ERC721SolBaseBurnable is ERC721 {
+abstract contract ERC721SolBaseBurnable is ERC721SolBaseSupply {
     /**
      * @dev Burns `tokenId`. See {ERC721-_burn}.
      *

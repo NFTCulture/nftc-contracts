@@ -16,41 +16,43 @@ import '../ERC721.sol';
  * NOTE: Not a full ERC721Enumerable implementation.
  */
 abstract contract ERC721SolBaseSupply is ERC721 {
-    uint64 private mintedTokenCount;
-    uint64 private existingTokenCount;
+    uint64 private mintedTokenCounter;
+    uint64 private burnedTokenCounter;
 
     function totalSupply() public view virtual returns (uint256) {
         return _totalSupply();
+    }
+
+    function _totalSupply() internal view virtual returns (uint256) {
+        return mintedTokenCounter - burnedTokenCounter;
     }
 
     function totalMinted() public view virtual returns (uint256) {
         return _totalMinted();
     }
 
+    function _totalMinted() internal view virtual returns (uint256) {
+        return mintedTokenCounter;
+    }
+
     function transferFrom(address from, address to, uint256 tokenId) public virtual override {
         super.transferFrom(from, to, tokenId);
 
-        if (from == address(0)) {
-            existingTokenCount++;
-        }
-
         if (to == address(0)) {
-            existingTokenCount--;
+            burnedTokenCounter++;
         }
     }
 
-    function _internalMint(address to, uint256 tokenId) internal virtual {
+    function _mint(address to, uint256 tokenId) internal override {
         super._mint(to, tokenId);
 
-        mintedTokenCount++;
+        mintedTokenCounter++;
     }
 
-    function _totalMinted() internal view virtual returns (uint256) {
-        return mintedTokenCount;
-    }
+    function _burn(uint256 tokenId) internal override {
+        super._burn(tokenId);
 
-    function _totalSupply() internal view virtual returns (uint256) {
-        return existingTokenCount;
+        burnedTokenCounter++;
     }
 
     function _exists(uint256 tokenId) internal view virtual returns (bool) {

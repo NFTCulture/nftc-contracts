@@ -16,17 +16,13 @@ import '@openzeppelin/contracts/utils/Strings.sol';
  * @dev This is just a super straightforward implementation of SolBase's ERC721, with some
  * common extensions added in.
  */
-contract MockERC721SolBase is ERC721SolBaseBurnable, ERC721SolBaseSupply, Ownable {
+contract MockERC721SolBase is ERC721SolBaseBurnable, Ownable {
     using Strings for uint256;
 
     string public baseURI;
 
     constructor(string memory __baseURI) ERC721('MockERC721SolBase', 'M721SB') {
         baseURI = __baseURI;
-    }
-
-    function transferFrom(address from, address to, uint256 tokenId) public override(ERC721, ERC721SolBaseSupply) {
-        ERC721SolBaseSupply.transferFrom(from, to, tokenId);
     }
 
     function mint(address to, uint256 tokenId) public onlyOwner {
