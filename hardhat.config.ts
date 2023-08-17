@@ -1,16 +1,10 @@
 import dotenv from 'dotenv';
-dotenv.config();
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
-import { HardhatUserConfig } from 'hardhat/types';
+dotenv.config(); // console.log(process.env);
+import { HardhatUserConfig } from 'hardhat/config';
 import '@nomicfoundation/hardhat-toolbox';
-import '@nomiclabs/hardhat-ethers';
-import 'hardhat-gas-reporter';
 
 const REPORT_GAS: boolean = (process.env.REPORT_GAS || '').trim() === 'true';
-//To enable, run 'npm run test'. Not enabled by default using 'npx hardhat test'.
+//To enable, run 'npm run test:gas'. Not enabled by default using 'npx hardhat test'.
 console.warn(`Include gas summary: ${REPORT_GAS}.`);
 
 const config: HardhatUserConfig = {

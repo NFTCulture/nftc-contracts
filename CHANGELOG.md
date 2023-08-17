@@ -4,6 +4,11 @@
 As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc-contracts". Please start using package version 1.3.0 or later.
 
 
+## Version -- 1.5.2
+- Improve behavior of ERC721SolBaseSupply and add totalMinted tracking.
+- tiny hardhat config cleanups.
+
+
 ## Version -- 1.5.1
 - Add ERC721Metadata to 721 supports interfaces checks.
 

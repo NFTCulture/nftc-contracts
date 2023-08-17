@@ -11,18 +11,20 @@ import '../ERC721.sol';
  * @title ERC721SolBaseSupply
  * @author @NiftyMike | @NFTCulture
  *
- * @dev ERC721 SolBase extension to enable tracking of valid totalSupply.
+ * @dev ERC721 SolBase extension to enable tracking of supply and number minted.
  *
  * NOTE: Not a full ERC721Enumerable implementation.
  */
 abstract contract ERC721SolBaseSupply is ERC721 {
-    uint256 internal existingTokenCount;
+    uint128 private mintedTokenCount;
+    uint128 private existingTokenCount;
 
-    /**
-     * @dev See {IERC721Enumerable-totalSupply}.
-     */
     function totalSupply() public view virtual returns (uint256) {
-        return existingTokenCount;
+        return _totalSupply();
+    }
+
+    function totalMinted() public view virtual returns (uint256) {
+        return _totalMinted();
     }
 
     function transferFrom(address from, address to, uint256 tokenId) public virtual override {
@@ -37,16 +39,18 @@ abstract contract ERC721SolBaseSupply is ERC721 {
         }
     }
 
-    function _mint(address to, uint256 tokenId) internal virtual override {
+    function _internalMint(address to, uint256 tokenId) internal virtual {
         super._mint(to, tokenId);
 
-        existingTokenCount++;
+        mintedTokenCount++;
     }
 
-    function _burn(uint256 tokenId) internal virtual override {
-        super._burn(tokenId);
+    function _totalMinted() internal view virtual returns (uint256) {
+        return mintedTokenCount;
+    }
 
-        existingTokenCount--;
+    function _totalSupply() internal view virtual returns (uint256) {
+        return existingTokenCount;
     }
 
     function _exists(uint256 tokenId) internal view virtual returns (bool) {

@@ -26,27 +26,11 @@ contract MockERC721SolBase is ERC721SolBaseBurnable, ERC721SolBaseSupply, Ownabl
     }
 
     function transferFrom(address from, address to, uint256 tokenId) public override(ERC721, ERC721SolBaseSupply) {
-        super.transferFrom(from, to, tokenId);
+        ERC721SolBaseSupply.transferFrom(from, to, tokenId);
     }
 
     function mint(address to, uint256 tokenId) public onlyOwner {
         _mint(to, tokenId);
-    }
-
-    function _mint(address to, uint256 tokenId) internal virtual override(ERC721, ERC721SolBaseSupply) {
-        ERC721SolBaseSupply._mint(to, tokenId);
-    }
-
-    function _burn(uint256 tokenId) internal virtual override(ERC721, ERC721SolBaseSupply) {
-        ERC721SolBaseSupply._burn(tokenId);
-    }
-
-    function _tokenFilename(uint256 tokenId) internal pure virtual returns (string memory) {
-        return tokenId.toString();
-    }
-
-    function _getContractURI() internal view returns (string memory) {
-        return baseURI;
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
@@ -56,5 +40,13 @@ contract MockERC721SolBase is ERC721SolBaseBurnable, ERC721SolBaseSupply, Ownabl
         require(bytes(base).length > 0, 'Base unset');
 
         return string(abi.encodePacked(base, _tokenFilename(tokenId)));
+    }
+
+    function _getContractURI() internal view returns (string memory) {
+        return baseURI;
+    }
+
+    function _tokenFilename(uint256 tokenId) internal pure virtual returns (string memory) {
+        return tokenId.toString();
     }
 }
