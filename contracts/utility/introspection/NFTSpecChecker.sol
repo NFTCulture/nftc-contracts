@@ -22,6 +22,10 @@ contract NFTSpecChecker {
     using ERC165Checker for address;
 
     /// @dev See {ERC165Checker-supportsInterface}
+    ///> 0x01ffc9a7
+    bytes4 constant _ERC165_CONTRACT = type(IERC165).interfaceId;
+
+    /// @dev See {ERC165Checker-supportsInterface}
     ///> 0x36372b07
     bytes4 constant _ERC20_CONTRACT = type(IERC20).interfaceId;
     bytes4 constant _ERC20_CONTRACT_METADATA = type(IERC20Metadata).interfaceId;
