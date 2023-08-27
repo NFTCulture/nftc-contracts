@@ -6,7 +6,7 @@ import './ERC2981_NFTCExtended.sol';
 import './NFTCPaymentSplitter.sol';
 
 /**
- * @title ERC2981_NFTCExtended
+ * @title NFTCSplitsAndRoyalties
  * @author @NiftyMike | @NFTCulture
  * @dev One stop shop for Payment Splits and ERC2981 Royalty Definition.
  */
