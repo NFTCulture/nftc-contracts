@@ -55,6 +55,10 @@ abstract contract ERC721SolBaseSupply is ERC721 {
         burnedTokenCounter++;
     }
 
+    function exists(uint256 tokenId) external view virtual returns (bool) {
+        return _exists(tokenId);
+    }
+
     function _exists(uint256 tokenId) internal view virtual returns (bool) {
         return _ownerOf[tokenId] != address(0);
     }

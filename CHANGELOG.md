@@ -5,6 +5,14 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 
 ## Version -- 1.5.next [Not published]
+- TODO
+
+
+## Version -- 1.5.6
+- add exists method for ERC721SolBaseSupply
+
+
+## Version -- 1.5.5
 - Unit tests for 721SolBase
 - Add CI build and test github actions.
 
