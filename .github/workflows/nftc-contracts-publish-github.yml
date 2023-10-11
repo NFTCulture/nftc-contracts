@@ -1,0 +1,62 @@
+name: Publish NFTC Contracts Github Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source Step
+      uses: actions/checkout@v3
+      
+    - name: Use Node.js 16.14
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.14'
+        cache: 'npm'
+        registry-url: 'https://npm.pkg.github.com'
+        scope: '@nftculture'
+
+    - name: Add .npmrc
+      run: ./.github/workflows/npmrc.sh
+
+    - name: Clean install
+      run: npm ci
+
+    - name: Lint Contracts
+      run: npm run fix
+
+    - name: Build Contracts
+      run: npm run build
+  
+    - name: Test Contracts
+      run: npm run test
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout Source Step
+        uses: actions/checkout@v3
+            
+      - name: Use Node.js 16.14
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.14'
+          cache: 'npm'
+
+      - name: Add .npmrc
+        run: ./.github/workflows/npmrc.sh
+
+      - name: Clean install
+        run: npm ci
+
+      - name: Publish Library
+        run: npm run publish:commit
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}

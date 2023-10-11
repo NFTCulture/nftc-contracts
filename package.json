@@ -1,6 +1,6 @@
 {
     "name": "@nftculture/nftc-contracts",
-    "version": "1.5.7",
+    "version": "1.5.8",
     "description": "NFTCulture Open Source Contracts Project",
     "author": "@NFTCulture",
     "license": "MIT",
@@ -22,7 +22,7 @@
         "test:gas": "set REPORT_GAS=true && npx hardhat test",
         "test:coverage": "npx hardhat coverage",
         "test:coverage:view": "open-cli coverage/index.html",
-        "publish:commit": "npm publish",
+        "publish:commit": "npm publish --registry https://npm.pkg.github.com",
         "publish:dry": "npm publish --dry-run",
         "pub": "run-s fix build test publish:commit",
         "pub:dry": "run-s fix build test publish:dry"
