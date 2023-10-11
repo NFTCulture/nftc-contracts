@@ -15,9 +15,9 @@ let _testHarnessInstance: MockERC721OZ;
 // Start test block
 describe(`Basic ERC721OZ Contract Validation Tests`, function () {
     before(async function () {
-        const contractName = TESTHARNESS_CONTRACT_NAME;
-
-        _testHarnessContractFactory = (await hre.ethers.getContractFactory(contractName)) as MockERC721OZ__factory;
+        _testHarnessContractFactory = (await hre.ethers.getContractFactory(
+            TESTHARNESS_CONTRACT_NAME
+        )) as MockERC721OZ__factory;
     });
 
     beforeEach(async function () {
