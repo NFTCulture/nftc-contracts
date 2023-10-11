@@ -1,9 +1,10 @@
 import { Contract } from '@ethersproject/contracts';
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
 import type * as ethers from 'ethers';
 import hre from 'hardhat';
+
+import { addHardhatSignersToContext } from '../../../src';
 
 dotenv.config();
 
@@ -35,8 +36,6 @@ let _mockERC721GoodRoyaltiesInstance: Contract;
 let _mockERC721BadARoyaltiesInstance: Contract;
 let _mockERC721BadBRoyaltiesInstance: Contract;
 
-let _owner: SignerWithAddress;
-
 // Start test block
 describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
     before(async function () {
@@ -60,10 +59,6 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
     });
 
     beforeEach(async function () {
-        const [owner, addr1, addr2, addr3, ...addrs] = await hre.ethers.getSigners();
-
-        _owner = owner;
-
         _testHarnessInstance = await _testHarnessContractFactory.deploy();
         _specCheckerInstance = await _specCheckerContractFactory.deploy();
         _mockERC20Instance = await _mockERC20ContractFactory.deploy();
@@ -85,20 +80,20 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
         await _mockERC721BadBRoyaltiesInstance.deployed();
     });
 
-    context('Standard ERC20 and NFT Token Interface Checks', function () {
-        it('Can validate ERC20s.', async function () {
-            this.skip();
-            // NOTE: Technically OZ ERC20 doesn't implement ERC165. Hopefully at some point they fix this.z
+    addHardhatSignersToContext();
 
-            const result = await _specCheckerInstance.connect(_owner).checkERC20(_mockERC20Instance.address);
+    context('Standard ERC20 and NFT Token Interface Checks', function () {
+        it.skip('Can validate ERC20s.', async function () {
+            // NOTE: Technically OZ ERC20 doesn't implement ERC165. Hopefully at some point they fix this.
+            const result = await _specCheckerInstance.connect(this.owner).checkERC20(_mockERC20Instance.address);
 
             expect(result).to.equal(true);
         });
 
         it('Non ERC20s return false.', async function () {
-            const result1 = await _specCheckerInstance.connect(_owner).checkERC20(_testHarnessInstance.address);
-            const result2 = await _specCheckerInstance.connect(_owner).checkERC20(_specCheckerInstance.address);
-            const result3 = await _specCheckerInstance.connect(_owner).checkERC20(_mockERC1155Instance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC20(_testHarnessInstance.address);
+            const result2 = await _specCheckerInstance.connect(this.owner).checkERC20(_specCheckerInstance.address);
+            const result3 = await _specCheckerInstance.connect(this.owner).checkERC20(_mockERC1155Instance.address);
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -106,9 +101,9 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
         });
 
         it('Can validate ERC721As.', async function () {
-            const result1 = await _specCheckerInstance.connect(_owner).checkERC721(_mockERC721ABInstance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC721(_mockERC721ABInstance.address);
             const result2 = await _specCheckerInstance
-                .connect(_owner)
+                .connect(this.owner)
                 .checkERC721(_mockERC721GoodRoyaltiesInstance.address);
 
             expect(result1).to.equal(true);
@@ -116,9 +111,9 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
         });
 
         it('Non ERC721As return false.', async function () {
-            const result1 = await _specCheckerInstance.connect(_owner).checkERC721(_testHarnessInstance.address);
-            const result2 = await _specCheckerInstance.connect(_owner).checkERC721(_specCheckerInstance.address);
-            const result3 = await _specCheckerInstance.connect(_owner).checkERC721(_mockERC1155Instance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC721(_testHarnessInstance.address);
+            const result2 = await _specCheckerInstance.connect(this.owner).checkERC721(_specCheckerInstance.address);
+            const result3 = await _specCheckerInstance.connect(this.owner).checkERC721(_mockERC1155Instance.address);
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -126,15 +121,15 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
         });
 
         it('Can validate ERC1155s.', async function () {
-            const result = await _specCheckerInstance.connect(_owner).checkERC1155(_mockERC1155Instance.address);
+            const result = await _specCheckerInstance.connect(this.owner).checkERC1155(_mockERC1155Instance.address);
 
             expect(result).to.equal(true);
         });
 
         it('Non ERC1155s return false.', async function () {
-            const result1 = await _specCheckerInstance.connect(_owner).checkERC1155(_testHarnessInstance.address);
-            const result2 = await _specCheckerInstance.connect(_owner).checkERC1155(_specCheckerInstance.address);
-            const result3 = await _specCheckerInstance.connect(_owner).checkERC1155(_mockERC721ABInstance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC1155(_testHarnessInstance.address);
+            const result2 = await _specCheckerInstance.connect(this.owner).checkERC1155(_specCheckerInstance.address);
+            const result3 = await _specCheckerInstance.connect(this.owner).checkERC1155(_mockERC721ABInstance.address);
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -143,16 +138,16 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
 
         it('Can validate ERC2981s.', async function () {
             const result = await _specCheckerInstance
-                .connect(_owner)
+                .connect(this.owner)
                 .checkERC2981(_mockERC721GoodRoyaltiesInstance.address);
 
             expect(result).to.equal(true);
         });
 
         it('Non ERC2981s return false.', async function () {
-            const result1 = await _specCheckerInstance.connect(_owner).checkERC2981(_testHarnessInstance.address);
-            const result2 = await _specCheckerInstance.connect(_owner).checkERC2981(_specCheckerInstance.address);
-            const result3 = await _specCheckerInstance.connect(_owner).checkERC2981(_mockERC721ABInstance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC2981(_testHarnessInstance.address);
+            const result2 = await _specCheckerInstance.connect(this.owner).checkERC2981(_specCheckerInstance.address);
+            const result3 = await _specCheckerInstance.connect(this.owner).checkERC2981(_mockERC721ABInstance.address);
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -161,22 +156,22 @@ describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
 
         it('Check Bad Implementations.', async function () {
             const resultBadAlpha721 = await _specCheckerInstance
-                .connect(_owner)
+                .connect(this.owner)
                 .checkERC721(_mockERC721BadARoyaltiesInstance.address);
             expect(resultBadAlpha721).to.equal(true); // Should return true, since alpha lists 721 as a superclass last.
 
             const resultBadBeta721 = await _specCheckerInstance
-                .connect(_owner)
+                .connect(this.owner)
                 .checkERC721(_mockERC721BadBRoyaltiesInstance.address);
             expect(resultBadBeta721).to.equal(false); // Should return false, since beta lists 721 as a superclass first.
 
             const resultBadAlpha2981 = await _specCheckerInstance
-                .connect(_owner)
+                .connect(this.owner)
                 .checkERC2981(_mockERC721BadARoyaltiesInstance.address);
             expect(resultBadAlpha2981).to.equal(false); // Should return false, since alpha lists 2981 as a superclass first.
 
             const resultBadBeta2981 = await _specCheckerInstance
-                .connect(_owner)
+                .connect(this.owner)
                 .checkERC2981(_mockERC721BadBRoyaltiesInstance.address);
             expect(resultBadBeta2981).to.equal(true); // Should return true, since beta lists 2981 as a superclass last.
         });
