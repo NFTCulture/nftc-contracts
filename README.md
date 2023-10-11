@@ -16,4 +16,16 @@ Feel free to reach out to us at https://discord.gg/nftculture, in 💾┃tech-an
 - [ ] NPM v9
 - [ ] NFTC Devs use VSCode, GitBash and Powershell on Windows. Most stuff is tested on Mac, but there might be issues.
 
-## 
+## Common Dev Tasks:
+
+1. Run the build
+    > npm run build
+
+2. Run the tests
+    > npm run test
+
+3. Run the tests and get a gas report
+    > npm run test:gas 
+
+4. Generate and view a test coverage report
+    > npm run test:coverage && npm run test:coverage:view
