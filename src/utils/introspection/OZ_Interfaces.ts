@@ -29,6 +29,7 @@ export const OZ_INTERFACES: { [k: string]: any } = {
         'safeTransferFrom(address,address,uint256,uint256,bytes)',
         'safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)'
     ],
+    ERC1155MetadataURI: ['uri(uint256)'],
     ERC1155Receiver: [
         'onERC1155Received(address,address,uint256,uint256,bytes)',
         'onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)'

@@ -5,44 +5,40 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 
 ## Version -- 1.5.next [Not published]
+- TODO
+
+
+## Version -- 1.5.7
 - Update license for 2023
 - update to typescript 5.2.2
 - cleanups to nftspecchecker test
-
+- add another value for ERC1155MetadataURI to OZ Interfaces
 
 ## Version -- 1.5.6
 - add exists method for ERC721SolBaseSupply
-
 
 ## Version -- 1.5.5
 - Unit tests for 721SolBase
 - Add CI build and test github actions.
 
-
 ## Version -- 1.5.4
 - Yet another ERC721SolBase improvement.
 
-
 ## Version -- 1.5.3
 - Tiny tweak to ERC721SolBaseSupply variable sizes.
-
 
 ## Version -- 1.5.2
 - Improve behavior of ERC721SolBaseSupply and add totalMinted tracking.
 - tiny hardhat config cleanups.
 
-
 ## Version -- 1.5.1
 - Add ERC721Metadata to 721 supports interfaces checks.
-
 
 ## Version -- 1.5.0
 - Bump version to pick up tiny HardhatHelpers fix, and linted code.
 
-
 ## Version -- 1.4.9 (Not published)
 - Apply linting and formatting changes.
-
 
 ## Version -- 1.4.8
 - Clean before build with shx, to prevent stale files showing up in package.
@@ -52,19 +48,15 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 - Plug in ESLint checks and Prettier formatting as a build step (but don't run yet)
 - Tighten up tsconfig strict settings.
 
-
 ## Version -- 1.4.7
 - SupportsInterface introspection tests now validate that appropriate functions exist to match ERC721 spec.
 - Implemented basic ERC165 checks for 721OZ, 721A and 721SolBase
 
-
 ## Version -- 1.4.6 (Not published)
 - Finish first pass at getting library hooks to work.
 
-
 ## Version -- 1.4.5 (Not published)
 - A minor conversion to typechain typings in test template and others.
-
 
 ## Version -- 1.4.4
 - Move dependencies to dev-dependencies.
@@ -76,16 +68,13 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 - refactor token folder structures
 - Add introspection util typescript code
 
-
 ## Version -- 1.4.3
 - Implement ERC721SolBaseBurnable extension contract.
 - Refactor of external ERC721 contracts into their own dedicated folders under the /token top level folder.
 
-
 ## Version -- 1.4.2
 - Add Solbase ERC721 since it isn't distributed via package managers (aka node)
 - Big non-impactful comment cleanup.
-
 
 ## Version -- 1.4.1
 - Bump minor dependencies
