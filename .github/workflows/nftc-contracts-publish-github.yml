@@ -16,8 +16,6 @@ jobs:
       with:
         node-version: '16.14'
         cache: 'npm'
-        registry-url: 'https://npm.pkg.github.com'
-        scope: '@nftculture'
 
     - name: Add .npmrc
       run: ./.github/workflows/npmrc.sh
@@ -49,6 +47,8 @@ jobs:
         with:
           node-version: '16.14'
           cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@nftculture'
 
       - name: Add .npmrc
         run: ./.github/workflows/npmrc.sh
@@ -57,6 +57,6 @@ jobs:
         run: npm ci
 
       - name: Publish Library
-        run: npm run publish:commit
         env:
           NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        run: npm run publish:commit
