@@ -1,9 +1,10 @@
 import { Contract } from '@ethersproject/contracts';
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
 import type * as ethers from 'ethers';
 import hre from 'hardhat';
+
+import { addHardhatSignersToContext } from '../../src';
 
 dotenv.config();
 
@@ -11,10 +12,6 @@ const CONTRACT_NAME = 'NFTCSplitsAndRoyaltiesTestHarness';
 
 let _testFactory: ethers.ContractFactory;
 let _testInstance: Contract;
-
-let _owner: SignerWithAddress;
-let _addr1: SignerWithAddress;
-let _addr3: SignerWithAddress;
 
 const _provider = hre.ethers.provider;
 
@@ -27,16 +24,9 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
     });
 
     beforeEach(async function () {
-        const [owner, addr1, addr2, addr3, ...addrs] = await hre.ethers.getSigners();
-
-        _owner = owner;
-        _addr1 = addr1;
-        _addr3 = addr3;
-
-        const addresses = [owner.address, addr1.address, addr2.address];
-
+        const signers = await hre.ethers.getSigners();
+        const addresses = [signers[0].address, signers[1].address, signers[2].address];
         const splits = [90, 5, 5];
-
         const aLargePayment = {
             value: hre.ethers.utils.parseEther('100'),
         };
@@ -50,84 +40,86 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         await _testInstance.deployed();
     });
 
+    addHardhatSignersToContext();
+
     context('Payment Splitter Tests', function () {
         it('Owner can send transfers.', async function () {
-            const currentBalance = await _provider.getBalance(_addr1.address);
+            const currentBalance = await _provider.getBalance(this.addr1.address);
 
-            await _testInstance.connect(_owner).release(_addr1.address);
+            await _testInstance.connect(this.owner).release(this.addr1.address);
 
             const addedBalance = hre.ethers.utils.parseEther('5');
             const expectedBalance = currentBalance.add(addedBalance);
 
-            expect(await _provider.getBalance(_addr1.address)).to.equal(expectedBalance);
+            expect(await _provider.getBalance(this.addr1.address)).to.equal(expectedBalance);
         });
 
         it('Self can get transfer.', async function () {
-            const currentBalance = await _provider.getBalance(_addr1.address);
+            const currentBalance = await _provider.getBalance(this.addr1.address);
 
-            await _testInstance.connect(_addr1).releaseToSelf();
+            await _testInstance.connect(this.addr1).releaseToSelf();
 
             const addedBalance = hre.ethers.utils.parseEther('4'); // have to account for gas.
             const expectedBalance = currentBalance.add(addedBalance);
 
-            expect(await _provider.getBalance(_addr1.address)).to.be.above(expectedBalance);
+            expect(await _provider.getBalance(this.addr1.address)).to.be.above(expectedBalance);
         });
 
         it('Unknown person cant trigger transfers.', async function () {
-            const currentBalance = await _provider.getBalance(_addr1.address);
+            const currentBalance = await _provider.getBalance(this.addr1.address);
 
-            await expect(_testInstance.connect(_addr3).release(_addr1.address)).to.be.reverted;
+            await expect(_testInstance.connect(this.addr3).release(this.addr1.address)).to.be.reverted;
 
-            expect(await _provider.getBalance(_addr1.address)).to.equal(currentBalance);
+            expect(await _provider.getBalance(this.addr1.address)).to.equal(currentBalance);
         });
 
         it('Unknown person does not receive money.', async function () {
-            const currentBalance = await _provider.getBalance(_addr3.address);
+            const currentBalance = await _provider.getBalance(this.addr3.address);
 
             await expect(
-                _testInstance.connect(_addr3).releaseToSelf()
+                _testInstance.connect(this.addr3).releaseToSelf()
             ).to.be.revertedWith('PaymentSplitter: no shares');
 
             // costs gas, balance should go down
-            expect(await _provider.getBalance(_addr3.address)).to.be.below(currentBalance);
+            expect(await _provider.getBalance(this.addr3.address)).to.be.below(currentBalance);
         });
 
         it('Zero address can\'t be used as new payee.', async function () {
             await expect(
-                _testInstance.connect(_addr1).transferPayee('0x0000000000000000000000000000000000000000')
+                _testInstance.connect(this.addr1).transferPayee('0x0000000000000000000000000000000000000000')
             ).to.be.revertedWith('PaymentSplitter: zero address');
         });
 
         it('Unknown person can\'t change payees.', async function () {
             // addr3 is not in the share list, can't set a new payee
             await expect(
-                _testInstance.connect(_addr3).transferPayee(_addr3.address)
+                _testInstance.connect(this.addr3).transferPayee(this.addr3.address)
             ).to.be.revertedWith('PaymentSplitter: no owned shares');
             // shares should still be 0
-            expect(await _testInstance.connect(_addr3).shares(_addr3.address)).to.equal(0);
+            expect(await _testInstance.connect(this.addr3).shares(this.addr3.address)).to.equal(0);
         });
 
         it('Address with existing shares can\'t be used as new payee.', async function () {
             await expect(
-                _testInstance.connect(_addr1).transferPayee(_owner.address)
+                _testInstance.connect(this.addr1).transferPayee(this.owner.address)
             ).to.be.revertedWith('PaymentSplitter: payee has shares');
         });
 
         it('Valid address can be used as new payee.', async function () {
             // transfer payee from addr1 to addr3 (5 shares)
-            await _testInstance.connect(_addr1).transferPayee(_addr3.address);
+            await _testInstance.connect(this.addr1).transferPayee(this.addr3.address);
             // total shares still 100
-            expect(await _testInstance.connect(_addr1).totalShares()).to.equal(100);
+            expect(await _testInstance.connect(this.addr1).totalShares()).to.equal(100);
             // shares of new payee should be 5 now
-            expect(await _testInstance.connect(_addr3).shares(_addr3.address)).to.equal(5);
+            expect(await _testInstance.connect(this.addr3).shares(this.addr3.address)).to.equal(5);
             // shares of original payee should be 0
-            expect(await _testInstance.connect(_addr1).shares(_addr1.address)).to.equal(0);
+            expect(await _testInstance.connect(this.addr1).shares(this.addr1.address)).to.equal(0);
         });
     });
 
     context('ERC2981 royalties tests', function () {
         it('Default royalties set properly.', async function () {
-            const royaltyInfo = await _testInstance.connect(_owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
+            const royaltyInfo = await _testInstance.connect(this.owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
 
             const expectedReceiver = _testInstance.address;
             const expectedRoyalty = hre.ethers.utils.parseEther('.0999');
@@ -137,11 +129,11 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         });
 
         it('Royalties can be updated.', async function () {
-            await _testInstance.connect(_owner).setDefaultRoyalty(_addr1.address, 500);
+            await _testInstance.connect(this.owner).setDefaultRoyalty(this.addr1.address, 500);
 
-            const royaltyInfo = await _testInstance.connect(_owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
+            const royaltyInfo = await _testInstance.connect(this.owner).royaltyInfo(1, hre.ethers.utils.parseEther('1'));
 
-            const expectedReceiver = _addr1.address;
+            const expectedReceiver = this.addr1.address;
             const expectedRoyalty = hre.ethers.utils.parseEther('.0500');
 
             expect(royaltyInfo[0]).to.equal(expectedReceiver);
@@ -149,7 +141,7 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
         });
 
         it('Unknown person cant change royalties.', async function () {
-            await expect(_testInstance.connect(_addr1).setDefaultRoyalty(_addr1.address, 500)).to.be.revertedWith(
+            await expect(_testInstance.connect(this.addr1).setDefaultRoyalty(this.addr1.address, 500)).to.be.revertedWith(
                 'Ownable: caller is not the owner'
             );
         });
