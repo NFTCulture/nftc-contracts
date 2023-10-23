@@ -6,6 +6,13 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 ## Version -- 1.5.next [Not published]
 - TODO
+- disable some non-concerning "any" linting warnings.
+
+## Version -- 1.5.11
+- Improve skipIfDefault check.
+
+## Version -- 1.5.10
+- Add mocha helpers
 - another round of test cleanups
 
 ## Version -- 1.5.9

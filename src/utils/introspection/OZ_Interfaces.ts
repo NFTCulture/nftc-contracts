@@ -4,8 +4,11 @@
 
 import { ERC165 } from './makeInterfaceId';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const OZ_FN_SIGNATURES: { [k: string]: any } = {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const OZ_INTERFACE_IDS: { [k: string]: any } = {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const OZ_INTERFACES: { [k: string]: any } = {
     ERC165: ['supportsInterface(bytes4)'],
     ERC721: [
