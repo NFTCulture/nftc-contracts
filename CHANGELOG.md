@@ -7,6 +7,9 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 ## Version -- 1.5.next [Not published]
 - TODO
 
+## Version -- 1.5.13
+- Implement shared baseURI tests.
+
 ## Version -- 1.5.12
 - disable some non-concerning "any" linting warnings.
 - refactor folder structure of tests, to make separate homes for solidity vs. typescript.

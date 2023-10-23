@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import { skipIfDefault } from '../../for-tests';
 
-export function shouldDefinePayees(contractName: string, expectedPayeesFn: () => Promise<string[]>) {
+export function shouldDefinePayees(contractName: string, expectedPayeesFn: () => Promise<(string | null)[]>) {
     describe(`Royalty payees for ${contractName}:`, function () {
         beforeEach(async function () {
             expect(this).to.have.property('contractUnderTest'); // Must be set in caller
@@ -32,12 +32,12 @@ export function shouldDefinePayees(contractName: string, expectedPayeesFn: () =>
             });
 
             it('as expected.', async function () {
-                const placeholderValue = '0xabcd';
+                const placeholderValue = '0xabcd'; // Used if expectedPayees[idx] is null.
 
                 for (let idx = 0; idx < this.expectedPayees.length; idx++) {
                     const payeeCurrent = await this.contractUnderTest.payee(idx);
-                    const valueSetInContract = this.expectedPayees[idx];
-                    const payeeCurrentIsCorrect = payeeCurrent.toString() === (valueSetInContract ?? placeholderValue);
+                    const payeeCurrentIsCorrect =
+                        payeeCurrent.toString() === (this.expectedPayees[idx] ?? placeholderValue);
 
                     const defaultConfigurationCheck = payeeCurrentIsCorrect;
                     expect(skipIfDefault(this, defaultConfigurationCheck)).to.equal(true);
