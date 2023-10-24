@@ -13,7 +13,7 @@ let _testHarnessContractFactory: MockERC721SolBase__factory;
 let _testHarnessInstance: MockERC721SolBase;
 
 // Start test block
-describe(`Basic ERC721SolBase Contract Validation Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
         _testHarnessContractFactory = (await hre.ethers.getContractFactory(
             TESTHARNESS_CONTRACT_NAME

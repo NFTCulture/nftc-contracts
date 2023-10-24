@@ -37,7 +37,7 @@ let _mockERC721BadARoyaltiesInstance: Contract;
 let _mockERC721BadBRoyaltiesInstance: Contract;
 
 // Start test block
-describe(`${SPEC_CHECKER_CONTRACT_NAME} Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
         _testHarnessContractFactory = await hre.ethers.getContractFactory(TESTHARNESS_CONTRACT_NAME);
         _specCheckerContractFactory = await hre.ethers.getContractFactory(SPEC_CHECKER_CONTRACT_NAME);

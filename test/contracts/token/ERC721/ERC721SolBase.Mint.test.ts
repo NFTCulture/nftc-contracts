@@ -7,16 +7,16 @@ import { MockERC721SolBase, MockERC721SolBase__factory } from '../../../../typec
 
 dotenv.config();
 
-const ERC721A_DELEGATE_MINTER_CONTRACT_NAME = 'MockERC721SolBase';
+const TESTHARNESS_CONTRACT_NAME = 'MockERC721SolBase';
 
 let _testHarnessContractFactory: MockERC721SolBase__factory;
 let _testHarnessInstance: MockERC721SolBase;
 
 // Start test block
-describe(`token/v3/${ERC721A_DELEGATE_MINTER_CONTRACT_NAME} Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
         _testHarnessContractFactory = (await hre.ethers.getContractFactory(
-            ERC721A_DELEGATE_MINTER_CONTRACT_NAME
+            TESTHARNESS_CONTRACT_NAME
         )) as MockERC721SolBase__factory;
     });
 

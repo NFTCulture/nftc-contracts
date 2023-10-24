@@ -14,7 +14,7 @@ let _testHarnessContractFactory: AuxHelperTestHarness__factory;
 let _testHarnessInstance: AuxHelperTestHarness;
 
 // Start test block
-describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
         const contractUnderTest = TESTHARNESS_CONTRACT_NAME;
 

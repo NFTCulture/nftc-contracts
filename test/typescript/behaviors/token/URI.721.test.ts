@@ -15,7 +15,7 @@ let _testHarnessInstance: MockERC721SolBase;
 const ERC721BaseURI = 'https://nftculture.mypinata.cloud/ipfs/Qm000abcdefghijkl/';
 
 // Start test block
-describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
         _testHarnessContractFactory = await hre.ethers.getContractFactory(TESTHARNESS_CONTRACT_NAME);
     });

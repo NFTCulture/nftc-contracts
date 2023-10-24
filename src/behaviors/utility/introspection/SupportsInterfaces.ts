@@ -10,7 +10,7 @@ import { ERC165 } from '../../../for-tests/utils/introspection/makeInterfaceId';
 const INVALID_ID = '0xffffffff';
 
 export function shouldSupportInterfaces(contractName: string, interfaces: string[] = []) {
-    describe(`${contractName} supports interfaces ${interfaces.join(', ')}...`, function () {
+    describe(`Contract ${contractName} shouldSupportInterfaces ${interfaces.join(', ')}:`, function () {
         before(async function () {
             // TODO?
         });

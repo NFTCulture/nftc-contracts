@@ -15,7 +15,7 @@ let _testHarnessInstance: MockERC1155ConfigurableURI;
 const ERC1155URI = 'https://nftculture.mypinata.com/ipfs/Qm000abcdefghijkl/{id}.json';
 
 // Start test block
-describe(`${TESTHARNESS_CONTRACT_NAME} Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
         _testHarnessContractFactory = await hre.ethers.getContractFactory(TESTHARNESS_CONTRACT_NAME);
     });

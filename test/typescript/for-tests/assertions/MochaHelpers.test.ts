@@ -12,7 +12,7 @@ const TESTHARNESS_CONTRACT_NAME = 'TemplateTestHarness';
 let _testHarnessContractFactory: TemplateTestHarness__factory;
 let _testHarnessInstance: TemplateTestHarness;
 
-describe(`Mocha Helpers Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
         const contractName = TESTHARNESS_CONTRACT_NAME;
 

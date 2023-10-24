@@ -8,17 +8,15 @@ import { addHardhatSignersToContext } from '../../../src';
 
 dotenv.config();
 
-const CONTRACT_NAME = 'MockERC721AWithRoyaltiesExtended';
+const TESTHARNESS_CONTRACT_NAME = 'MockERC721AWithRoyaltiesExtended';
 
 let _testFactory: ethers.ContractFactory;
 let _testInstance: Contract;
 
 // Start test block
-describe(`${CONTRACT_NAME} Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        const contractName = CONTRACT_NAME;
-
-        _testFactory = await hre.ethers.getContractFactory(contractName);
+        _testFactory = await hre.ethers.getContractFactory(TESTHARNESS_CONTRACT_NAME);
     });
 
     beforeEach(async function () {

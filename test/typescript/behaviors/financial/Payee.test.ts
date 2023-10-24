@@ -6,15 +6,15 @@ import { NFTCSplitsAndRoyaltiesMock, NFTCSplitsAndRoyaltiesMock__factory } from 
 
 dotenv.config();
 
-const CONTRACT_NAME = 'NFTCSplitsAndRoyaltiesMock';
+const TESTHARNESS_CONTRACT_NAME = 'NFTCSplitsAndRoyaltiesMock';
 
 let _testFactory: NFTCSplitsAndRoyaltiesMock__factory;
 let _testInstance: NFTCSplitsAndRoyaltiesMock;
 
 // Start test block
-describe(`${CONTRACT_NAME} Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        const contractName = CONTRACT_NAME;
+        const contractName = TESTHARNESS_CONTRACT_NAME;
 
         _testFactory = await hre.ethers.getContractFactory(contractName);
     });
@@ -34,5 +34,5 @@ describe(`${CONTRACT_NAME} Unit Tests`, function () {
 
     addHardhatSignersToContext();
 
-    shouldDefinePayees(CONTRACT_NAME, async () => await getDefaultHardhatAddresses());
+    shouldDefinePayees(TESTHARNESS_CONTRACT_NAME, async () => await getDefaultHardhatAddresses());
 });

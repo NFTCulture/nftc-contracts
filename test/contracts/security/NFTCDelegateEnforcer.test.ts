@@ -18,7 +18,7 @@ dotenv.config();
 chai.should();
 chai.use(smock.matchers);
 
-const CONTRACT_NAME = 'MockNFTCDelegateEnforcer';
+const TESTHARNESS_CONTRACT_NAME = 'MockNFTCDelegateEnforcer';
 type testHarnessFactoryType = MockNFTCDelegateEnforcer__factory;
 type testHarnessInstanceType = MockNFTCDelegateEnforcer;
 let _testFactory: testHarnessFactoryType;
@@ -32,9 +32,9 @@ let _delegationRegistryFactory: delegationRegistryFactoryType;
 let _fakeDelegationRegistryInstance: FakeContract<delegationRegistryInstanceType>;
 
 // Start test block
-describe(`${CONTRACT_NAME} Unit Tests`, function () {
+describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        const contractName = CONTRACT_NAME;
+        const contractName = TESTHARNESS_CONTRACT_NAME;
 
         _testFactory = (await hre.ethers.getContractFactory(contractName)) as testHarnessFactoryType;
 
