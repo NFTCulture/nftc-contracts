@@ -7,6 +7,7 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 ## Version -- 1.5.next [Not published]
 - TODO
 - Improved Test Titles
+- add sinon for mocking stuff, not sure if will use it yet. want to stay in sync with other nftc projects
 
 ## Version -- 1.5.14
 - Implement shared 1155URI tests.
