@@ -34,7 +34,7 @@ abstract contract ERC7572_ContractMetadata {
         _setContractURI(__contractUri);
     }
 
-    function _setContractURI(string calldata __contractUri) internal {
+    function _setContractURI(string memory __contractUri) internal {
         _contractURI = __contractUri;
     }
 

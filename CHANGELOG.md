@@ -6,8 +6,9 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 ## Version -- 1.5.next [Not published]
 - TODO
-- Improved Test Titles
-- add sinon for mocking stuff, not sure if will use it yet. want to stay in sync with other nftc projects
+
+## Version -- 1.5.16
+- alter internal method signature in contract metadata class.
 
 ## Version -- 1.5.15
 - Update OZ version to 4.9.5
@@ -18,6 +19,8 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 ## Version -- 1.5.13
 - Implement shared baseURI tests.
+- Improved Test Titles
+- add sinon for mocking stuff, not sure if will use it yet. want to stay in sync with other nftc projects
 
 ## Version -- 1.5.12
 - disable some non-concerning "any" linting warnings.
