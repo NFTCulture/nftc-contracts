@@ -1,6 +1,6 @@
 {
     "name": "@nftculture/nftc-contracts",
-    "version": "1.5.14",
+    "version": "1.5.15",
     "description": "NFTCulture Open Source Contracts Project",
     "author": "@NFTCulture",
     "license": "MIT",
@@ -30,7 +30,7 @@
     "devDependencies": {
         "@defi-wonderland/smock": "^2.3.5",
         "@nomicfoundation/hardhat-toolbox": "^2.0.2",
-        "@openzeppelin/contracts": "^4.9.3",
+        "@openzeppelin/contracts": "^4.9.5",
         "@types/sinon": "^17.0.2",
         "@typescript-eslint/eslint-plugin": "^5.51.0",
         "@typescript-eslint/parser": "^5.51.0",

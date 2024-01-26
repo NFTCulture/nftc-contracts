@@ -9,6 +9,10 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 - Improved Test Titles
 - add sinon for mocking stuff, not sure if will use it yet. want to stay in sync with other nftc projects
 
+## Version -- 1.5.15
+- Update OZ version to 4.9.5
+- Implement basic ERC7572 contract metadata base class and tests.
+
 ## Version -- 1.5.14
 - Implement shared 1155URI tests.
 
