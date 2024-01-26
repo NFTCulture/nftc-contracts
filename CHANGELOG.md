@@ -7,6 +7,11 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 ## Version -- 1.5.next [Not published]
 - TODO
 
+## Version -- 1.5.17
+- attempt to improve erc7572 implementation.
+- add additional unit tests to nft spec checker to validate interface codes
+- add ERC7572 compliance to nftspecchecker
+
 ## Version -- 1.5.16
 - alter internal method signature in contract metadata class.
 

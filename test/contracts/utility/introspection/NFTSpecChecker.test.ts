@@ -18,6 +18,8 @@ const MOCK_E721GoodRoyalties_CONTRACT_NAME = 'MockERC721AWithRoyaltiesGood';
 const MOCK_E721BadARoyalties_CONTRACT_NAME = 'MockERC721AWithRoyaltiesBadAlpha';
 const MOCK_E721BadBRoyalties_CONTRACT_NAME = 'MockERC721AWithRoyaltiesBadBeta';
 
+const MockERC7572_ContractMetadata = 'MockERC7572_ContractMetadata';
+
 let _testHarnessContractFactory: ethers.ContractFactory;
 let _specCheckerContractFactory: ethers.ContractFactory;
 let _mockERC20ContractFactory: ethers.ContractFactory;
@@ -26,6 +28,7 @@ let _mockERC1155ContractFactory: ethers.ContractFactory;
 let _mockERC721GoodRoyaltiesContractFactory: ethers.ContractFactory;
 let _mockERC721BadARoyaltiesContractFactory: ethers.ContractFactory;
 let _mockERC721BadBRoyaltiesContractFactory: ethers.ContractFactory;
+let _mockERC7572_ContractMetadataFactory: ethers.ContractFactory;
 
 let _testHarnessInstance: Contract;
 let _specCheckerInstance: Contract;
@@ -35,6 +38,7 @@ let _mockERC1155Instance: Contract;
 let _mockERC721GoodRoyaltiesInstance: Contract;
 let _mockERC721BadARoyaltiesInstance: Contract;
 let _mockERC721BadBRoyaltiesInstance: Contract;
+let _mockERC7572_ContractMetadataInstance: Contract;
 
 // Start test block
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
@@ -54,6 +58,8 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         _mockERC721BadBRoyaltiesContractFactory = await hre.ethers.getContractFactory(
             MOCK_E721BadBRoyalties_CONTRACT_NAME
         );
+
+        _mockERC7572_ContractMetadataFactory = await hre.ethers.getContractFactory(MockERC7572_ContractMetadata);
     });
 
     beforeEach(async function () {
@@ -76,11 +82,31 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         await _mockERC721GoodRoyaltiesInstance.deployed();
         await _mockERC721BadARoyaltiesInstance.deployed();
         await _mockERC721BadBRoyaltiesInstance.deployed();
+
+        _mockERC7572_ContractMetadataInstance = await _mockERC7572_ContractMetadataFactory.deploy();
+        await _mockERC7572_ContractMetadataInstance.deployed();
     });
 
     addHardhatSignersToContext();
 
     context('Spec Checker:', function () {
+        it('uses valid interface codes', async function () {
+            const erc20Code = await _specCheckerInstance.connect(this.owner).getERC20Code();
+            expect(erc20Code).to.equal('0x36372b07');
+
+            const erc721Code = await _specCheckerInstance.connect(this.owner).getERC721Code();
+            expect(erc721Code).to.equal('0x80ac58cd');
+
+            const erc1155Code = await _specCheckerInstance.connect(this.owner).getERC1155Code();
+            expect(erc1155Code).to.equal('0xd9b67a26');
+
+            const erc2981Code = await _specCheckerInstance.connect(this.owner).getERC2981Code();
+            expect(erc2981Code).to.equal('0x2a55205a');
+
+            const erc7572Code = await _specCheckerInstance.connect(this.owner).getERC7572Code();
+            expect(erc7572Code).to.equal('0xe8a3d485');
+        });
+
         it.skip('can validate ERC20s.', async function () {
             // NOTE: Technically OZ ERC20 doesn't implement ERC165. Hopefully at some point they fix this.
             const result = await _specCheckerInstance.connect(this.owner).checkERC20(_mockERC20Instance.address);
@@ -172,6 +198,14 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
                 .connect(this.owner)
                 .checkERC2981(_mockERC721BadBRoyaltiesInstance.address);
             expect(resultBadBeta2981).to.equal(true); // Should return true, since beta lists 2981 as a superclass last.
+        });
+
+        it('can validate ERC7572s.', async function () {
+            const result = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC7572(_mockERC7572_ContractMetadataInstance.address);
+
+            expect(result).to.equal(true);
         });
     });
 });

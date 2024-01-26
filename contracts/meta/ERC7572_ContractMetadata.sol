@@ -1,6 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
+// Local References
+import './IERC7572.sol';
+
+// OZ References
+import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
+
 /**
  * @title ERC7572_ContractMetadata
  * @author @NiftyMike | @NFTCulture
@@ -8,7 +14,7 @@ pragma solidity ^0.8.11;
  * external marketplaces via IPFS. This approach can be used to provide out-of-the-box
  * pretty metadata on contract deployment.
  */
-abstract contract ERC7572_ContractMetadata {
+abstract contract ERC7572_ContractMetadata is IERC7572, ERC165 {
     string private _contractURI;
 
     /**
@@ -20,11 +26,11 @@ abstract contract ERC7572_ContractMetadata {
      *
      * - Native IPFS Addressing: "ipfs://QmTNgv3jx2HHfBjQX9RnKtxj2xv2xQDtbVXoRi5rJ3a46e"
      * - Link to a JSON file: "https://external-link-url.com/my-contract-metadata.json"
-     * - Encoded in Contract:
-     *      string memory json = '{"name": "Opensea Creatures","description":"..."}';
+     * - OnChain/Encoded in Contract:
+     *      string memory json = '{"name": "Creatures","description":"..."}';
      *      return string.concat("data:application/json;utf8,", json);
      */
-    function contractURI() external view returns (string memory) {
+    function contractURI() external view override returns (string memory) {
         return _contractURI;
     }
 
@@ -36,6 +42,15 @@ abstract contract ERC7572_ContractMetadata {
 
     function _setContractURI(string memory __contractUri) internal {
         _contractURI = __contractUri;
+
+        emit ContractURIUpdated();
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165) returns (bool) {
+        return interfaceId == type(IERC7572).interfaceId || super.supportsInterface(interfaceId);
     }
 
     function _isOwner() internal view virtual;
