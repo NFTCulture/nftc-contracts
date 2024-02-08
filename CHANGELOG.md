@@ -6,7 +6,11 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 ## Version -- 1.5.next [Not published]
 - TODO
+
+
+## Version -- 1.5.19
 - package lock cleanup
+- add internal getter to erc7572 impl.
 
 ## Version -- 1.5.18
 - Add manifold marketplace API interfaces

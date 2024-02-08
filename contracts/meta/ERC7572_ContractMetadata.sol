@@ -46,6 +46,10 @@ abstract contract ERC7572_ContractMetadata is IERC7572, ERC165 {
         emit ContractURIUpdated();
     }
 
+    function _getContractURI() internal view returns (string memory) {
+        return _contractURI;
+    }
+
     /**
      * @dev See {IERC165-supportsInterface}.
      */
