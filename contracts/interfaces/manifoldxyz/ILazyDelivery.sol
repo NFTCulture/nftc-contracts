@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: MIT
-// Lifted from: https://github.com/delegatecash/delegation-registry/blob/main/src/IDelegationRegistry.sol
 pragma solidity ^0.8.11;
 
 interface ILazyDelivery {
