@@ -29,17 +29,17 @@ contract NFTSpecChecker {
     bytes4 constant _ERC165_CONTRACT = type(IERC165).interfaceId;
 
     /// @dev See {ERC165Checker-supportsInterface}
-    ///> 0x36372b07
+    ///> 0x36372b07 / 0xa219a025
     bytes4 constant _ERC20_CONTRACT = type(IERC20).interfaceId;
     bytes4 constant _ERC20_CONTRACT_METADATA = type(IERC20Metadata).interfaceId;
 
     /// @dev See {ERC165Checker-supportsInterface}
-    ///> 0x80ac58cd
+    ///> 0x80ac58cd / 0x5b5e139f
     bytes4 constant _ERC721_CONTRACT = type(IERC721).interfaceId;
     bytes4 constant _ERC721_CONTRACT_METADATA = type(IERC721Metadata).interfaceId;
 
     /// @dev See {ERC165Checker-supportsInterface}
-    ///> 0xd9b67a26
+    ///> 0xd9b67a26 / 0x0e89341c
     bytes4 constant _ERC1155_CONTRACT = type(IERC1155).interfaceId;
     bytes4 constant _ERC1155_CONTRACT_METADATA_URI = type(IERC1155MetadataURI).interfaceId;
 
@@ -56,8 +56,8 @@ contract NFTSpecChecker {
             _checkContract(targetContract, _ERC20_CONTRACT) && _checkContract(targetContract, _ERC20_CONTRACT_METADATA);
     }
 
-    function getERC20Code() external pure returns (string memory) {
-        return bytes4ToString(_ERC20_CONTRACT);
+    function getERC20Codes() external pure returns (string memory, string memory) {
+        return (bytes4ToString(_ERC20_CONTRACT), bytes4ToString(_ERC20_CONTRACT_METADATA));
     }
 
     function checkERC721(address targetContract) external view returns (bool) {
@@ -66,8 +66,8 @@ contract NFTSpecChecker {
             _checkContract(targetContract, _ERC721_CONTRACT_METADATA);
     }
 
-    function getERC721Code() external pure returns (string memory) {
-        return bytes4ToString(_ERC721_CONTRACT);
+    function getERC721Codes() external pure returns (string memory, string memory) {
+        return (bytes4ToString(_ERC721_CONTRACT), bytes4ToString(_ERC721_CONTRACT_METADATA));
     }
 
     function checkERC1155(address targetContract) external view returns (bool) {
@@ -76,8 +76,8 @@ contract NFTSpecChecker {
             _checkContract(targetContract, _ERC1155_CONTRACT_METADATA_URI);
     }
 
-    function getERC1155Code() external pure returns (string memory) {
-        return bytes4ToString(_ERC1155_CONTRACT);
+    function getERC1155Codes() external pure returns (string memory, string memory) {
+        return (bytes4ToString(_ERC1155_CONTRACT), bytes4ToString(_ERC1155_CONTRACT_METADATA_URI));
     }
 
     function checkERC2981(address targetContract) external view returns (bool) {

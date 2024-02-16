@@ -10,7 +10,7 @@ dotenv.config();
 
 const TESTHARNESS_CONTRACT_NAME = 'TemplateTestHarness';
 const SPEC_CHECKER_CONTRACT_NAME = 'NFTSpecChecker';
-const MOCK_E20_CONTRACT_NAME = 'MockERC20';
+const MOCK_E20_CONTRACT_NAME = 'MockERC20_165';
 const MOCK_E721AB_CONTRACT_NAME = 'MockERC721ABurnable';
 const MOCK_E1155_CONTRACT_NAME = 'MockERC1155';
 
@@ -91,14 +91,17 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
 
     context('Spec Checker:', function () {
         it('uses valid interface codes', async function () {
-            const erc20Code = await _specCheckerInstance.connect(this.owner).getERC20Code();
+            const [erc20Code, erc20MetadataCode] = await _specCheckerInstance.connect(this.owner).getERC20Codes();
             expect(erc20Code).to.equal('0x36372b07');
+            expect(erc20MetadataCode).to.equal('0xa219a025');
 
-            const erc721Code = await _specCheckerInstance.connect(this.owner).getERC721Code();
+            const [erc721Code, erc721MetadataCode] = await _specCheckerInstance.connect(this.owner).getERC721Codes();
             expect(erc721Code).to.equal('0x80ac58cd');
+            expect(erc721MetadataCode).to.equal('0x5b5e139f');
 
-            const erc1155Code = await _specCheckerInstance.connect(this.owner).getERC1155Code();
+            const [erc1155Code, erc1155MetadataCode] = await _specCheckerInstance.connect(this.owner).getERC1155Codes();
             expect(erc1155Code).to.equal('0xd9b67a26');
+            expect(erc1155MetadataCode).to.equal('0x0e89341c');
 
             const erc2981Code = await _specCheckerInstance.connect(this.owner).getERC2981Code();
             expect(erc2981Code).to.equal('0x2a55205a');
@@ -107,7 +110,7 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
             expect(erc7572Code).to.equal('0xe8a3d485');
         });
 
-        it.skip('can validate ERC20s.', async function () {
+        it('can validate ERC20s.', async function () {
             // NOTE: Technically OZ ERC20 doesn't implement ERC165. Hopefully at some point they fix this.
             const result = await _specCheckerInstance.connect(this.owner).checkERC20(_mockERC20Instance.address);
 
