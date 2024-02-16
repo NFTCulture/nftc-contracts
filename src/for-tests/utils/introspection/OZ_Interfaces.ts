@@ -11,6 +11,15 @@ export const OZ_INTERFACE_IDS: { [k: string]: any } = {};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const OZ_INTERFACES: { [k: string]: any } = {
     ERC165: ['supportsInterface(bytes4)'],
+    ERC20: [
+        'totalSupply()',
+        'balanceOf(address)',
+        'transfer(address,uint256)',
+        'allowance(address,address)',
+        'approve(address,uint256)',
+        'transferFrom(address,address,uint256)'
+    ],
+    ERC20Metadata: ['name()', 'symbol()', 'decimals()'],
     ERC721: [
         'balanceOf(address)',
         'ownerOf(uint256)',

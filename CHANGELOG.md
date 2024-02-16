@@ -6,6 +6,9 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 ## Version -- 1.5.next [Not published]
 - TODO
+- Add ERC20 interfaces to the OZ Interface definition 
+- also write supports interface test for ERC20_165 Mock.
+
 
 ## Version -- 1.5.20
 - Implement ERC165 compliant version of ERC20.
