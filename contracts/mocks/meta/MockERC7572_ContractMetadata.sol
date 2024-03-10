@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.21;
 
 // Local References
 import '../../meta/ERC7572_ContractMetadata.sol';

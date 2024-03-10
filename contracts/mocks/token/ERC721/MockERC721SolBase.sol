@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.21;
 
 // ERC721 from Sol-DAO/solbase, Packaged within NFTC Open Source Libraries.
 // See: https://github.com/NFTCulture/nftc-contracts/blob/main/contracts/token/solbase/ERC721/ERC721.sol
