@@ -9,7 +9,7 @@ console.warn(`Include gas summary: ${REPORT_GAS}.`);
 
 const config: HardhatUserConfig = {
     solidity: {
-        version: '0.8.19',
+        version: '0.8.21',
         settings: {
             optimizer: {
                 enabled: true,
