@@ -159,8 +159,8 @@ abstract contract NFTCPaymentSplitterBase is Context {
     }
 
     /**
-     * @dev Allows owner to transfer their shares to somebody else; it can only be called by of a share.
-     * @notice Owner: Release funds to a specific address.
+     * @dev Allows payee to transfer their shares to somebody else; it can only be called by owner of a share.
+     * @notice Payee: transfer payee to a new address.
      *
      * @param newOwner Payable address which has no shares and will receive the shares of the current owner.
      */
