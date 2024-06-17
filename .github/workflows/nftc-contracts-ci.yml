@@ -29,6 +29,15 @@ jobs:
     - name: Add .npmrc
       run: ./.github/workflows/npmrc.sh
 
+    - name: Copy local solc cache
+      run: |
+        mkdir -p ~/.cache/hardhat-nodejs/Cache/compilers/linux-amd64
+        cp .solc_cache/list.json ~/.cache/hardhat-nodejs/Cache/compilers/linux-amd64/
+        cp .solc_cache/solc-linux-amd64-v0.8.21+commit.d9974bed ~/.cache/hardhat-nodejs/Cache/compilers/linux-amd64/solc-linux-amd64-v0.8.21+commit.d9974bed
+
+    - name: Make solc executable
+      run: chmod +x ~/.cache/hardhat-nodejs/Cache/compilers/linux-amd64/solc-linux-amd64-v0.8.21+commit.d9974bed
+
     - name: Clean install
       run: npm ci
 
