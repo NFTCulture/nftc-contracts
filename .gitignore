@@ -4,8 +4,9 @@
 # Node And Stuff
 /node_modules
 **/.nyc_output
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Visual Studio Code
 .vscode/*
