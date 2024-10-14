@@ -36,7 +36,7 @@ abstract contract ERC721ContractMetadata_NFTC is
      */
     function supportsInterface(
         bytes4 interfaceId
-    ) public view override(ERC721A, IERC165, IERC721A) returns (bool) {
+    ) public virtual view override(ERC721A, IERC165, IERC721A) returns (bool) {
         return
             interfaceId == type(IERC721A).interfaceId ||
             interfaceId == type(IERC721ABurnable).interfaceId ||
