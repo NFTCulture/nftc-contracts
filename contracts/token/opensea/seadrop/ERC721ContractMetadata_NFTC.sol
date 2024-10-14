@@ -206,4 +206,17 @@ abstract contract ERC721ContractMetadata_NFTC is
     function royaltyBasisPoints() external pure returns (uint256) {
         return 0;
     }
+
+    /**
+     * @dev Internal pure function to cast a `bool` value to a `uint256` value.
+     *
+     * @param b The `bool` value to cast.
+     *
+     * @return u The `uint256` value.
+     */
+    function _cast(bool b) internal pure returns (uint256 u) {
+        assembly {
+            u := b
+        }
+    }
 }
