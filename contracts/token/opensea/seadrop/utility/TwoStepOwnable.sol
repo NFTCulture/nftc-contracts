@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
 
-import {ConstructorInitializable} from './ConstructorInitializable.sol';
+import {ConstructorInitializable} from "./ConstructorInitializable.sol";
 
 /**
 @notice A two-step extension of Ownable, where the new owner must claim ownership of the contract after owner initiates transfer
@@ -11,7 +11,10 @@ Helpful in guarding against transferring ownership to an address that is unable 
 abstract contract TwoStepOwnable is ConstructorInitializable {
     address private _owner;
 
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
 
     address internal potentialOwner;
 
@@ -36,7 +39,11 @@ abstract contract TwoStepOwnable is ConstructorInitializable {
 
     ///@notice Initiate ownership transfer to newPotentialOwner. Note: new owner will have to manually acceptOwnership
     ///@param newPotentialOwner address of potential new owner
-    function transferOwnership(address newPotentialOwner) public virtual onlyOwner {
+    function transferOwnership(address newPotentialOwner)
+        public
+        virtual
+        onlyOwner
+    {
         if (newPotentialOwner == address(0)) {
             revert NewOwnerIsZeroAddress();
         }

@@ -1,15 +1,30 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import {ISeaDropTokenContractMetadata} from './interfaces/ISeaDropTokenContractMetadata.sol';
+import {
+    ISeaDropTokenContractMetadata
+} from "./interfaces/ISeaDropTokenContractMetadata.sol";
 
-import {ERC721A} from 'erc721a/contracts/ERC721A.sol';
+import { ERC721A } from "erc721a/contracts/ERC721A.sol";
 
-import {TwoStepOwnable} from './utility-contracts/TwoStepOwnable.sol';
+import { ERC721AConduitPreapproved } from "./lib/ERC721AConduitPreapproved.sol";
 
-import {IERC2981} from '@openzeppelin/contracts/interfaces/IERC2981.sol';
+import { ERC721TransferValidator } from "./lib/ERC721TransferValidator.sol";
 
-import {IERC165} from '@openzeppelin/contracts/utils/introspection/IERC165.sol';
+import {
+    ICreatorToken,
+    ILegacyCreatorToken
+} from "./interfaces/ICreatorToken.sol";
+
+import { ITransferValidator721 } from "./interfaces/ITransferValidator.sol";
+
+import { TwoStepOwnable } from "./utility/TwoStepOwnable.sol";
+
+import { IERC2981 } from "@openzeppelin/contracts/interfaces/IERC2981.sol";
+
+import {
+    IERC165
+} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 
 /**
  * @title  ERC721ContractMetadata
@@ -19,7 +34,12 @@ import {IERC165} from '@openzeppelin/contracts/utils/introspection/IERC165.sol';
  * @notice ERC721ContractMetadata is a token contract that extends ERC721A
  *         with additional metadata and ownership capabilities.
  */
-contract ERC721ContractMetadata is ERC721A, TwoStepOwnable, ISeaDropTokenContractMetadata {
+contract ERC721ContractMetadata is
+    ERC721AConduitPreapproved,
+    ERC721TransferValidator,
+    TwoStepOwnable,
+    ISeaDropTokenContractMetadata
+{
     /// @notice Track the max supply.
     uint256 _maxSupply;
 
@@ -43,7 +63,10 @@ contract ERC721ContractMetadata is ERC721A, TwoStepOwnable, ISeaDropTokenContrac
      *      to save contract space from being inlined N times.
      */
     function _onlyOwnerOrSelf() internal view {
-        if (_cast(msg.sender == owner()) | _cast(msg.sender == address(this)) == 0) {
+        if (
+            _cast(msg.sender == owner()) | _cast(msg.sender == address(this)) ==
+            0
+        ) {
             revert OnlyOwner();
         }
     }
@@ -51,7 +74,9 @@ contract ERC721ContractMetadata is ERC721A, TwoStepOwnable, ISeaDropTokenContrac
     /**
      * @notice Deploy the token contract with its name and symbol.
      */
-    constructor(string memory name, string memory symbol) ERC721A(name, symbol) {}
+    constructor(string memory name, string memory symbol)
+        ERC721AConduitPreapproved(name, symbol)
+    {}
 
     /**
      * @notice Sets the base URI for the token metadata and emits an event.
@@ -94,7 +119,9 @@ contract ERC721ContractMetadata is ERC721A, TwoStepOwnable, ISeaDropTokenContrac
      * @param fromTokenId The start token id.
      * @param toTokenId   The end token id.
      */
-    function emitBatchMetadataUpdate(uint256 fromTokenId, uint256 toTokenId) external {
+    function emitBatchMetadataUpdate(uint256 fromTokenId, uint256 toTokenId)
+        external
+    {
         // Ensure the sender is only the owner or contract itself.
         _onlyOwnerOrSelf();
 
@@ -112,8 +139,16 @@ contract ERC721ContractMetadata is ERC721A, TwoStepOwnable, ISeaDropTokenContrac
         _onlyOwnerOrSelf();
 
         // Ensure the max supply does not exceed the maximum value of uint64.
-        if (newMaxSupply > 2 ** 64 - 1) {
+        if (newMaxSupply > 2**64 - 1) {
             revert CannotExceedMaxSupplyOfUint64(newMaxSupply);
+        }
+
+        // Ensure the max supply does not exceed the total minted.
+        if (newMaxSupply < _totalMinted()) {
+            revert NewMaxSupplyCannotBeLessThenTotalMinted(
+                newMaxSupply,
+                _totalMinted()
+            );
         }
 
         // Set the new max supply.
@@ -244,7 +279,8 @@ contract ERC721ContractMetadata is ERC721A, TwoStepOwnable, ISeaDropTokenContrac
      * @return royaltyAmount The royalty payment amount for _salePrice.
      */
     function royaltyInfo(
-        uint256 /* _tokenId */,
+        uint256,
+        /* _tokenId */
         uint256 _salePrice
     ) external view returns (address receiver, uint256 royaltyAmount) {
         // Put the royalty info on the stack for more efficient access.
@@ -259,13 +295,65 @@ contract ERC721ContractMetadata is ERC721A, TwoStepOwnable, ISeaDropTokenContrac
     }
 
     /**
+     * @notice Returns the transfer validation function used.
+     */
+    function getTransferValidationFunction()
+        external
+        pure
+        returns (bytes4 functionSignature, bool isViewFunction)
+    {
+        functionSignature = ITransferValidator721.validateTransfer.selector;
+        isViewFunction = false;
+    }
+
+    /**
+     * @notice Set the transfer validator. Only callable by the token owner.
+     */
+    function setTransferValidator(address newValidator) external onlyOwner {
+        // Set the new transfer validator.
+        _setTransferValidator(newValidator);
+    }
+
+    /**
+     * @dev Hook that is called before any token transfer.
+     *      This includes minting and burning.
+     */
+    function _beforeTokenTransfers(
+        address from,
+        address to,
+        uint256 startTokenId,
+        uint256 /* quantity */
+    ) internal virtual override {
+        if (from != address(0) && to != address(0)) {
+            // Call the transfer validator if one is set.
+            address transferValidator = _transferValidator;
+            if (transferValidator != address(0)) {
+                ITransferValidator721(transferValidator).validateTransfer(
+                    msg.sender,
+                    from,
+                    to,
+                    startTokenId
+                );
+            }
+        }
+    }
+
+    /**
      * @notice Returns whether the interface is supported.
      *
      * @param interfaceId The interface id to check against.
      */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC721A) returns (bool) {
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(IERC165, ERC721A)
+        returns (bool)
+    {
         return
             interfaceId == type(IERC2981).interfaceId ||
+            interfaceId == type(ICreatorToken).interfaceId ||
+            interfaceId == type(ILegacyCreatorToken).interfaceId ||
             interfaceId == 0x49064906 || // ERC-4906
             super.supportsInterface(interfaceId);
     }

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import {IERC2981} from '@openzeppelin/contracts/interfaces/IERC2981.sol';
+import { IERC2981 } from "@openzeppelin/contracts/interfaces/IERC2981.sol";
 
 interface ISeaDropTokenContractMetadata is IERC2981 {
     /**
@@ -9,6 +9,14 @@ interface ISeaDropTokenContractMetadata is IERC2981 {
      *         due to the storage of bit-packed variables in ERC721A.
      */
     error CannotExceedMaxSupplyOfUint64(uint256 newMaxSupply);
+
+    /**
+     * @notice Throw if the max supply exceeds the total minted.
+     */
+    error NewMaxSupplyCannotBeLessThenTotalMinted(
+        uint256 got,
+        uint256 totalMinted
+    );
 
     /**
      * @dev Revert with an error when attempting to set the provenance

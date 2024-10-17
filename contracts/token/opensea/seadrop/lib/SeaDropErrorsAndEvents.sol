@@ -1,13 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import {PublicDrop, TokenGatedDropStage, SignedMintValidationParams} from './SeaDropStructs.sol';
+import { PublicDrop, TokenGatedDropStage, SignedMintValidationParams } from "./SeaDropStructs.sol";
 
 interface SeaDropErrorsAndEvents {
     /**
      * @dev Revert with an error if the drop stage is not active.
      */
-    error NotActive(uint256 currentTimestamp, uint256 startTimestamp, uint256 endTimestamp);
+    error NotActive(
+        uint256 currentTimestamp,
+        uint256 startTimestamp,
+        uint256 endTimestamp
+    );
 
     /**
      * @dev Revert with an error if the mint quantity is zero.
@@ -32,8 +36,11 @@ interface SeaDropErrorsAndEvents {
      *      Note: The `maxTokenSupplyForStage` for public mint is
      *      always `type(uint).max`.
      */
-    error MintQuantityExceedsMaxTokenSupplyForStage(uint256 total, uint256 maxTokenSupplyForStage);
-
+    error MintQuantityExceedsMaxTokenSupplyForStage(
+        uint256 total, 
+        uint256 maxTokenSupplyForStage
+    );
+    
     /**
      * @dev Revert if the fee recipient is the zero address.
      */
@@ -125,31 +132,40 @@ interface SeaDropErrorsAndEvents {
      * @dev Revert with an error if the sender of a token gated supplied
      *      drop stage redeem is not the owner of the token.
      */
-    error TokenGatedNotTokenOwner(address nftContract, address allowedNftToken, uint256 allowedNftTokenId);
+    error TokenGatedNotTokenOwner(
+        address nftContract,
+        address allowedNftToken,
+        uint256 allowedNftTokenId
+    );
 
     /**
      * @dev Revert with an error if the token id has already been used to
      *      redeem a token gated drop stage.
      */
-    error TokenGatedTokenIdAlreadyRedeemed(address nftContract, address allowedNftToken, uint256 allowedNftTokenId);
+    error TokenGatedTokenIdAlreadyRedeemed(
+        address nftContract,
+        address allowedNftToken,
+        uint256 allowedNftTokenId
+    );
 
     /**
      * @dev Revert with an error if an empty TokenGatedDropStage is provided
      *      for an already-empty TokenGatedDropStage.
      */
-    error TokenGatedDropStageNotPresent();
+     error TokenGatedDropStageNotPresent();
 
     /**
      * @dev Revert with an error if an allowedNftToken is set to
      *      the zero address.
      */
-    error TokenGatedDropAllowedNftTokenCannotBeZeroAddress();
+     error TokenGatedDropAllowedNftTokenCannotBeZeroAddress();
 
     /**
      * @dev Revert with an error if an allowedNftToken is set to
      *      the drop token itself.
      */
-    error TokenGatedDropAllowedNftTokenCannotBeDropToken();
+     error TokenGatedDropAllowedNftTokenCannotBeDropToken();
+
 
     /**
      * @dev Revert with an error if supplied signed mint price is less than
@@ -168,7 +184,7 @@ interface SeaDropErrorsAndEvents {
      *      the minimum specified.
      */
     error InvalidSignedStartTime(uint256 got, uint256 minimum);
-
+    
     /**
      * @dev Revert with an error if supplied signed end time is greater than
      *      the maximum specified.
@@ -179,9 +195,9 @@ interface SeaDropErrorsAndEvents {
      * @dev Revert with an error if supplied signed maxTokenSupplyForStage
      *      is greater than the maximum specified.
      */
-    error InvalidSignedMaxTokenSupplyForStage(uint256 got, uint256 maximum);
-
-    /**
+     error InvalidSignedMaxTokenSupplyForStage(uint256 got, uint256 maximum);
+    
+     /**
      * @dev Revert with an error if supplied signed feeBps is greater than
      *      the maximum specified, or less than the minimum.
      */
@@ -201,7 +217,7 @@ interface SeaDropErrorsAndEvents {
 
     /**
      * @dev An event with details of a SeaDrop mint, for analytical purposes.
-     *
+     * 
      * @param nftContract    The nft contract.
      * @param minter         The mint recipient.
      * @param feeRecipient   The fee recipient.
@@ -227,7 +243,10 @@ interface SeaDropErrorsAndEvents {
     /**
      * @dev An event with updated public drop data for an nft contract.
      */
-    event PublicDropUpdated(address indexed nftContract, PublicDrop publicDrop);
+    event PublicDropUpdated(
+        address indexed nftContract,
+        PublicDrop publicDrop
+    );
 
     /**
      * @dev An event with updated token gated drop stage data
@@ -241,7 +260,7 @@ interface SeaDropErrorsAndEvents {
 
     /**
      * @dev An event with updated allow list data for an nft contract.
-     *
+     * 
      * @param nftContract        The nft contract.
      * @param previousMerkleRoot The previous allow list merkle root.
      * @param newMerkleRoot      The new allow list merkle root.
@@ -267,13 +286,20 @@ interface SeaDropErrorsAndEvents {
      * @dev An event with the updated creator payout address for an nft
      *      contract.
      */
-    event CreatorPayoutAddressUpdated(address indexed nftContract, address indexed newPayoutAddress);
+    event CreatorPayoutAddressUpdated(
+        address indexed nftContract,
+        address indexed newPayoutAddress
+    );
 
     /**
      * @dev An event with the updated allowed fee recipient for an nft
      *      contract.
      */
-    event AllowedFeeRecipientUpdated(address indexed nftContract, address indexed feeRecipient, bool indexed allowed);
+    event AllowedFeeRecipientUpdated(
+        address indexed nftContract,
+        address indexed feeRecipient,
+        bool indexed allowed
+    );
 
     /**
      * @dev An event with the updated validation parameters for server-side
@@ -283,10 +309,14 @@ interface SeaDropErrorsAndEvents {
         address indexed nftContract,
         address indexed signer,
         SignedMintValidationParams signedMintValidationParams
-    );
+    );   
 
     /**
      * @dev An event with the updated payer for an nft contract.
      */
-    event PayerUpdated(address indexed nftContract, address indexed payer, bool indexed allowed);
+    event PayerUpdated(
+        address indexed nftContract,
+        address indexed payer,
+        bool indexed allowed
+    );
 }
