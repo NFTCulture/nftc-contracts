@@ -11,6 +11,7 @@ Use these exact versions in your `package.json` to align with nftc-contracts whe
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.1.0",
     "@openzeppelin/contracts": "^4.9.5",
+    "@types/node": "^20.0.0",
     "@types/sinon": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.2",
