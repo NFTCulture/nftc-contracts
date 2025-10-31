@@ -7,7 +7,7 @@
     "main": "dist/nftc/index.js",
     "typings": "dist/nftc/index.d.ts",
     "scripts": {
-        "typecheck":"tsc -p tsconfig.module.json --noEmit",
+        "typecheck":"tsc --project tsconfig.module.json --noEmit && tsc --project tsconfig.test.json --noEmit",
         "build-ts:clean": "shx rm -rf dist",
         "build-ts:create-index": "cti -b create ./src",
         "build-ts:compile": "tsc -p tsconfig.module.json --declaration",

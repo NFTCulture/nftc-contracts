@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig",
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "types": ["@nomicfoundation/hardhat-toolbox"]
+    },
+    "include": ["test/**/*.ts", "typechain-types/**/*.ts"],
+    "exclude": ["node_modules/**"]
+}
