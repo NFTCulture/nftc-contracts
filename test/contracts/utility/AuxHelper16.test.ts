@@ -5,7 +5,6 @@ import hre from 'hardhat';
 import { addHardhatSignersToContext } from '../../../src';
 import { AuxHelperTestHarness, AuxHelperTestHarness__factory } from '../../../typechain-types';
 
-
 dotenv.config();
 
 const TESTHARNESS_CONTRACT_NAME = 'AuxHelperTestHarness';
@@ -43,9 +42,7 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('can unpack 218708440632852591.', async function () {
-            const result = await _testHarnessInstance
-                .connect(this.owner)
-                .unpack16(218708440632852591n);
+            const result = await _testHarnessInstance.connect(this.owner).unpack16(218708440632852591n);
 
             expect(result.left16).to.equal(777);
             expect(result.leftCenter16).to.equal(555);

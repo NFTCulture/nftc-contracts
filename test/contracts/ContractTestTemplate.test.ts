@@ -14,7 +14,7 @@ let _testHarnessInstance: TemplateTestHarness;
 
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        _testHarnessContractFactory = await hre.ethers.getContractFactory("TemplateTestHarness");
+        _testHarnessContractFactory = await hre.ethers.getContractFactory('TemplateTestHarness');
     });
 
     beforeEach(async function () {

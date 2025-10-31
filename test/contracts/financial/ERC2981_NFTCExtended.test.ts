@@ -15,7 +15,7 @@ let _testInstance: MockERC721AWithRoyaltiesExtended;
 // Start test block
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        _testFactory = await hre.ethers.getContractFactory("MockERC721AWithRoyaltiesExtended");
+        _testFactory = await hre.ethers.getContractFactory('MockERC721AWithRoyaltiesExtended');
     });
 
     beforeEach(async function () {
@@ -49,9 +49,9 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('Unknown person cant change royalties.', async function () {
-            await expect(_testInstance.connect(this.addr1).setDefaultRoyalty(this.addr1.address, 500)).to.be.revertedWith(
-                'Ownable: caller is not the owner'
-            );
+            await expect(
+                _testInstance.connect(this.addr1).setDefaultRoyalty(this.addr1.address, 500)
+            ).to.be.revertedWith('Ownable: caller is not the owner');
         });
     });
 });

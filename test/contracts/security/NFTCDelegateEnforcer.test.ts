@@ -7,7 +7,7 @@ import {
     MockDelegationRegistry,
     MockDelegationRegistry__factory,
     MockNFTCDelegateEnforcer,
-    MockNFTCDelegateEnforcer__factory,
+    MockNFTCDelegateEnforcer__factory
 } from '../../../typechain-types';
 
 dotenv.config();
@@ -51,7 +51,9 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         await hre.network.provider.send('hardhat_setCode', [DELEGATION_REGISTRY_ADDRESS, code]);
 
         // Now connect to the contract at the expected address
-        _delegationRegistryInstance = _delegationRegistryFactory.attach(DELEGATION_REGISTRY_ADDRESS) as MockDelegationRegistry;
+        _delegationRegistryInstance = _delegationRegistryFactory.attach(
+            DELEGATION_REGISTRY_ADDRESS
+        ) as MockDelegationRegistry;
     });
 
     addHardhatSignersToContext();

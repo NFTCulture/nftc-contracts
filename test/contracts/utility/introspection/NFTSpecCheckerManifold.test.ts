@@ -3,10 +3,7 @@ import * as dotenv from 'dotenv';
 import hre from 'hardhat';
 
 import { addHardhatSignersToContext } from '../../../../src';
-import {
-    NFTSpecCheckerManifold,
-    NFTSpecCheckerManifold__factory
-} from '../../../../typechain-types';
+import { NFTSpecCheckerManifold, NFTSpecCheckerManifold__factory } from '../../../../typechain-types';
 
 dotenv.config();
 
@@ -20,7 +17,7 @@ let _specCheckerInstance: NFTSpecCheckerManifold;
 // Start test block
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        _specCheckerContractFactory = await hre.ethers.getContractFactory("NFTSpecCheckerManifold");
+        _specCheckerContractFactory = await hre.ethers.getContractFactory('NFTSpecCheckerManifold');
     });
 
     beforeEach(async function () {

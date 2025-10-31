@@ -17,6 +17,7 @@
         "fix": "run-s fix:*",
         "fix:prettier-sol": "prettier \"contracts/**/*.sol\" --write",
         "fix:prettier-ts": "prettier \"src/**/*.ts\" --write",
+        "fix:prettier-test": "prettier \"test/**/*.ts\" --write",
         "fix:lint": "eslint src --ext .ts --fix",
         "test": "npx hardhat test --typecheck --parallel",
         "test:np": "npx hardhat test --typecheck",

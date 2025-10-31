@@ -39,9 +39,7 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('can unpack 1430224109679.', async function () {
-            const result = await _testHarnessInstance
-                .connect(this.owner)
-                .unpack32(1430224109679n);
+            const result = await _testHarnessInstance.connect(this.owner).unpack32(1430224109679n);
 
             expect(result.left32).to.equal(333);
             expect(result.right32).to.equal(111);

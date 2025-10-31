@@ -17,7 +17,7 @@ const _provider = hre.ethers.provider;
 // Start test block
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        _testFactory = await hre.ethers.getContractFactory("NFTCSplitsAndRoyaltiesMock");
+        _testFactory = await hre.ethers.getContractFactory('NFTCSplitsAndRoyaltiesMock');
     });
 
     beforeEach(async function () {
@@ -25,14 +25,10 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         const addresses = [signers[0].address, signers[1].address, signers[2].address];
         const splits = [90, 5, 5];
         const aLargePayment = {
-            value: hre.ethers.parseEther('100'),
+            value: hre.ethers.parseEther('100')
         };
 
-        _testInstance = await _testFactory.deploy(
-            addresses,
-            splits,
-            aLargePayment
-        );
+        _testInstance = await _testFactory.deploy(addresses, splits, aLargePayment);
 
         await _testInstance.waitForDeployment();
     });
@@ -73,33 +69,33 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         it('Unknown person does not receive money.', async function () {
             const currentBalance = await _provider.getBalance(this.addr3.address);
 
-            await expect(
-                _testInstance.connect(this.addr3).releaseToSelf()
-            ).to.be.revertedWith('PaymentSplitter: no shares');
+            await expect(_testInstance.connect(this.addr3).releaseToSelf()).to.be.revertedWith(
+                'PaymentSplitter: no shares'
+            );
 
             // costs gas, balance should go down
             expect(await _provider.getBalance(this.addr3.address)).to.be.below(currentBalance);
         });
 
-        it('Zero address can\'t be used as new payee.', async function () {
+        it("Zero address can't be used as new payee.", async function () {
             await expect(
                 _testInstance.connect(this.addr1).transferPayee('0x0000000000000000000000000000000000000000')
             ).to.be.revertedWith('PaymentSplitter: zero address');
         });
 
-        it('Unknown person can\'t change payees.', async function () {
+        it("Unknown person can't change payees.", async function () {
             // addr3 is not in the share list, can't set a new payee
-            await expect(
-                _testInstance.connect(this.addr3).transferPayee(this.addr3.address)
-            ).to.be.revertedWith('PaymentSplitter: no owned shares');
+            await expect(_testInstance.connect(this.addr3).transferPayee(this.addr3.address)).to.be.revertedWith(
+                'PaymentSplitter: no owned shares'
+            );
             // shares should still be 0
             expect(await _testInstance.connect(this.addr3).shares(this.addr3.address)).to.equal(0);
         });
 
-        it('Address with existing shares can\'t be used as new payee.', async function () {
-            await expect(
-                _testInstance.connect(this.addr1).transferPayee(this.owner.address)
-            ).to.be.revertedWith('PaymentSplitter: payee has shares');
+        it("Address with existing shares can't be used as new payee.", async function () {
+            await expect(_testInstance.connect(this.addr1).transferPayee(this.owner.address)).to.be.revertedWith(
+                'PaymentSplitter: payee has shares'
+            );
         });
 
         it('Valid address can be used as new payee.', async function () {
@@ -138,9 +134,9 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('Unknown person cant change royalties.', async function () {
-            await expect(_testInstance.connect(this.addr1).setDefaultRoyalty(this.addr1.address, 500)).to.be.revertedWith(
-                'Ownable: caller is not the owner'
-            );
+            await expect(
+                _testInstance.connect(this.addr1).setDefaultRoyalty(this.addr1.address, 500)
+            ).to.be.revertedWith('Ownable: caller is not the owner');
         });
     });
 });

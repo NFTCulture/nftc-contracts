@@ -16,7 +16,7 @@ describe('MockERC7572_ContractMetadata', function () {
         nonOwner = accounts[1];
 
         const ERC7572_ContractMetadata = await ethers.getContractFactory('MockERC7572_ContractMetadata', owner);
-        contractMetadata = await ERC7572_ContractMetadata.deploy() as MockERC7572_ContractMetadata;
+        contractMetadata = (await ERC7572_ContractMetadata.deploy()) as MockERC7572_ContractMetadata;
         await contractMetadata.waitForDeployment();
     });
 

@@ -51,15 +51,19 @@ let _mockERC7572_ContractMetadataInstance: MockERC7572_ContractMetadata;
 // Start test block
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        _testHarnessContractFactory = await hre.ethers.getContractFactory("TemplateTestHarness");
-        _specCheckerContractFactory = await hre.ethers.getContractFactory("NFTSpecChecker");
-        _mockERC20ContractFactory = await hre.ethers.getContractFactory("MockERC20_165");
-        _mockERC721ABContractFactory = await hre.ethers.getContractFactory("MockERC721ABurnable");
-        _mockERC1155ContractFactory = await hre.ethers.getContractFactory("MockERC1155");
-        _mockERC721GoodRoyaltiesContractFactory = await hre.ethers.getContractFactory("MockERC721AWithRoyaltiesGood");
-        _mockERC721BadARoyaltiesContractFactory = await hre.ethers.getContractFactory("MockERC721AWithRoyaltiesBadAlpha");
-        _mockERC721BadBRoyaltiesContractFactory = await hre.ethers.getContractFactory("MockERC721AWithRoyaltiesBadBeta");
-        _mockERC7572_ContractMetadataFactory = await hre.ethers.getContractFactory("MockERC7572_ContractMetadata");
+        _testHarnessContractFactory = await hre.ethers.getContractFactory('TemplateTestHarness');
+        _specCheckerContractFactory = await hre.ethers.getContractFactory('NFTSpecChecker');
+        _mockERC20ContractFactory = await hre.ethers.getContractFactory('MockERC20_165');
+        _mockERC721ABContractFactory = await hre.ethers.getContractFactory('MockERC721ABurnable');
+        _mockERC1155ContractFactory = await hre.ethers.getContractFactory('MockERC1155');
+        _mockERC721GoodRoyaltiesContractFactory = await hre.ethers.getContractFactory('MockERC721AWithRoyaltiesGood');
+        _mockERC721BadARoyaltiesContractFactory = await hre.ethers.getContractFactory(
+            'MockERC721AWithRoyaltiesBadAlpha'
+        );
+        _mockERC721BadBRoyaltiesContractFactory = await hre.ethers.getContractFactory(
+            'MockERC721AWithRoyaltiesBadBeta'
+        );
+        _mockERC7572_ContractMetadataFactory = await hre.ethers.getContractFactory('MockERC7572_ContractMetadata');
     });
 
     beforeEach(async function () {
@@ -112,15 +116,23 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
 
         it('can validate ERC20s.', async function () {
             // NOTE: Technically OZ ERC20 doesn't implement ERC165. Hopefully at some point they fix this.
-            const result = await _specCheckerInstance.connect(this.owner).checkERC20(await _mockERC20Instance.getAddress());
+            const result = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC20(await _mockERC20Instance.getAddress());
 
             expect(result).to.equal(true);
         });
 
         it('confirms non-ERC20s.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC20(await _testHarnessInstance.getAddress());
-            const result2 = await _specCheckerInstance.connect(this.owner).checkERC20(await _specCheckerInstance.getAddress());
-            const result3 = await _specCheckerInstance.connect(this.owner).checkERC20(await _mockERC1155Instance.getAddress());
+            const result1 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC20(await _testHarnessInstance.getAddress());
+            const result2 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC20(await _specCheckerInstance.getAddress());
+            const result3 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC20(await _mockERC1155Instance.getAddress());
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -128,7 +140,9 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('can validate ERC721A as ERC721.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC721(await _mockERC721ABInstance.getAddress());
+            const result1 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC721(await _mockERC721ABInstance.getAddress());
             const result2 = await _specCheckerInstance
                 .connect(this.owner)
                 .checkERC721(await _mockERC721GoodRoyaltiesInstance.getAddress());
@@ -138,9 +152,15 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('confirms non-ERC721s.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC721(await _testHarnessInstance.getAddress());
-            const result2 = await _specCheckerInstance.connect(this.owner).checkERC721(await _specCheckerInstance.getAddress());
-            const result3 = await _specCheckerInstance.connect(this.owner).checkERC721(await _mockERC1155Instance.getAddress());
+            const result1 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC721(await _testHarnessInstance.getAddress());
+            const result2 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC721(await _specCheckerInstance.getAddress());
+            const result3 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC721(await _mockERC1155Instance.getAddress());
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -148,15 +168,23 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('can validate ERC1155s.', async function () {
-            const result = await _specCheckerInstance.connect(this.owner).checkERC1155(await _mockERC1155Instance.getAddress());
+            const result = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC1155(await _mockERC1155Instance.getAddress());
 
             expect(result).to.equal(true);
         });
 
         it('confirms non-ERC1155s.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC1155(await _testHarnessInstance.getAddress());
-            const result2 = await _specCheckerInstance.connect(this.owner).checkERC1155(await _specCheckerInstance.getAddress());
-            const result3 = await _specCheckerInstance.connect(this.owner).checkERC1155(await _mockERC721ABInstance.getAddress());
+            const result1 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC1155(await _testHarnessInstance.getAddress());
+            const result2 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC1155(await _specCheckerInstance.getAddress());
+            const result3 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC1155(await _mockERC721ABInstance.getAddress());
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -172,9 +200,15 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('confirms non-ERC2981s.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC2981(await _testHarnessInstance.getAddress());
-            const result2 = await _specCheckerInstance.connect(this.owner).checkERC2981(await _specCheckerInstance.getAddress());
-            const result3 = await _specCheckerInstance.connect(this.owner).checkERC2981(await _mockERC721ABInstance.getAddress());
+            const result1 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC2981(await _testHarnessInstance.getAddress());
+            const result2 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC2981(await _specCheckerInstance.getAddress());
+            const result3 = await _specCheckerInstance
+                .connect(this.owner)
+                .checkERC2981(await _mockERC721ABInstance.getAddress());
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
