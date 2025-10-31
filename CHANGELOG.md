@@ -5,11 +5,12 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 
 
 ## Version -- 2.1.0
-**Solidity Compiler Upgrade**
+**Solidity Compiler Upgrade & Dependency Cleanup**
 - Upgraded Solidity compiler from v0.8.21 to v0.8.30
 - Updated 27 contract files with hardcoded pragma statements
 - All 97 tests passing with new compiler version
 - Custom compiler subtask temporarily disabled to allow Hardhat auto-download
+- Removed unused dependencies: `solmate` and `operator-filter-registry` (code is vendored)
 - Updated documentation (docs/dependencies.md, CLAUDE.md)
 
 ## Version -- 2.0.0

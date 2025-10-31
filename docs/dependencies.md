@@ -2,7 +2,7 @@
 
 **Version:** 2.1.0 | **Updated:** 2025-10-30
 
-Use these exact versions in your `package.json` to align with nftc-contracts.
+Use these exact versions in your `package.json` to align with nftc-contracts when building similar Hardhat projects. Most downstream projects only need a subset of these dependencies.
 
 ## Required Dependencies
 
@@ -29,12 +29,10 @@ Use these exact versions in your `package.json` to align with nftc-contracts.
     "keccak256": "^1.0.6",
     "npm-run-all": "^4.1.5",
     "open-cli": "^7.1.0",
-    "operator-filter-registry": "^1.4.2",
     "prettier": "^2.8.8",
     "prettier-plugin-solidity": "^1.1.3",
     "shx": "^0.3.4",
     "sinon": "^17.0.1",
-    "solmate": "^6.7.0",
     "typescript": "^5.9.3",
     "web3": "^1.10.0",
     "web3-utils": "^4.0.3"
@@ -63,3 +61,13 @@ Use these exact versions in your `package.json` to align with nftc-contracts.
 
 - **Current:** 0.8.30
 - **Note:** Upgraded from 0.8.21 - all tests passing
+
+## Notes for Downstream Projects
+
+**Not needed** (code is vendored in contracts):
+- `solmate` - Code copied into `contracts/token/solbase/` and `contracts/token/opensea/seadrop/utility/`
+- `operator-filter-registry` - Interface copied into `contracts/interfaces/IOperatorFiltererRegistry.sol`
+
+**Only needed for Hardhat development:**
+- All other dependencies are for building/testing this library
+- Downstream projects using the published package only need dependencies for their own build setup
