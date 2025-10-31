@@ -1,16 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import { ERC721ABurnable, ERC721A, IERC721A, IERC721ABurnable } from 'erc721a/contracts/extensions/ERC721ABurnable.sol';
+import {ERC721ABurnable, ERC721A, IERC721A, IERC721ABurnable} from 'erc721a/contracts/extensions/ERC721ABurnable.sol';
 
-import { ISeaDropTokenContractMetadata } from "./interfaces/ISeaDropTokenContractMetadata.sol";
+import {ISeaDropTokenContractMetadata} from './interfaces/ISeaDropTokenContractMetadata.sol';
 
-import { IERC165 } from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {IERC165} from '@openzeppelin/contracts/utils/introspection/IERC165.sol';
 
-abstract contract ERC721ContractMetadata_NFTC is
-    ERC721ABurnable,
-    ISeaDropTokenContractMetadata 
-{
+abstract contract ERC721ContractMetadata_NFTC is ERC721ABurnable, ISeaDropTokenContractMetadata {
     /// @notice Track the base URI for token metadata.
     string _tokenBaseURI;
 
@@ -24,10 +21,7 @@ abstract contract ERC721ContractMetadata_NFTC is
     ///         for random reveals.
     bytes32 _provenanceHash;
 
-    constructor(
-        string memory name, 
-        string memory symbol) ERC721A(name, symbol) {
-    }
+    constructor(string memory name, string memory symbol) ERC721A(name, symbol) {}
 
     /**
      * @notice Returns whether the interface is supported.
@@ -36,14 +30,14 @@ abstract contract ERC721ContractMetadata_NFTC is
      */
     function supportsInterface(
         bytes4 interfaceId
-    ) public virtual view override(ERC721A, IERC165, IERC721A) returns (bool) {
+    ) public view virtual override(ERC721A, IERC165, IERC721A) returns (bool) {
         return
             interfaceId == type(IERC721A).interfaceId ||
             interfaceId == type(IERC721ABurnable).interfaceId ||
             interfaceId == type(ISeaDropTokenContractMetadata).interfaceId ||
             super.supportsInterface(interfaceId);
     }
-    
+
     function _isOwner() internal view virtual;
 
     /**
@@ -90,16 +84,13 @@ abstract contract ERC721ContractMetadata_NFTC is
         _isOwner();
 
         // Ensure the max supply does not exceed the maximum value of uint64.
-        if (newMaxSupply > 2**64 - 1) {
+        if (newMaxSupply > 2 ** 64 - 1) {
             revert CannotExceedMaxSupplyOfUint64(newMaxSupply);
         }
 
         // Ensure the max supply does not exceed the total minted.
         if (newMaxSupply < _totalMinted()) {
-            revert NewMaxSupplyCannotBeLessThenTotalMinted(
-                newMaxSupply,
-                _totalMinted()
-            );
+            revert NewMaxSupplyCannotBeLessThenTotalMinted(newMaxSupply, _totalMinted());
         }
 
         // Set the new max supply.
@@ -137,22 +128,17 @@ abstract contract ERC721ContractMetadata_NFTC is
 
         // Emit an event with the update.
         emit ProvenanceHashUpdated(oldProvenanceHash, newProvenanceHash);
-    }    
-    
-    /**
-     * @notice Not supported
-     */
-    function setRoyaltyInfo(RoyaltyInfo calldata) external {
     }
 
     /**
      * @notice Not supported
      */
-    function royaltyInfo(
-        uint256,
-        uint256
-    ) external view returns (address, uint256) {
-    }
+    function setRoyaltyInfo(RoyaltyInfo calldata) external {}
+
+    /**
+     * @notice Not supported
+     */
+    function royaltyInfo(uint256, uint256) external view returns (address, uint256) {}
 
     /**
      * @notice Returns the base URI for token metadata.

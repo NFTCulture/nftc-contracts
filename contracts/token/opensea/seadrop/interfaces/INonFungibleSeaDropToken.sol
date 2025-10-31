@@ -1,16 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import {
-    ISeaDropTokenContractMetadata
-} from "./ISeaDropTokenContractMetadata.sol";
+import {ISeaDropTokenContractMetadata} from './ISeaDropTokenContractMetadata.sol';
 
-import {
-    AllowListData,
-    PublicDrop,
-    TokenGatedDropStage,
-    SignedMintValidationParams
-} from "../lib/SeaDropStructs.sol";
+import {AllowListData, PublicDrop, TokenGatedDropStage, SignedMintValidationParams} from '../lib/SeaDropStructs.sol';
 
 interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
     /**
@@ -63,14 +56,9 @@ interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
      *
      * @param minter The minter address.
      */
-    function getMintStats(address minter)
-        external
-        view
-        returns (
-            uint256 minterNumMinted,
-            uint256 currentTotalSupply,
-            uint256 maxSupply
-        );
+    function getMintStats(
+        address minter
+    ) external view returns (uint256 minterNumMinted, uint256 currentTotalSupply, uint256 maxSupply);
 
     /**
      * @notice Update the public drop data for this nft contract on SeaDrop.
@@ -79,10 +67,7 @@ interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
      * @param seaDropImpl The allowed SeaDrop contract.
      * @param publicDrop  The public drop data.
      */
-    function updatePublicDrop(
-        address seaDropImpl,
-        PublicDrop calldata publicDrop
-    ) external;
+    function updatePublicDrop(address seaDropImpl, PublicDrop calldata publicDrop) external;
 
     /**
      * @notice Update the allow list data for this nft contract on SeaDrop.
@@ -91,10 +76,7 @@ interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
      * @param seaDropImpl   The allowed SeaDrop contract.
      * @param allowListData The allow list data.
      */
-    function updateAllowList(
-        address seaDropImpl,
-        AllowListData calldata allowListData
-    ) external;
+    function updateAllowList(address seaDropImpl, AllowListData calldata allowListData) external;
 
     /**
      * @notice Update the token gated drop stage data for this nft contract
@@ -126,8 +108,7 @@ interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
      * @param seaDropImpl The allowed SeaDrop contract.
      * @param dropURI     The new drop URI.
      */
-    function updateDropURI(address seaDropImpl, string calldata dropURI)
-        external;
+    function updateDropURI(address seaDropImpl, string calldata dropURI) external;
 
     /**
      * @notice Update the creator payout address for this nft contract on
@@ -137,10 +118,7 @@ interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
      * @param seaDropImpl   The allowed SeaDrop contract.
      * @param payoutAddress The new payout address.
      */
-    function updateCreatorPayoutAddress(
-        address seaDropImpl,
-        address payoutAddress
-    ) external;
+    function updateCreatorPayoutAddress(address seaDropImpl, address payoutAddress) external;
 
     /**
      * @notice Update the allowed fee recipient for this nft contract
@@ -149,11 +127,7 @@ interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
      * @param seaDropImpl  The allowed SeaDrop contract.
      * @param feeRecipient The new fee recipient.
      */
-    function updateAllowedFeeRecipient(
-        address seaDropImpl,
-        address feeRecipient,
-        bool allowed
-    ) external;
+    function updateAllowedFeeRecipient(address seaDropImpl, address feeRecipient, bool allowed) external;
 
     /**
      * @notice Update the server-side signers for this nft contract
@@ -179,9 +153,5 @@ interface INonFungibleSeaDropToken is ISeaDropTokenContractMetadata {
      * @param payer       The payer to update.
      * @param allowed     Whether the payer is allowed.
      */
-    function updatePayer(
-        address seaDropImpl,
-        address payer,
-        bool allowed
-    ) external;
+    function updatePayer(address seaDropImpl, address payer, bool allowed) external;
 }

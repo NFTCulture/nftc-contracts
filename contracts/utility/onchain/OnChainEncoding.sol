@@ -45,11 +45,7 @@ library OnChainEncoding {
             let resultPtr := add(result, 32)
 
             // run over the input, 3 bytes at a time
-            for {
-
-            } lt(dataPtr, endPtr) {
-
-            } {
+            for {} lt(dataPtr, endPtr) {} {
                 dataPtr := add(dataPtr, 3)
 
                 // read 3 bytes

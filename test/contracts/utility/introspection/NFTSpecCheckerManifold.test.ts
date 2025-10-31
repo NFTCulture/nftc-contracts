@@ -1,27 +1,30 @@
-import { Contract } from '@ethersproject/contracts';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
-import type * as ethers from 'ethers';
 import hre from 'hardhat';
 
 import { addHardhatSignersToContext } from '../../../../src';
+import {
+    TemplateTestHarness,
+    TemplateTestHarness__factory,
+    NFTSpecCheckerManifold,
+    NFTSpecCheckerManifold__factory
+} from '../../../../typechain-types';
 
 dotenv.config();
 
 const TESTHARNESS_CONTRACT_NAME = 'TemplateTestHarness';
-const SPEC_CHECKER_CONTRACT_NAME = 'NFTSpecCheckerManifold';
 
-let _testHarnessContractFactory: ethers.ContractFactory;
-let _specCheckerContractFactory: ethers.ContractFactory;
+let _testHarnessContractFactory: TemplateTestHarness__factory;
+let _specCheckerContractFactory: NFTSpecCheckerManifold__factory;
 
-let _testHarnessInstance: Contract;
-let _specCheckerInstance: Contract;
+let _testHarnessInstance: TemplateTestHarness;
+let _specCheckerInstance: NFTSpecCheckerManifold;
 
 // Start test block
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        _testHarnessContractFactory = await hre.ethers.getContractFactory(TESTHARNESS_CONTRACT_NAME);
-        _specCheckerContractFactory = await hre.ethers.getContractFactory(SPEC_CHECKER_CONTRACT_NAME);
+        _testHarnessContractFactory = await hre.ethers.getContractFactory("TemplateTestHarness");
+        _specCheckerContractFactory = await hre.ethers.getContractFactory("NFTSpecCheckerManifold");
     });
 
     beforeEach(async function () {

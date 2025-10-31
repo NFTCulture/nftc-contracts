@@ -25,7 +25,7 @@ export function shouldSupportInterfacesManifold(contractName: string, interfaces
                 for (const k of interfaces) {
                     const interfaceId = MXYZ_INTERFACE_IDS[k] ?? k;
 
-                    expect(await this.contractUnderTest.estimateGas.supportsInterface(interfaceId)).to.be.lte(30000);
+                    expect(await this.contractUnderTest.supportsInterface.estimateGas(interfaceId)).to.be.lte(30000);
                 }
             });
 
@@ -42,7 +42,7 @@ export function shouldSupportInterfacesManifold(contractName: string, interfaces
 
         describe('when the Manifold interfaceId is not supported', function () {
             it('uses less than 30k', async function () {
-                expect(await this.contractUnderTest.estimateGas.supportsInterface(INVALID_ID)).to.be.lte(30000);
+                expect(await this.contractUnderTest.supportsInterface.estimateGas(INVALID_ID)).to.be.lte(30000);
             });
 
             it('returns false', async function () {
@@ -60,11 +60,14 @@ export function shouldSupportInterfacesManifold(contractName: string, interfaces
                 for (const fnName of MXYZ_INTERFACES[k]) {
                     const fnSig = MXYZ_FN_SIGNATURES[fnName];
                     //console.log(`Signature: [${fnSig}] && Function: [${fnName}]`);
-                    const abiFunctions = Object.keys(this.contractUnderTest.functions);
+                    // In ethers v6, get function fragments from interface
+                    const abiFunctions = this.contractUnderTest.interface.fragments
+                        .filter((f: any) => f.type === 'function')
+                        .map((f: any) => f.format('sighash'));
 
                     // MV: I'm not sure where in HardhatEthers the function interfaceIds are stored, so computing
                     // them on the fly from the function names that we do have.
-                    expect(abiFunctions.filter((fn) => ERC165([fn]) === fnSig).length).to.equal(
+                    expect(abiFunctions.filter((fn: string) => ERC165([fn]) === fnSig).length).to.equal(
                         1,
                         `did not find ${fnName}`
                     );

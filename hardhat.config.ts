@@ -49,7 +49,6 @@ const config: HardhatUserConfig = {
     },
     gasReporter: {
         enabled: REPORT_GAS,
-        showTimeSpent: true,
         currency: 'USD',
         gasPrice: 100
     }

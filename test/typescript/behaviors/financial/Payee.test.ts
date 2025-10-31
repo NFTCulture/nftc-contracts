@@ -23,11 +23,11 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         const addresses = await getDefaultHardhatAddresses();
         const splits = [90, 5, 5];
         const aLargePayment = {
-            value: hre.ethers.utils.parseEther('100')
+            value: hre.ethers.parseEther('100')
         };
 
         _testInstance = await _testFactory.deploy(addresses, splits, aLargePayment);
-        await _testInstance.deployed();
+        await _testInstance.waitForDeployment();
 
         this.contractUnderTest = _testInstance;
     });

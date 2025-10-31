@@ -9,6 +9,10 @@ that is being made available open source for use by anyone.
 
 Feel free to reach out to us at https://discord.gg/nftculture, in 💾┃tech-and-dev-home channel.
 
+## Dependency Reference
+
+See [docs/dependencies.md](docs/dependencies.md) for the exact dependency versions to use in your project.
+
 ## Development Environment Setup
 - [ ] An .env created from ./.env_proto is mandatory. Not all secrets need to be inserted, start w/ minimal amount.
 - [ ] An .npmrc created from ./.npmrc_proto is mandatory. Need auth_token from Github.com, to access package from other projects.

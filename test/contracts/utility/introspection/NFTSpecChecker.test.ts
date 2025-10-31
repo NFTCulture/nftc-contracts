@@ -1,65 +1,65 @@
-import { Contract } from '@ethersproject/contracts';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
-import type * as ethers from 'ethers';
 import hre from 'hardhat';
 
 import { addHardhatSignersToContext } from '../../../../src';
+import {
+    TemplateTestHarness,
+    TemplateTestHarness__factory,
+    NFTSpecChecker,
+    NFTSpecChecker__factory,
+    MockERC20_165,
+    MockERC20_165__factory,
+    MockERC721ABurnable,
+    MockERC721ABurnable__factory,
+    MockERC1155,
+    MockERC1155__factory,
+    MockERC721AWithRoyaltiesGood,
+    MockERC721AWithRoyaltiesGood__factory,
+    MockERC721AWithRoyaltiesBadAlpha,
+    MockERC721AWithRoyaltiesBadAlpha__factory,
+    MockERC721AWithRoyaltiesBadBeta,
+    MockERC721AWithRoyaltiesBadBeta__factory,
+    MockERC7572_ContractMetadata,
+    MockERC7572_ContractMetadata__factory
+} from '../../../../typechain-types';
 
 dotenv.config();
 
 const TESTHARNESS_CONTRACT_NAME = 'TemplateTestHarness';
-const SPEC_CHECKER_CONTRACT_NAME = 'NFTSpecChecker';
-const MOCK_E20_CONTRACT_NAME = 'MockERC20_165';
-const MOCK_E721AB_CONTRACT_NAME = 'MockERC721ABurnable';
-const MOCK_E1155_CONTRACT_NAME = 'MockERC1155';
 
-const MOCK_E721GoodRoyalties_CONTRACT_NAME = 'MockERC721AWithRoyaltiesGood';
-const MOCK_E721BadARoyalties_CONTRACT_NAME = 'MockERC721AWithRoyaltiesBadAlpha';
-const MOCK_E721BadBRoyalties_CONTRACT_NAME = 'MockERC721AWithRoyaltiesBadBeta';
+let _testHarnessContractFactory: TemplateTestHarness__factory;
+let _specCheckerContractFactory: NFTSpecChecker__factory;
+let _mockERC20ContractFactory: MockERC20_165__factory;
+let _mockERC721ABContractFactory: MockERC721ABurnable__factory;
+let _mockERC1155ContractFactory: MockERC1155__factory;
+let _mockERC721GoodRoyaltiesContractFactory: MockERC721AWithRoyaltiesGood__factory;
+let _mockERC721BadARoyaltiesContractFactory: MockERC721AWithRoyaltiesBadAlpha__factory;
+let _mockERC721BadBRoyaltiesContractFactory: MockERC721AWithRoyaltiesBadBeta__factory;
+let _mockERC7572_ContractMetadataFactory: MockERC7572_ContractMetadata__factory;
 
-const MockERC7572_ContractMetadata = 'MockERC7572_ContractMetadata';
-
-let _testHarnessContractFactory: ethers.ContractFactory;
-let _specCheckerContractFactory: ethers.ContractFactory;
-let _mockERC20ContractFactory: ethers.ContractFactory;
-let _mockERC721ABContractFactory: ethers.ContractFactory;
-let _mockERC1155ContractFactory: ethers.ContractFactory;
-let _mockERC721GoodRoyaltiesContractFactory: ethers.ContractFactory;
-let _mockERC721BadARoyaltiesContractFactory: ethers.ContractFactory;
-let _mockERC721BadBRoyaltiesContractFactory: ethers.ContractFactory;
-let _mockERC7572_ContractMetadataFactory: ethers.ContractFactory;
-
-let _testHarnessInstance: Contract;
-let _specCheckerInstance: Contract;
-let _mockERC20Instance: Contract;
-let _mockERC721ABInstance: Contract;
-let _mockERC1155Instance: Contract;
-let _mockERC721GoodRoyaltiesInstance: Contract;
-let _mockERC721BadARoyaltiesInstance: Contract;
-let _mockERC721BadBRoyaltiesInstance: Contract;
-let _mockERC7572_ContractMetadataInstance: Contract;
+let _testHarnessInstance: TemplateTestHarness;
+let _specCheckerInstance: NFTSpecChecker;
+let _mockERC20Instance: MockERC20_165;
+let _mockERC721ABInstance: MockERC721ABurnable;
+let _mockERC1155Instance: MockERC1155;
+let _mockERC721GoodRoyaltiesInstance: MockERC721AWithRoyaltiesGood;
+let _mockERC721BadARoyaltiesInstance: MockERC721AWithRoyaltiesBadAlpha;
+let _mockERC721BadBRoyaltiesInstance: MockERC721AWithRoyaltiesBadBeta;
+let _mockERC7572_ContractMetadataInstance: MockERC7572_ContractMetadata;
 
 // Start test block
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        _testHarnessContractFactory = await hre.ethers.getContractFactory(TESTHARNESS_CONTRACT_NAME);
-        _specCheckerContractFactory = await hre.ethers.getContractFactory(SPEC_CHECKER_CONTRACT_NAME);
-        _mockERC20ContractFactory = await hre.ethers.getContractFactory(MOCK_E20_CONTRACT_NAME);
-        _mockERC721ABContractFactory = await hre.ethers.getContractFactory(MOCK_E721AB_CONTRACT_NAME);
-        _mockERC1155ContractFactory = await hre.ethers.getContractFactory(MOCK_E1155_CONTRACT_NAME);
-
-        _mockERC721GoodRoyaltiesContractFactory = await hre.ethers.getContractFactory(
-            MOCK_E721GoodRoyalties_CONTRACT_NAME
-        );
-        _mockERC721BadARoyaltiesContractFactory = await hre.ethers.getContractFactory(
-            MOCK_E721BadARoyalties_CONTRACT_NAME
-        );
-        _mockERC721BadBRoyaltiesContractFactory = await hre.ethers.getContractFactory(
-            MOCK_E721BadBRoyalties_CONTRACT_NAME
-        );
-
-        _mockERC7572_ContractMetadataFactory = await hre.ethers.getContractFactory(MockERC7572_ContractMetadata);
+        _testHarnessContractFactory = await hre.ethers.getContractFactory("TemplateTestHarness");
+        _specCheckerContractFactory = await hre.ethers.getContractFactory("NFTSpecChecker");
+        _mockERC20ContractFactory = await hre.ethers.getContractFactory("MockERC20_165");
+        _mockERC721ABContractFactory = await hre.ethers.getContractFactory("MockERC721ABurnable");
+        _mockERC1155ContractFactory = await hre.ethers.getContractFactory("MockERC1155");
+        _mockERC721GoodRoyaltiesContractFactory = await hre.ethers.getContractFactory("MockERC721AWithRoyaltiesGood");
+        _mockERC721BadARoyaltiesContractFactory = await hre.ethers.getContractFactory("MockERC721AWithRoyaltiesBadAlpha");
+        _mockERC721BadBRoyaltiesContractFactory = await hre.ethers.getContractFactory("MockERC721AWithRoyaltiesBadBeta");
+        _mockERC7572_ContractMetadataFactory = await hre.ethers.getContractFactory("MockERC7572_ContractMetadata");
     });
 
     beforeEach(async function () {
@@ -69,22 +69,22 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         _mockERC721ABInstance = await _mockERC721ABContractFactory.deploy();
         _mockERC1155Instance = await _mockERC1155ContractFactory.deploy();
 
-        await _testHarnessInstance.deployed();
-        await _specCheckerInstance.deployed();
-        await _mockERC20Instance.deployed();
-        await _mockERC721ABInstance.deployed();
-        await _mockERC1155Instance.deployed();
+        await _testHarnessInstance.waitForDeployment();
+        await _specCheckerInstance.waitForDeployment();
+        await _mockERC20Instance.waitForDeployment();
+        await _mockERC721ABInstance.waitForDeployment();
+        await _mockERC1155Instance.waitForDeployment();
 
         _mockERC721GoodRoyaltiesInstance = await _mockERC721GoodRoyaltiesContractFactory.deploy();
         _mockERC721BadARoyaltiesInstance = await _mockERC721BadARoyaltiesContractFactory.deploy();
         _mockERC721BadBRoyaltiesInstance = await _mockERC721BadBRoyaltiesContractFactory.deploy();
 
-        await _mockERC721GoodRoyaltiesInstance.deployed();
-        await _mockERC721BadARoyaltiesInstance.deployed();
-        await _mockERC721BadBRoyaltiesInstance.deployed();
+        await _mockERC721GoodRoyaltiesInstance.waitForDeployment();
+        await _mockERC721BadARoyaltiesInstance.waitForDeployment();
+        await _mockERC721BadBRoyaltiesInstance.waitForDeployment();
 
         _mockERC7572_ContractMetadataInstance = await _mockERC7572_ContractMetadataFactory.deploy();
-        await _mockERC7572_ContractMetadataInstance.deployed();
+        await _mockERC7572_ContractMetadataInstance.waitForDeployment();
     });
 
     addHardhatSignersToContext();
@@ -112,15 +112,15 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
 
         it('can validate ERC20s.', async function () {
             // NOTE: Technically OZ ERC20 doesn't implement ERC165. Hopefully at some point they fix this.
-            const result = await _specCheckerInstance.connect(this.owner).checkERC20(_mockERC20Instance.address);
+            const result = await _specCheckerInstance.connect(this.owner).checkERC20(await _mockERC20Instance.getAddress());
 
             expect(result).to.equal(true);
         });
 
         it('confirms non-ERC20s.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC20(_testHarnessInstance.address);
-            const result2 = await _specCheckerInstance.connect(this.owner).checkERC20(_specCheckerInstance.address);
-            const result3 = await _specCheckerInstance.connect(this.owner).checkERC20(_mockERC1155Instance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC20(await _testHarnessInstance.getAddress());
+            const result2 = await _specCheckerInstance.connect(this.owner).checkERC20(await _specCheckerInstance.getAddress());
+            const result3 = await _specCheckerInstance.connect(this.owner).checkERC20(await _mockERC1155Instance.getAddress());
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -128,19 +128,19 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('can validate ERC721A as ERC721.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC721(_mockERC721ABInstance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC721(await _mockERC721ABInstance.getAddress());
             const result2 = await _specCheckerInstance
                 .connect(this.owner)
-                .checkERC721(_mockERC721GoodRoyaltiesInstance.address);
+                .checkERC721(await _mockERC721GoodRoyaltiesInstance.getAddress());
 
             expect(result1).to.equal(true);
             expect(result2).to.equal(true);
         });
 
         it('confirms non-ERC721s.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC721(_testHarnessInstance.address);
-            const result2 = await _specCheckerInstance.connect(this.owner).checkERC721(_specCheckerInstance.address);
-            const result3 = await _specCheckerInstance.connect(this.owner).checkERC721(_mockERC1155Instance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC721(await _testHarnessInstance.getAddress());
+            const result2 = await _specCheckerInstance.connect(this.owner).checkERC721(await _specCheckerInstance.getAddress());
+            const result3 = await _specCheckerInstance.connect(this.owner).checkERC721(await _mockERC1155Instance.getAddress());
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -148,15 +148,15 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         });
 
         it('can validate ERC1155s.', async function () {
-            const result = await _specCheckerInstance.connect(this.owner).checkERC1155(_mockERC1155Instance.address);
+            const result = await _specCheckerInstance.connect(this.owner).checkERC1155(await _mockERC1155Instance.getAddress());
 
             expect(result).to.equal(true);
         });
 
         it('confirms non-ERC1155s.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC1155(_testHarnessInstance.address);
-            const result2 = await _specCheckerInstance.connect(this.owner).checkERC1155(_specCheckerInstance.address);
-            const result3 = await _specCheckerInstance.connect(this.owner).checkERC1155(_mockERC721ABInstance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC1155(await _testHarnessInstance.getAddress());
+            const result2 = await _specCheckerInstance.connect(this.owner).checkERC1155(await _specCheckerInstance.getAddress());
+            const result3 = await _specCheckerInstance.connect(this.owner).checkERC1155(await _mockERC721ABInstance.getAddress());
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -166,15 +166,15 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         it('can validate ERC2981s.', async function () {
             const result = await _specCheckerInstance
                 .connect(this.owner)
-                .checkERC2981(_mockERC721GoodRoyaltiesInstance.address);
+                .checkERC2981(await _mockERC721GoodRoyaltiesInstance.getAddress());
 
             expect(result).to.equal(true);
         });
 
         it('confirms non-ERC2981s.', async function () {
-            const result1 = await _specCheckerInstance.connect(this.owner).checkERC2981(_testHarnessInstance.address);
-            const result2 = await _specCheckerInstance.connect(this.owner).checkERC2981(_specCheckerInstance.address);
-            const result3 = await _specCheckerInstance.connect(this.owner).checkERC2981(_mockERC721ABInstance.address);
+            const result1 = await _specCheckerInstance.connect(this.owner).checkERC2981(await _testHarnessInstance.getAddress());
+            const result2 = await _specCheckerInstance.connect(this.owner).checkERC2981(await _specCheckerInstance.getAddress());
+            const result3 = await _specCheckerInstance.connect(this.owner).checkERC2981(await _mockERC721ABInstance.getAddress());
 
             expect(result1).to.equal(false);
             expect(result2).to.equal(false);
@@ -184,29 +184,29 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         it('Check Bad Implementations.', async function () {
             const resultBadAlpha721 = await _specCheckerInstance
                 .connect(this.owner)
-                .checkERC721(_mockERC721BadARoyaltiesInstance.address);
+                .checkERC721(await _mockERC721BadARoyaltiesInstance.getAddress());
             expect(resultBadAlpha721).to.equal(true); // Should return true, since alpha lists 721 as a superclass last.
 
             const resultBadBeta721 = await _specCheckerInstance
                 .connect(this.owner)
-                .checkERC721(_mockERC721BadBRoyaltiesInstance.address);
+                .checkERC721(await _mockERC721BadBRoyaltiesInstance.getAddress());
             expect(resultBadBeta721).to.equal(false); // Should return false, since beta lists 721 as a superclass first.
 
             const resultBadAlpha2981 = await _specCheckerInstance
                 .connect(this.owner)
-                .checkERC2981(_mockERC721BadARoyaltiesInstance.address);
+                .checkERC2981(await _mockERC721BadARoyaltiesInstance.getAddress());
             expect(resultBadAlpha2981).to.equal(false); // Should return false, since alpha lists 2981 as a superclass first.
 
             const resultBadBeta2981 = await _specCheckerInstance
                 .connect(this.owner)
-                .checkERC2981(_mockERC721BadBRoyaltiesInstance.address);
+                .checkERC2981(await _mockERC721BadBRoyaltiesInstance.getAddress());
             expect(resultBadBeta2981).to.equal(true); // Should return true, since beta lists 2981 as a superclass last.
         });
 
         it('can validate ERC7572s.', async function () {
             const result = await _specCheckerInstance
                 .connect(this.owner)
-                .checkERC7572(_mockERC7572_ContractMetadataInstance.address);
+                .checkERC7572(await _mockERC7572_ContractMetadataInstance.getAddress());
 
             expect(result).to.equal(true);
         });

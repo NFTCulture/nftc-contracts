@@ -6,8 +6,28 @@ import '../interfaces/IDelegationRegistry.sol';
 /**
  * @title MockDelegationRegistry
  * @author @NFTCulture
+ * @notice Enhanced mock with configurable return values for testing
  */
 contract MockDelegationRegistry is IDelegationRegistry {
+    // Mapping to store mock return values for checkDelegateForToken
+    // keccak256(abi.encode(delegate, vault, contract_, tokenId)) => bool
+    mapping(bytes32 => bool) private _mockDelegations;
+
+    /**
+     * @notice Set mock return value for checkDelegateForToken
+     * @dev Used in tests to configure expected behavior
+     */
+    function setMockDelegation(
+        address delegate,
+        address vault,
+        address contract_,
+        uint256 tokenId,
+        bool result
+    ) external {
+        bytes32 key = keccak256(abi.encode(delegate, vault, contract_, tokenId));
+        _mockDelegations[key] = result;
+    }
+
     function delegateForAll(address delegate, bool value) external override {}
 
     function delegateForContract(address delegate, address contract_, bool value) external override {}
@@ -56,5 +76,8 @@ contract MockDelegationRegistry is IDelegationRegistry {
         address vault,
         address contract_,
         uint256 tokenId
-    ) external view override returns (bool) {}
+    ) external view override returns (bool) {
+        bytes32 key = keccak256(abi.encode(delegate, vault, contract_, tokenId));
+        return _mockDelegations[key];
+    }
 }

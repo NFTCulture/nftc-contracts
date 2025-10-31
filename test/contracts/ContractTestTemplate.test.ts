@@ -14,16 +14,12 @@ let _testHarnessInstance: TemplateTestHarness;
 
 describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, function () {
     before(async function () {
-        const contractName = TESTHARNESS_CONTRACT_NAME;
-
-        _testHarnessContractFactory = (await hre.ethers.getContractFactory(
-            contractName
-        )) as TemplateTestHarness__factory;
+        _testHarnessContractFactory = await hre.ethers.getContractFactory("TemplateTestHarness");
     });
 
     beforeEach(async function () {
         _testHarnessInstance = await _testHarnessContractFactory.deploy();
-        await _testHarnessInstance.deployed();
+        await _testHarnessInstance.waitForDeployment();
     });
 
     addHardhatSignersToContext();

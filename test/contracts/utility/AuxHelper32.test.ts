@@ -24,7 +24,7 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
 
     beforeEach(async function () {
         _testHarnessInstance = await _testHarnessContractFactory.deploy();
-        await _testHarnessInstance.deployed();
+        await _testHarnessInstance.waitForDeployment();
     });
 
     addHardhatSignersToContext();
@@ -35,13 +35,13 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
         it('can pack 333 and 111.', async function () {
             const result = await _testHarnessInstance.connect(this.owner).pack32(333, 111);
 
-            expect(result).to.equal(hre.ethers.BigNumber.from('1430224109679'));
+            expect(result).to.equal(1430224109679n);
         });
 
         it('can unpack 1430224109679.', async function () {
             const result = await _testHarnessInstance
                 .connect(this.owner)
-                .unpack32(hre.ethers.BigNumber.from('1430224109679'));
+                .unpack32(1430224109679n);
 
             expect(result.left32).to.equal(333);
             expect(result.right32).to.equal(111);

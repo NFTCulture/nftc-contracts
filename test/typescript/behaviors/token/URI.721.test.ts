@@ -22,7 +22,7 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
 
     beforeEach(async function () {
         _testHarnessInstance = await _testHarnessContractFactory.deploy(ERC721BaseURI);
-        await _testHarnessInstance.deployed();
+        await _testHarnessInstance.waitForDeployment();
         this.contractUnderTest = _testHarnessInstance;
     });
 

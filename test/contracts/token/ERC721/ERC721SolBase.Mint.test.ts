@@ -23,7 +23,7 @@ describe(`File:${__filename}\nContract: ${TESTHARNESS_CONTRACT_NAME}\n`, functio
     beforeEach(async function () {
         _testHarnessInstance = await _testHarnessContractFactory.deploy('http://gateway.pinata.com/');
 
-        await _testHarnessInstance.deployed();
+        await _testHarnessInstance.waitForDeployment();
     });
 
     addHardhatSignersToContext();

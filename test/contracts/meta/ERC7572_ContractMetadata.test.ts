@@ -1,10 +1,11 @@
 import { expect } from 'chai';
 import { ethers } from 'hardhat';
-import { Contract, Signer } from 'ethers';
+import { Signer } from 'ethers';
+import { MockERC7572_ContractMetadata } from '../../../typechain-types';
 
 describe('MockERC7572_ContractMetadata', function () {
     let accounts: Signer[];
-    let contractMetadata: Contract;
+    let contractMetadata: MockERC7572_ContractMetadata;
     let owner: Signer;
     let nonOwner: Signer;
 
@@ -15,8 +16,8 @@ describe('MockERC7572_ContractMetadata', function () {
         nonOwner = accounts[1];
 
         const ERC7572_ContractMetadata = await ethers.getContractFactory('MockERC7572_ContractMetadata', owner);
-        contractMetadata = await ERC7572_ContractMetadata.deploy();
-        await contractMetadata.deployed();
+        contractMetadata = await ERC7572_ContractMetadata.deploy() as MockERC7572_ContractMetadata;
+        await contractMetadata.waitForDeployment();
     });
 
     it('Should return the initial contract URI as empty', async function () {
