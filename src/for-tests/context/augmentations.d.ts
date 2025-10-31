@@ -10,6 +10,7 @@ declare module 'mocha' {
         addrs: HardhatEthersSigner[];
 
         // Use any to allow behaviors to work with any typed contract
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         contractUnderTest: any;
     }
 }

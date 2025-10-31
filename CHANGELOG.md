@@ -4,6 +4,26 @@
 As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc-contracts". Please start using package version 1.3.0 or later.
 
 
+## Version -- 2.0.0
+**Major Upgrade: Ethers v6 Migration**
+- Upgraded ethers from v5.7.2 to v6.15.0
+- Upgraded hardhat from v2.18.1 to v2.26.5
+- Upgraded @nomicfoundation/hardhat-toolbox from v2.0.2 to v6.1.0 (includes working hardhat-verify)
+- Upgraded TypeScript from v5.2.2 to v5.9.3
+- Upgraded @typescript-eslint packages from v5.51.0 to v8.46.2
+- **Breaking Changes**:
+  - All test files migrated to ethers v6 API (`.deployed()` → `.waitForDeployment()`, `.address` → `await .getAddress()`)
+  - Signer type changed from `SignerWithAddress` to `HardhatEthersSigner`
+  - Import paths changed from `@nomiclabs/*` to `@nomicfoundation/*`
+- Removed @defi-wonderland/smock (no ethers v6 support)
+  - Enhanced MockDelegationRegistry with setMockDelegation() function
+  - Tests now use Hardhat's hardhat_setCode for mock injection
+- Updated all test files to use TypeChain-generated types for proper type checking
+- Fixed ESLint no-explicit-any errors with proper TypeScript types (FunctionFragment from ethers)
+- Added comprehensive dependency documentation in docs/dependencies.md
+- Staying on Hardhat 2.x (not upgrading to Hardhat 3)
+- All 97 tests passing with new dependency versions
+
 ## Version -- 1.5.next [Not published]
 - TODO
 

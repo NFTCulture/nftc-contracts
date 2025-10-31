@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { Fragment, FunctionFragment } from 'ethers';
 
 import {
     OZ_FN_SIGNATURES,
@@ -62,8 +63,8 @@ export function shouldSupportInterfaces(contractName: string, interfaces: string
                     //console.log(`Signature: [${fnSig}] && Function: [${fnName}]`);
                     // In ethers v6, get function fragments from interface
                     const abiFunctions = this.contractUnderTest.interface.fragments
-                        .filter((f: any) => f.type === 'function')
-                        .map((f: any) => f.format('sighash'));
+                        .filter((f: Fragment): f is FunctionFragment => f.type === 'function')
+                        .map((f: FunctionFragment) => f.format('sighash'));
 
                     // MV: I'm not sure where in HardhatEthers the function interfaceIds are stored, so computing
                     // them on the fly from the function names that we do have.
