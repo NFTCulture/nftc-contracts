@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+pragma solidity 0.8.30;
 
 import 'erc721a/contracts/ERC721A.sol';
 import '../../../financial/ERC2981_NFTCExtended.sol';

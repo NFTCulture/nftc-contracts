@@ -4,6 +4,14 @@
 As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc-contracts". Please start using package version 1.3.0 or later.
 
 
+## Version -- 2.1.0
+**Solidity Compiler Upgrade**
+- Upgraded Solidity compiler from v0.8.21 to v0.8.30
+- Updated 27 contract files with hardcoded pragma statements
+- All 97 tests passing with new compiler version
+- Custom compiler subtask temporarily disabled to allow Hardhat auto-download
+- Updated documentation (docs/dependencies.md, CLAUDE.md)
+
 ## Version -- 2.0.0
 **Major Upgrade: Ethers v6 Migration**
 - Upgraded ethers from v5.7.2 to v6.15.0
@@ -11,6 +19,7 @@ As of 12/13/2022, this repo has been renamed from "nftc-open-contracts" to "nftc
 - Upgraded @nomicfoundation/hardhat-toolbox from v2.0.2 to v6.1.0 (includes working hardhat-verify)
 - Upgraded TypeScript from v5.2.2 to v5.9.3
 - Upgraded @typescript-eslint packages from v5.51.0 to v8.46.2
+- Upgraded Solidity compiler from v0.8.21 to v0.8.30
 - **Breaking Changes**:
   - All test files migrated to ethers v6 API (`.deployed()` → `.waitForDeployment()`, `.address` → `await .getAddress()`)
   - Signer type changed from `SignerWithAddress` to `HardhatEthersSigner`

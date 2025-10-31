@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+pragma solidity 0.8.30;
 
 // OZ References
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';

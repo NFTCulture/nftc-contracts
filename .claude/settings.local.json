@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm view:*)",
+      "Bash(npm test)",
+      "Bash(npx hardhat compile:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx hardhat test:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run fix:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

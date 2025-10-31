@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+pragma solidity 0.8.30;
 
 import {ERC721ABurnable, ERC721A, IERC721A, IERC721ABurnable} from 'erc721a/contracts/extensions/ERC721ABurnable.sol';
 

@@ -1,6 +1,6 @@
 # NFTCulture Contracts - Dependency Reference
 
-**Version:** 2.0.0 | **Updated:** 2025-10-30
+**Version:** 2.1.0 | **Updated:** 2025-10-30
 
 Use these exact versions in your `package.json` to align with nftc-contracts.
 
@@ -61,5 +61,5 @@ Use these exact versions in your `package.json` to align with nftc-contracts.
 
 ## Solidity Compiler
 
-- **Current:** 0.8.21
-- **Planned:** 0.8.30 (after stabilization)
+- **Current:** 0.8.30
+- **Note:** Upgraded from 0.8.21 - all tests passing
