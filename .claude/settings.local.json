@@ -7,7 +7,8 @@
       "Bash(npm run build:*)",
       "Bash(npx hardhat test:*)",
       "Bash(npm run typecheck:*)",
-      "Bash(npm run fix:*)"
+      "Bash(npm run fix:*)",
+      "WebFetch(domain:docs.etherscan.io)"
     ],
     "deny": [],
     "ask": []
